@@ -1,0 +1,10 @@
+
+#changelist-form .results {
+    visibility: hidden;
+    overflow-x: hidden;
+}
+
+#changelist-form .results.extra-settings-ready {
+    visibility: visible;
+    overflow-x: auto;
+}
