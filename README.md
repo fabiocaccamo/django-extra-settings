@@ -18,15 +18,15 @@ config and manage extra settings using just the django admin.
 ![](https://user-images.githubusercontent.com/1035294/74425761-81325400-4e54-11ea-9095-3d64e1420bfe.gif)
 
 ## Installation
-- Run `pip install django-extra-settings`
-- Add `extra_settings` to `settings.INSTALLED_APPS`
-- Run ``python manage.py migrate``
-- Run ``python manage.py collectstatic``
-- Restart your application server
+-   Run `pip install django-extra-settings`
+-   Add `extra_settings` to `settings.INSTALLED_APPS`
+-   Run ``python manage.py migrate``
+-   Run ``python manage.py collectstatic``
+-   Restart your application server
 
-## Configuration (optional)
+## Usage
 
-#### Settings
+### Settings
 All these settings are optional, if not defined in ``settings.py`` the default values (listed below) will be used.
 
 ```python
@@ -45,10 +45,7 @@ EXTRA_SETTINGS_FILE_UPLOAD_TO = 'files'
 EXTRA_SETTINGS_IMAGE_UPLOAD_TO = 'images'
 ```
 
-## Usage
-Just create and edit your extra settings using the admin.
-
-#### Templates
+### Templates
 ```html
 {% load extra_settings %}
 
