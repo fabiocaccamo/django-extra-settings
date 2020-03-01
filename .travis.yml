@@ -1,96 +1,13 @@
 os: linux
 language: python
-python: 3.5
 cache: pip
-env:
-  - TOX_ENV=py35-dj18-sqlite
-  - TOX_ENV=py35-dj18-postgres
-  - TOX_ENV=py35-dj19-sqlite
-  - TOX_ENV=py35-dj19-postgres
-  - TOX_ENV=py35-dj110-sqlite
-  - TOX_ENV=py35-dj110-postgres
-  - TOX_ENV=py35-dj111-sqlite
-  - TOX_ENV=py35-dj111-postgres
-  - TOX_ENV=py35-dj20-sqlite
-  - TOX_ENV=py35-dj20-postgres
-  - TOX_ENV=py35-dj21-sqlite
-  - TOX_ENV=py35-dj21-postgres
-  # - TOX_ENV=py35-dj22-sqlite
-  - TOX_ENV=py35-dj22-postgres
+python:
+  - "2.7"
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "3.8"
 jobs:
-  include:
-    - python: "3.6"
-      env: TOX_ENV=py36-dj111-sqlite
-    - python: "3.6"
-      env: TOX_ENV=py36-dj111-postgres
-    - python: "3.6"
-      env: TOX_ENV=py36-dj20-sqlite
-    - python: "3.6"
-      env: TOX_ENV=py36-dj20-postgres
-    - python: "3.6"
-      env: TOX_ENV=py36-dj21-sqlite
-    - python: "3.6"
-      env: TOX_ENV=py36-dj21-postgres
-    - python: "3.6"
-      env: TOX_ENV=py36-dj22-sqlite
-    - python: "3.6"
-      env: TOX_ENV=py36-dj22-postgres
-    - python: "3.6"
-      env: TOX_ENV=py36-dj30-sqlite
-    - python: "3.6"
-      env: TOX_ENV=py36-dj30-postgres
-    - python: "3.6"
-      env: TOX_ENV=py36-djmaster-sqlite
-    - python: "3.6"
-      env: TOX_ENV=py36-djmaster-postgres
-    - python: "3.7"
-      dist: xenial
-      env: TOX_ENV=py37-dj20-sqlite
-    - python: "3.7"
-      dist: xenial
-      env: TOX_ENV=py37-dj20-postgres
-    - python: "3.7"
-      dist: xenial
-      env: TOX_ENV=py37-dj21-sqlite
-    - python: "3.7"
-      dist: xenial
-      env: TOX_ENV=py37-dj21-postgres
-    - python: "3.7"
-      dist: xenial
-      env: TOX_ENV=py37-dj22-sqlite
-    - python: "3.7"
-      dist: xenial
-      env: TOX_ENV=py37-dj22-postgres
-    - python: "3.7"
-      dist: xenial
-      env: TOX_ENV=py37-dj30-sqlite
-    - python: "3.7"
-      dist: xenial
-      env: TOX_ENV=py37-dj30-postgres
-    - python: "3.7"
-      dist: xenial
-      env: TOX_ENV=py37-djmaster-sqlite
-    - python: "3.7"
-      dist: xenial
-      env: TOX_ENV=py37-djmaster-postgres
-    - python: "3.8"
-      dist: xenial
-      env: TOX_ENV=py38-dj22-sqlite
-    - python: "3.8"
-      dist: xenial
-      env: TOX_ENV=py38-dj22-postgres
-    - python: "3.8"
-      dist: xenial
-      env: TOX_ENV=py38-dj30-sqlite
-    - python: "3.8"
-      dist: xenial
-      env: TOX_ENV=py38-dj30-postgres
-    - python: "3.8"
-      dist: xenial
-      env: TOX_ENV=py38-djmaster-sqlite
-    - python: "3.8"
-      dist: xenial
-      env: TOX_ENV=py38-djmaster-postgres
   allow_failures:
     - env: TOX_ENV=py36-djmaster-sqlite
     - env: TOX_ENV=py36-djmaster-postgres
@@ -99,10 +16,10 @@ jobs:
     - env: TOX_ENV=py38-djmaster-sqlite
     - env: TOX_ENV=py38-djmaster-postgres
 install:
-  - pip install tox
+  - pip install tox-travis
 services:
   - postgresql
 before_script:
   - psql -c 'create database extra_settings;' -U postgres
 script:
-  - tox -e $TOX_ENV
+  - tox
