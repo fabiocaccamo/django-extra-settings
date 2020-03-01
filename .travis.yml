@@ -4,6 +4,22 @@ language: python
 cache: pip
 jobs:
   include:
+    - python: "2.7"
+      env: TOX_ENV=py27-dj18-sqlite
+    - python: "2.7"
+      env: TOX_ENV=py27-dj18-postgres
+    - python: "2.7"
+      env: TOX_ENV=py27-dj19-sqlite
+    - python: "2.7"
+      env: TOX_ENV=py27-dj19-postgres
+    - python: "2.7"
+      env: TOX_ENV=py27-dj110-sqlite
+    - python: "2.7"
+      env: TOX_ENV=py27-dj110-postgres
+    - python: "2.7"
+      env: TOX_ENV=py27-dj111-sqlite
+    - python: "2.7"
+      env: TOX_ENV=py27-dj111-postgres
     - python: "3.5"
       env: TOX_ENV=py35-dj18-sqlite
     - python: "3.5"
