@@ -45,7 +45,22 @@ EXTRA_SETTINGS_FILE_UPLOAD_TO = 'files'
 EXTRA_SETTINGS_IMAGE_UPLOAD_TO = 'images'
 ```
 
+### Admin
+Just go to the admin where you can:
+-   Create a new setting
+-   Update an existing setting
+-   Delete an existing setting
+
+### Python
+You can retrieve settings programmatically:
+```python
+from extra_settings.models import Setting
+
+value = Setting.get('SETTING_NAME', default='django-extra-settings')
+```
+
 ### Templates
+You can retrieve settings in templates:
 ```html
 {% load extra_settings %}
 
