@@ -70,7 +70,7 @@ You can retrieve settings in templates:
 ## Testing
 ```bash
 # create python 3.7 virtual environment
-virtualenv testing_django_extra_settings -p "python3.7" --no-site-packages
+virtualenv testing_django_extra_settings -p "python3.7"
 
 # activate virtualenv
 cd testing_django_extra_settings && . bin/activate
