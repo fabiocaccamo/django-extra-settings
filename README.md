@@ -78,6 +78,9 @@ cd testing_django_extra_settings && . bin/activate
 # clone repo
 git clone https://github.com/fabiocaccamo/django-extra-settings.git src && cd src
 
+# install dependencies
+pip install -r requirements.txt
+
 # run tests
 python setup.py test
 # or
