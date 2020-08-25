@@ -5,7 +5,6 @@ from django.test import TestCase
 from django.template import Context, Template
 
 from extra_settings.models import Setting
-from extra_settings.templatetags import extra_settings as templatetags
 
 
 class ExtraSettingsTemplateTagsTestCase(TestCase):
