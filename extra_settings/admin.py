@@ -10,7 +10,7 @@ class SettingAdmin(admin.ModelAdmin):
 
     form = SettingForm
     value_fields_names = (
-        'value_bool', 'value_date', 'value_datetime', 'value_decimal',
+        'value_bool', 'value_date', 'value_datetime', 'value_decimal', 'value_duration',
         'value_email', 'value_file', 'value_float', 'value_image',
         'value_int', 'value_string', 'value_text', 'value_time', 'value_url',
     )
@@ -40,5 +40,6 @@ class SettingAdmin(admin.ModelAdmin):
     class Media:
         css = {'all': ('extra_settings/css/extra_settings.css',), }
         js = ['extra_settings/js/extra_settings.js']
+
 
 admin.site.register(Setting, SettingAdmin)

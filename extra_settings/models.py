@@ -53,6 +53,7 @@ class Setting(models.Model):
     TYPE_DATE = 'date'
     TYPE_DATETIME = 'datetime'
     TYPE_DECIMAL = 'decimal'
+    TYPE_DURATION = 'duration'
     TYPE_EMAIL = 'email'
     TYPE_FILE = 'file'
     TYPE_FLOAT = 'float'
@@ -72,6 +73,7 @@ class Setting(models.Model):
         (TYPE_DATE, TYPE_DATE, ),
         (TYPE_DATETIME, TYPE_DATETIME, ),
         (TYPE_DECIMAL, TYPE_DECIMAL, ),
+        (TYPE_DURATION, TYPE_DURATION),
         (TYPE_EMAIL, TYPE_EMAIL, ),
         (TYPE_FILE, TYPE_FILE, ),
         (TYPE_FLOAT, TYPE_FLOAT, ),
@@ -93,6 +95,7 @@ class Setting(models.Model):
     value_date = models.DateField(blank=True, null=True, verbose_name=_('Value'))
     value_datetime = models.DateTimeField(blank=True, null=True, verbose_name=_('Value'))
     value_decimal = models.DecimalField(blank=True, max_digits=19, decimal_places=10, default=Decimal('0.0'), verbose_name=_('Value'))
+    value_duration = models.DurationField(blank=True, null=True, verbose_name=_('Value'))
     value_email = models.EmailField(blank=True, verbose_name=_('Value'))
     value_file = models.FileField(blank=True, upload_to=settings.EXTRA_SETTINGS_FILE_UPLOAD_TO, verbose_name=_('Value'))
     value_float = models.FloatField(blank=True, default=0.0, verbose_name=_('Value'))
