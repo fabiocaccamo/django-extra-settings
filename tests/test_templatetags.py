@@ -5,7 +5,6 @@ from django.test import TestCase
 from django.template import Context, Template
 
 from extra_settings.models import Setting
-from extra_settings.templatetags import extra_settings as templatetags
 
 
 class ExtraSettingsTemplateTagsTestCase(TestCase):
@@ -64,7 +63,7 @@ class ExtraSettingsTemplateTagsTestCase(TestCase):
                 '{% get_setting "EXTRA_SETTINGS_TEST_FALLBACK_VALUE" %}')
             self.assertEqual(rendered, '')
 
-    def test_get_setting_without_fallback(self):
+    def test_get_setting_without_fallback_default(self):
         with self.settings(EXTRA_SETTINGS_FALLBACK_TO_CONF_SETTINGS=False):
             rendered = self._render_template(
                 '{% load extra_settings %}'\
