@@ -70,8 +70,8 @@ You can retrieve settings in templates:
 
 ## Testing
 ```bash
-# create python 3.7 virtual environment
-virtualenv testing_django_extra_settings -p "python3.7"
+# create python virtual environment
+virtualenv testing_django_extra_settings
 
 # activate virtualenv
 cd testing_django_extra_settings && . bin/activate
@@ -83,9 +83,11 @@ git clone https://github.com/fabiocaccamo/django-extra-settings.git src && cd sr
 pip install -r requirements.txt
 
 # run tests
+tox
+# or
 python setup.py test
 # or
-python manage.py test --settings "tests.settings"
+python -m django test --settings "tests.settings"
 ```
 
 ---
