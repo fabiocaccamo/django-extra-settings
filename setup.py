@@ -34,7 +34,7 @@ setup(
     download_url='{}/archive/{}.tar.gz'.format(package_url, __version__),
     keywords=['django', 'admin', 'extra', 'settings', 'options', 'conf',
               'config', 'editable', 'custom', 'dynamic', 'typed', 'constance'],
-    requires=['django(>=1.7)'],
+    requires=['django(>=1.8)'],
     install_requires=[
         'six >= 1.9.0, < 2.0.0',
     ],
