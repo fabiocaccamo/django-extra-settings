@@ -13,6 +13,7 @@ class ExtraSettingsModelsTestCase(TestCase):
             # Setting(name='TEST_SETTING_COLOR', value_type=Setting.TYPE_COLOR='color'),
             Setting(name='TEST_SETTING_DATE', value_type=Setting.TYPE_DATE),
             Setting(name='TEST_SETTING_DATETIME', value_type=Setting.TYPE_DATETIME),
+            Setting(name='TEST_SETTING_DURATION', value_type=Setting.TYPE_DURATION),
             Setting(name='TEST_SETTING_DECIMAL', value_type=Setting.TYPE_DECIMAL),
             Setting(name='TEST_SETTING_EMAIL', value_type=Setting.TYPE_EMAIL),
             Setting(name='TEST_SETTING_FILE', value_type=Setting.TYPE_FILE),
