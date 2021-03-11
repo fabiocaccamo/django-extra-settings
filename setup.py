@@ -9,7 +9,7 @@ exec(open('extra_settings/version.py').read())
 
 github_url = 'https://github.com/fabiocaccamo'
 package_name = 'django-extra-settings'
-package_url = '{}/{}'.format(github_url, package_name)
+package_url = f'{github_url}/{package_name}'
 package_path = os.path.abspath(os.path.dirname(__file__))
 long_description_file_path = os.path.join(package_path, 'README.md')
 long_description_content_type = 'text/markdown'
@@ -31,9 +31,11 @@ setup(
     author='Fabio Caccamo',
     author_email='fabio.caccamo@gmail.com',
     url=package_url,
-    download_url='{}/archive/{}.tar.gz'.format(package_url, __version__),
-    keywords=['django', 'admin', 'extra', 'settings', 'options', 'conf',
-              'config', 'editable', 'custom', 'dynamic', 'typed', 'constance'],
+    download_url=f'{package_url}/archive/{__version__}.tar.gz',
+    keywords=[
+        'django', 'admin', 'extra', 'settings', 'options', 'conf', 'config', 'editable', 'custom', 'dynamic', 'typed',
+        'constance'
+    ],
     requires=['django(>=1.8)'],
     install_requires=[
         'six >= 1.9.0, < 2.0.0',
@@ -67,5 +69,5 @@ setup(
         'Topic :: Software Development :: Build Tools',
     ],
     license='MIT',
-    test_suite='runtests.runtests'
+    test_suite='runtests.runtests',
 )
