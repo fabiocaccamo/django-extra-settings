@@ -1,3 +1,11 @@
+# IDE
+.vscode
+
+# Poetry
+poetry.lock
+poetry.toml
+pyproject.toml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -56,6 +64,7 @@ coverage.xml
 *.pot
 
 # Django stuff:
+manage.py
 *.log
 local_settings.py
 db.sqlite3
