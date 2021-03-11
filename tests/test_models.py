@@ -6,7 +6,6 @@ from extra_settings.models import Setting
 
 
 class ExtraSettingsModelsTestCase(TestCase):
-
     def setUp(self):
         Setting.objects.bulk_create([
             Setting(name='TEST_SETTING_BOOL', value_type=Setting.TYPE_BOOL),
@@ -34,7 +33,9 @@ class ExtraSettingsModelsTestCase(TestCase):
 
     def test_getter_setter(self):
         setting_obj, setting_created = Setting.objects.get_or_create(
-            name='TEST_GETTER_SETTER', defaults={ 'value_type':Setting.TYPE_STRING })
+            name='TEST_GETTER_SETTER',
+            defaults={'value_type': Setting.TYPE_STRING},
+        )
         self.assertEqual(setting_obj.value, '')
         setting_obj.value = 'string value'
         setting_obj.save()
@@ -67,7 +68,9 @@ class ExtraSettingsModelsTestCase(TestCase):
 
     def test_cache_updated_on_model_delete(self):
         setting_obj, setting_created = Setting.objects.get_or_create(
-            name='TEST_GETTER_SETTER', defaults={ 'value_type':Setting.TYPE_STRING })
+            name='TEST_GETTER_SETTER',
+            defaults={'value_type': Setting.TYPE_STRING},
+        )
         setting_obj.value = 'string value'
         setting_obj.save()
         self.assertEqual(Setting.get('TEST_GETTER_SETTER'), 'string value')
@@ -76,7 +79,9 @@ class ExtraSettingsModelsTestCase(TestCase):
 
     def test_cache_updated_on_model_name_changed(self):
         setting_obj, setting_created = Setting.objects.get_or_create(
-            name='TEST_GETTER_SETTER', defaults={ 'value_type':Setting.TYPE_STRING })
+            name='TEST_GETTER_SETTER',
+            defaults={'value_type': Setting.TYPE_STRING},
+        )
         setting_obj.value = 'string value'
         setting_obj.save()
         self.assertEqual(Setting.get('TEST_GETTER_SETTER'), 'string value')
@@ -86,12 +91,12 @@ class ExtraSettingsModelsTestCase(TestCase):
         self.assertEqual(Setting.get('TEST_GETTER_SETTER_RENAMED'), 'string value')
 
     def test_repr(self):
-        setting_obj, setting_created=Setting.objects.get_or_create(
+        setting_obj, setting_created = Setting.objects.get_or_create(
             name='PACKAGE_NAME',
             defaults={
-                'value_type':Setting.TYPE_STRING,
-                'value_string':'django-extra-settings',
-            })
-        setting_repr='{} [{}]'.format(
-            setting_obj.name, setting_obj.value_type)
-        self.assertEqual('{0}'.format(setting_obj), setting_repr)
+                'value_type': Setting.TYPE_STRING,
+                'value_string': 'django-extra-settings',
+            },
+        )
+        setting_repr = f'{setting_obj.name} [{setting_obj.value_type}]'
+        self.assertEqual(f'{setting_obj}', setting_repr)

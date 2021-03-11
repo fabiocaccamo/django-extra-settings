@@ -10,7 +10,7 @@ def _get_cache():
 
 
 def _get_cache_key(key):
-    return 'extra_settings_{}'.format(key)
+    return f'extra_settings_{key}'
 
 
 def del_cached_setting(key):

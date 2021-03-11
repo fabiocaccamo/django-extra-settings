@@ -8,14 +8,14 @@ from extra_settings.models import Setting
 
 
 class ExtraSettingsTemplateTagsTestCase(TestCase):
-
     def setUp(self):
         setting_obj, setting_created = Setting.objects.get_or_create(
             name='PACKAGE_NAME',
             defaults={
-                'value_type':Setting.TYPE_STRING,
-                'value_string':'django-extra-settings',
-            })
+                'value_type': Setting.TYPE_STRING,
+                'value_string': 'django-extra-settings',
+            },
+        )
 
     def tearDown(self):
         pass

@@ -2,12 +2,10 @@
 
 from django.test import TestCase
 
-from extra_settings.cache import (
-    del_cached_setting, get_cached_setting, set_cached_setting, )
+from extra_settings.cache import (del_cached_setting, get_cached_setting, set_cached_setting)
 
 
 class ExtraSettingsCacheTestCase(TestCase):
-
     def setUp(self):
         pass
 

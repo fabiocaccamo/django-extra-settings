@@ -7,7 +7,6 @@ from extra_settings.models import Setting
 
 
 class SettingForm(forms.ModelForm):
-
     class Meta:
         model = Setting
         fields = '__all__'
@@ -16,13 +15,11 @@ class SettingForm(forms.ModelForm):
         super(SettingForm, self).__init__(*args, **kwargs)
         # resize text area
         if 'value_text' in self.fields:
-            self.fields['value_text'].widget = forms.Textarea(
-                attrs={'rows': 5, 'cols': 51})
+            self.fields['value_text'].widget = forms.Textarea(attrs={'rows': 5, 'cols': 51})
 
     def clean_name(self):
         value = self.cleaned_data.get('name', '')
         if hasattr(settings, value):
             raise forms.ValidationError(
-                'Invalid setting name, settings.{} already '
-                'defined in django.conf.settings.'.format(value))
+                f'Invalid setting name, settings.{value} already defined in django.conf.settings.')
         return value
