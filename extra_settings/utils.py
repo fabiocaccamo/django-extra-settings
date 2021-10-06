@@ -1,19 +1,21 @@
+"""Module contains utility functions."""
 import os
 
 from django.conf import settings
 
 
 def upload_to_files(obj, filename: str) -> str:
+    """Provide upload path for a file."""
     return _upload_to(settings.EXTRA_SETTINGS_FILE_UPLOAD_TO, filename)
 
 
 def upload_to_images(obj, filename: str) -> str:
+    """Provide upload path for an image."""
     return _upload_to(settings.EXTRA_SETTINGS_IMAGE_UPLOAD_TO, filename)
 
 
 def _upload_to(directory: str, filename: str) -> str:
-    """
-    Builds a path from given parameters and joins them.
+    """Build a path from given parameters and joins them.
 
     :param directory: A directory for upload.
     :param filename: The filename is to be saved.
