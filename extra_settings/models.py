@@ -10,7 +10,7 @@ from django.utils.encoding import force_text
 
 from six import python_2_unicode_compatible
 
-from extra_settings import utils
+from extra_settings import fields
 from extra_settings.cache import get_cached_setting, set_cached_setting
 from extra_settings.translation import gettext_lazy as _
 
@@ -98,9 +98,9 @@ class Setting(models.Model):
     value_decimal = models.DecimalField(blank=True, max_digits=19, decimal_places=10, default=Decimal('0.0'), verbose_name=_('Value'))
     value_duration = models.DurationField(blank=True, null=True, verbose_name=_('Value'))
     value_email = models.EmailField(blank=True, verbose_name=_('Value'))
-    value_file = models.FileField(blank=True, upload_to=utils.upload_to_files, verbose_name=_('Value'))
+    value_file = models.FileField(blank=True, upload_to=fields.upload_to_files, verbose_name=_('Value'))
     value_float = models.FloatField(blank=True, default=0.0, verbose_name=_('Value'))
-    value_image = models.FileField(blank=True, upload_to=utils.upload_to_images, verbose_name=_('Value'))
+    value_image = models.FileField(blank=True, upload_to=fields.upload_to_images, verbose_name=_('Value'))
     value_int = models.IntegerField(blank=True, default=0, verbose_name=_('Value'))
     value_string = models.CharField(blank=True, max_length=50, verbose_name=_('Value'))
     value_text = models.TextField(blank=True, verbose_name=_('Value'))

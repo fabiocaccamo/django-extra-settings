@@ -15,7 +15,8 @@ def upload_to_images(obj, filename: str) -> str:
 
 
 def _upload_to(directory: str, filename: str) -> str:
-    """Build a path from given parameters and joins them.
+    """
+    Build a path from given parameters and joins them.
 
     :param directory: A directory for upload.
     :param filename: The filename is to be saved.
