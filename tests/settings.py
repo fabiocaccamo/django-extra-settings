@@ -46,6 +46,7 @@ TEMPLATES = [{
     'OPTIONS': {
         'context_processors': [
             'django.contrib.auth.context_processors.auth',
+            'django.template.context_processors.request',
             'django.contrib.messages.context_processors.messages',
         ]
     },
@@ -72,16 +73,17 @@ database_config = {
         'PASSWORD': 'postgres',
         'HOST': '',
         'PORT': '',
-    }
+    },
 }
 
 DATABASES = {
     'default': database_config.get(database_engine),
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'extra_settings/public/media/')
 MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'extra_settings/public/static/')
 STATIC_URL = '/static/'
-
