@@ -148,6 +148,14 @@ jobs:
       env: TOX_ENV=py39-djmaster-sqlite
     - python: "3.9"
       env: TOX_ENV=py39-djmaster-postgres
+    - python: "3.10"
+      env: TOX_ENV=py310-dj32-sqlite
+    - python: "3.10"
+      env: TOX_ENV=py310-dj32-postgres
+    - python: "3.10"
+      env: TOX_ENV=py310-djmaster-sqlite
+    - python: "3.10"
+      env: TOX_ENV=py310-djmaster-postgres
   allow_failures:
     - env: TOX_ENV=py36-djmaster-sqlite
     - env: TOX_ENV=py36-djmaster-postgres
@@ -157,6 +165,8 @@ jobs:
     - env: TOX_ENV=py38-djmaster-postgres
     - env: TOX_ENV=py39-djmaster-sqlite
     - env: TOX_ENV=py39-djmaster-postgres
+    - env: TOX_ENV=py310-djmaster-sqlite
+    - env: TOX_ENV=py310-djmaster-postgres
 install:
   - pip install tox
 services:
