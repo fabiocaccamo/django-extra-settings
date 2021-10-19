@@ -14,7 +14,7 @@
 [![](https://requires.io/github/fabiocaccamo/django-extra-settings/requirements.svg?branch=master)](https://requires.io/github/fabiocaccamo/django-extra-settings/requirements/?branch=master)
 
 # django-extra-settings
-config and manage extra settings using just the django admin.
+config and manage typed extra settings using just the django admin.
 
 ![](https://user-images.githubusercontent.com/1035294/74425761-81325400-4e54-11ea-9095-3d64e1420bfe.gif)
 
@@ -26,6 +26,12 @@ config and manage extra settings using just the django admin.
 -   Restart your application server
 
 ## Usage
+
+### Admin
+Just go to the admin where you can:
+-   Create a new setting
+-   Update an existing setting
+-   Delete an existing setting
 
 ### Settings
 All these settings are optional, if not defined in ``settings.py`` the default values (listed below) will be used.
@@ -53,12 +59,63 @@ Just go to the admin where you can:
 -   Delete an existing setting
 
 ### Python
-You can retrieve settings programmatically:
+You can **create**, **read**, **update** and **delete** settings programmatically:
+
+#### Create
+```python
+from extra_settings.models import Setting
+
+setting_obj = Setting(
+    name='SETTING_NAME',
+    value_type=Setting.TYPE_STRING,
+    value='django-extra-settings',
+)
+setting_obj.save()
+```
+
+#### Read
 ```python
 from extra_settings.models import Setting
 
 value = Setting.get('SETTING_NAME', default='django-extra-settings')
 ```
+
+#### Update
+```python
+from extra_settings.models import Setting
+
+setting_obj = Setting(
+    name='SETTING_NAME',
+    value_type=Setting.TYPE_BOOL,
+    value=True,
+)
+setting_obj.value = False
+setting_obj.save()
+```
+
+#### Delete
+```python
+from extra_settings.models import Setting
+
+Setting.objects.filter(name='SETTING_NAME').delete()
+```
+
+This is the list of the currently supported setting types you may need to use:
+
+-   `Setting.TYPE_BOOL`
+-   `Setting.TYPE_DATE`
+-   `Setting.TYPE_DATETIME`
+-   `Setting.TYPE_DECIMAL`
+-   `Setting.TYPE_DURATION`
+-   `Setting.TYPE_EMAIL`
+-   `Setting.TYPE_FILE`
+-   `Setting.TYPE_FLOAT`
+-   `Setting.TYPE_IMAGE`
+-   `Setting.TYPE_INT`
+-   `Setting.TYPE_STRING`
+-   `Setting.TYPE_TEXT`
+-   `Setting.TYPE_TIME`
+-   `Setting.TYPE_URL`
 
 ### Templates
 You can retrieve settings in templates:

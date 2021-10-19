@@ -32,6 +32,26 @@ class ExtraSettingsModelsTestCase(TestCase):
     def tearDown(self):
         pass
 
+    def test_create_setting(self):
+        # bool
+        setting_value = True
+        setting_obj = Setting(
+            name='TEST_CREATE_DYNAMIC_SETTING_BOOL',
+            value_type=Setting.TYPE_BOOL,
+            value=setting_value,
+        )
+        setting_obj.save()
+        self.assertEqual(setting_obj.value, setting_value)
+        # url
+        setting_value = 'https://github.com/fabiocaccamo/django-extra-settings'
+        setting_obj = Setting(
+            name='TEST_CREATE_DYNAMIC_SETTING_URL',
+            value_type=Setting.TYPE_URL,
+            value=setting_value,
+        )
+        setting_obj.save()
+        self.assertEqual(setting_obj.value, setting_value)
+
     def test_getter_setter(self):
         setting_obj, setting_created = Setting.objects.get_or_create(
             name='TEST_GETTER_SETTER', defaults={ 'value_type':Setting.TYPE_STRING })
