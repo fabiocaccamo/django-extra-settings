@@ -138,6 +138,7 @@ git clone https://github.com/fabiocaccamo/django-extra-settings.git src && cd sr
 
 # install dependencies
 pip install -r requirements.txt
+pip install -r requirements-test.txt
 
 # run tests
 tox
