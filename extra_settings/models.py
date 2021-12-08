@@ -4,9 +4,14 @@ from __future__ import unicode_literals
 
 from decimal import Decimal
 
+import django
+
 from django.conf import settings
 from django.db import models
-from django.utils.encoding import force_text
+if django.VERSION < (2, 0):
+    from django.utils.encoding import force_text as force_str
+else:
+    from django.utils.encoding import force_str
 
 from six import python_2_unicode_compatible
 
@@ -129,4 +134,4 @@ class Setting(models.Model):
         verbose_name_plural = _('Settings')
 
     def __str__(self):
-        return force_text('{} [{}]'.format(self.name, self.value_type))
+        return force_str('{} [{}]'.format(self.name, self.value_type))
