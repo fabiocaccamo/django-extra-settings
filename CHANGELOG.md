@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.1.4) - 2021-12-08
+-   Added `python 3.10` support.
+-   Added `django 4.0` support.
+-   Fixed tests settings warnings.
+-   Fixed setup warning.
+
 ## [0.1.3](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.1.3) - 2021-10-08
 -   Changed `upload_to` to callable. #11 - thanks to @thlnndrs
 -   Fixed `setup.py` unicode error.
