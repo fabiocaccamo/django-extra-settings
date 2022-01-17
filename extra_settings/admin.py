@@ -24,9 +24,10 @@ class SettingAdmin(admin.ModelAdmin):
         return SettingForm
 
     def get_fieldsets(self, request, obj=None):
-        fields = ('name', 'value_type', )
         if obj:
-            fields += (obj.value_field_name, 'description', )
+            fields = ('name', 'description', obj.value_field_name, )
+        else:
+            fields = ('value_type', 'name', 'description', )
         return (
             (None, {
                 'classes': ('wide', ),

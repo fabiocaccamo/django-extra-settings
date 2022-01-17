@@ -13,17 +13,11 @@
         var rowEl;
         var valueType;
 
-        // hide values cols headers
+        // hide values cols headers except one
         colsEl.each(function(index, el) {
             colEl = $(el);
-            colEl.find("*[class^='column-value_']").css("display", "none");
+            colEl.find("*[class^='column-value_']").not(':last').css("display", "none");
         });
-
-        // add generic value col header
-        var valueColText = colsEl.find("th").last().text();
-        var valueColHTML = "<th><div class='text'><span>" + valueColText + "</span></div><div class='clear'></div></th>";
-        var valueColEl = $(valueColHTML);
-        colsEl.append(valueColEl);
 
         // hide unnecessary value cols from each row
         rowsEl.each(function(index, el) {
