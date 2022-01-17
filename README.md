@@ -37,7 +37,12 @@ Just go to the admin where you can:
 All these settings are optional, if not defined in ``settings.py`` the default values (listed below) will be used.
 
 ```python
-# if True the template tag will fallback to django.conf.settings,
+# if True, settings names will be forced to honor the standard django settings format
+EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS = True
+```
+
+```python
+# if True, the template tag will fallback to django.conf.settings,
 # very useful to retrieve conf settings such as DEBUG.
 EXTRA_SETTINGS_FALLBACK_TO_CONF_SETTINGS = True
 ```
@@ -50,6 +55,11 @@ EXTRA_SETTINGS_FILE_UPLOAD_TO = 'files'
 ```python
 # the upload_to path value of settings of type 'image'
 EXTRA_SETTINGS_IMAGE_UPLOAD_TO = 'images'
+```
+
+```python
+# if True, settings type list filter will be shown in the admin changelist
+EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = False
 ```
 
 ### Admin
