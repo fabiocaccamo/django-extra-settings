@@ -40,9 +40,9 @@ class ExtraSettingsAdminTestCase(TestCase):
     def test_fieldsets(self):
         ma = SettingAdmin(model=Setting, admin_site=AdminSite())
         self.assertEqual(ma.get_fieldsets(request),
-            ((None, {'classes': ('wide',), 'fields': ('name', 'value_type')}),) )
+            ((None, {'classes': ('wide',), 'fields': ('value_type', 'name', 'description')}),) )
         self.assertEqual(ma.get_fieldsets(request, self._setting_obj),
-            ((None, {'classes': ('wide',), 'fields': ('name', 'value_type', 'value_string', 'description')}),) )
+            ((None, {'classes': ('wide',), 'fields': ('name', 'description', 'value_string')}),) )
 
     def test_modeladmin_save(self):
         ma = SettingAdmin(model=Setting, admin_site=AdminSite())

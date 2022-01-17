@@ -25,7 +25,7 @@ class SettingForm(forms.ModelForm):
 
     def clean_name(self):
         value = self.cleaned_data.get('name', '')
-        if settings.EXTRA_SETTINGS_UPPERCASE:
+        if settings.EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS:
             value = enforce_uppercase_setting(value)
         if hasattr(settings, value):
             raise forms.ValidationError(
