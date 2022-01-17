@@ -15,7 +15,7 @@ class SettingAdmin(admin.ModelAdmin):
         'value_int', 'value_string', 'value_text', 'value_time', 'value_url',
     )
     search_fields = ('name', )
-    list_display = ('name', 'value_type', ) + value_fields_names
+    list_display = ('name', 'value_type', ) + value_fields_names + ('description', )
     list_filter = ('value_type', )
     list_editable = value_fields_names
     sortable_by = ('name', )
@@ -26,7 +26,7 @@ class SettingAdmin(admin.ModelAdmin):
     def get_fieldsets(self, request, obj=None):
         fields = ('name', 'value_type', )
         if obj:
-            fields += (obj.value_field_name, )
+            fields += (obj.value_field_name, 'description', )
         return (
             (None, {
                 'classes': ('wide', ),
