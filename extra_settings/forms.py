@@ -16,6 +16,9 @@ class SettingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(SettingForm, self).__init__(*args, **kwargs)
         # resize text area
+        if 'description' in self.fields:
+            self.fields['description'].widget = forms.Textarea(
+                attrs={'rows': 3, 'cols': 51})
         if 'value_text' in self.fields:
             self.fields['value_text'].widget = forms.Textarea(
                 attrs={'rows': 5, 'cols': 51})
