@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.conf import settings
 from django.contrib import admin
 
 from extra_settings.forms import SettingForm
@@ -16,7 +17,8 @@ class SettingAdmin(admin.ModelAdmin):
     )
     search_fields = ('name', )
     list_display = ('name', 'value_type', ) + value_fields_names + ('description', )
-    list_filter = ('value_type', )
+    if settings.EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER:
+        list_filter = ('value_type', )
     list_editable = value_fields_names
     sortable_by = ('name', )
 
