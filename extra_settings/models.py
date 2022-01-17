@@ -18,6 +18,7 @@ from six import python_2_unicode_compatible
 from extra_settings import fields
 from extra_settings.cache import get_cached_setting, set_cached_setting
 from extra_settings.translation import gettext_lazy as _
+from extra_settings.utils import enforce_uppercase_setting
 
 
 @python_2_unicode_compatible
@@ -128,6 +129,11 @@ class Setting(models.Model):
     def __init__(self, *args, **kwargs):
         super(Setting, self).__init__(*args, **kwargs)
         self.name_initial = self.name
+
+    def save(self, *args, **kwargs):
+        if settings.EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS:
+            self.name = enforce_uppercase_setting(self.name)
+        super(Setting, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['name']

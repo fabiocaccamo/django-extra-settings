@@ -4,6 +4,7 @@ from django import forms
 from django.conf import settings
 
 from extra_settings.models import Setting
+from extra_settings.utils import enforce_uppercase_setting
 
 
 class SettingForm(forms.ModelForm):
@@ -21,6 +22,8 @@ class SettingForm(forms.ModelForm):
 
     def clean_name(self):
         value = self.cleaned_data.get('name', '')
+        if settings.EXTRA_SETTINGS_UPPERCASE:
+            value = enforce_uppercase_setting(value)
         if hasattr(settings, value):
             raise forms.ValidationError(
                 'Invalid setting name, settings.{} already '

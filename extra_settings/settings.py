@@ -3,6 +3,9 @@
 from django.conf import settings
 
 
+if not hasattr(settings, 'EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS'):
+    settings.EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS = True
+
 if not hasattr(settings, 'EXTRA_SETTINGS_FALLBACK_TO_CONF_SETTINGS'):
     settings.EXTRA_SETTINGS_FALLBACK_TO_CONF_SETTINGS = True
 
