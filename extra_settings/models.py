@@ -96,6 +96,7 @@ class Setting(models.Model):
 
     name = models.CharField(max_length=50, unique=True, verbose_name=_('Name'), help_text='(e.g. SETTING_NAME)')
     value_type = models.CharField(max_length=20, choices=TYPE_CHOICES, verbose_name=_('Type'))
+    description = models.TextField(blank=True, null=True, verbose_name=_('Description'))
 
     value_bool = models.BooleanField(default=False, verbose_name=_('Value'))
     value_date = models.DateField(blank=True, null=True, verbose_name=_('Value'))
