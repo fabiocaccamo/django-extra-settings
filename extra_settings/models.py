@@ -132,7 +132,7 @@ class Setting(models.Model):
             try:
                 import markdown
                 return mark_safe(markdown.markdown(self.description))
-            except (ImportError, ModuleNotFoundError):
+            except:
                 return self.description
 
         if settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT == 'pre':

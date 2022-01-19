@@ -3,7 +3,7 @@ import sys
 
 try:
     from unittest.mock import patch
-except (ImportError, ModuleNotFoundError):
+except:
     from mock import patch
 
 from django.test import TestCase, override_settings
@@ -19,7 +19,7 @@ orig_import = __import__
 
 def import_markdown_mock(name, *args):
     if name == 'markdown':
-        raise ModuleNotFoundError
+        raise Exception
     return orig_import(name, *args)
 
 

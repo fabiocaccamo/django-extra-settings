@@ -24,5 +24,5 @@ if not hasattr(settings, 'EXTRA_SETTINGS_DESCRIPTION_FORMAT'):
 if settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT == 'markdown':
     try:
         import markdown
-    except (ImportError, ModuleNotFoundError):
+    except:
         settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT = None
