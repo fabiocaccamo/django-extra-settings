@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 
-import mock
+from unittest.mock import patch
 
 from django.test import TestCase, override_settings
 
@@ -168,6 +168,6 @@ class ExtraSettingsModelsTestCase(TestCase):
             value_type=Setting.TYPE_BOOL,
             description='# description with missing markdown'
         )
-        with mock.patch(import_path, side_effect=import_markdown_mock):
+        with patch(import_path, side_effect=import_markdown_mock):
             des = str(setting_obj.description_formatted)
         self.assertEqual('<pre>' + setting_obj.description + '</pre>', des)
