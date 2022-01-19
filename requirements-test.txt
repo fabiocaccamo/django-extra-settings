@@ -1,7 +1,5 @@
 codecov
 coverage
+markdown
 psycopg2
 tox
-
-# to test description field
-markdown
