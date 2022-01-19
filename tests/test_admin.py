@@ -32,7 +32,11 @@ class ExtraSettingsAdminTestCase(TestCase):
             })
         self._site = AdminSite()
 
-        get_user_model().objects.create_superuser(username='admin-test', password='secretsecret')
+        get_user_model().objects.create_superuser(
+            username='admin-test',
+            email='',
+            password='secretsecret',
+        )
         self.assertTrue(self.client.login(username='admin-test', password='secretsecret'))
 
     def tearDown(self):

@@ -3,5 +3,8 @@ coverage
 psycopg2
 tox
 
+# Included in python 3.3 but not in previous versions
+mock
+
 # to test description field
 markdown

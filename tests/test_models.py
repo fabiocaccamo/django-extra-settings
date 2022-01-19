@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
-from unittest import mock
+
+import mock
 
 from django.test import TestCase, override_settings
 
