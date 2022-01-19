@@ -133,7 +133,7 @@ class Setting(models.Model):
                 import markdown
                 return mark_safe(markdown.markdown(self.description))
             except (ImportError, ModuleNotFoundError):
-                return mark_safe('<pre>' + self.description + '</pre>')
+                return self.description
 
         if settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT == 'pre':
             return mark_safe('<pre>' + self.description + '</pre>')

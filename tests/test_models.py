@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 import sys
 
-from unittest.mock import patch
+try:
+    from unittest.mock import patch
+except (ImportError, ModuleNotFoundError):
+    from mock import patch
 
 from django.test import TestCase, override_settings
 
@@ -170,4 +173,4 @@ class ExtraSettingsModelsTestCase(TestCase):
         )
         with patch(import_path, side_effect=import_markdown_mock):
             des = str(setting_obj.description_formatted)
-        self.assertEqual('<pre>' + setting_obj.description + '</pre>', des)
+        self.assertEqual(setting_obj.description, des)

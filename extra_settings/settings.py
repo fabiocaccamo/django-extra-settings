@@ -25,4 +25,4 @@ if settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT == 'markdown':
     try:
         import markdown
     except (ImportError, ModuleNotFoundError):
-        settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT = 'pre'
+        settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT = None
