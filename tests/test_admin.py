@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import get_user_model
@@ -8,6 +9,14 @@ from extra_settings.admin import SettingAdmin
 from extra_settings.forms import SettingForm
 from extra_settings.models import Setting
 
+
+def markdown_fn(value):
+    return '<md>' + value + '</md>'
+
+def markdown_mocked():
+    pass
+
+setattr(markdown_mocked, 'markdown', markdown_fn)
 
 class MockRequest(object):
     pass
@@ -28,7 +37,7 @@ class ExtraSettingsAdminTestCase(TestCase):
             defaults={
                 'value_type':Setting.TYPE_STRING,
                 'value_string':'django-extra-settings',
-                'description': '### django-extra-description',
+                'description': 'django-extra-description',
             })
         self._site = AdminSite()
 
@@ -40,7 +49,7 @@ class ExtraSettingsAdminTestCase(TestCase):
         self.assertTrue(self.client.login(username='admin-test', password='secretsecret'))
 
     def tearDown(self):
-        pass
+        sys.modules['markdown'] = None
 
     def test_changelist_form(self):
         ma = SettingAdmin(model=Setting, admin_site=AdminSite())
@@ -71,7 +80,7 @@ class ExtraSettingsAdminTestCase(TestCase):
         response = self.client.get('/admin/extra_settings/setting/')
         self.assertEqual(response.status_code, 200)
         self.assertIn(
-            '<td class="field-description_formatted">### django-extra-description</td>',
+            '<td class="field-description_formatted">django-extra-description</td>',
             response.content.decode()
         )
 
@@ -80,15 +89,17 @@ class ExtraSettingsAdminTestCase(TestCase):
         response = self.client.get('/admin/extra_settings/setting/')
         self.assertEqual(response.status_code, 200)
         self.assertIn(
-            '<td class="field-description_formatted"><pre>### django-extra-description</pre></td>',
+            '<td class="field-description_formatted"><pre>django-extra-description</pre></td>',
             response.content.decode()
         )
 
     @override_settings(EXTRA_SETTINGS_DESCRIPTION_FORMAT='markdown')
     def test_list_display_description_markdown(self):
+        sys.modules['markdown'] = markdown_mocked
+
         response = self.client.get('/admin/extra_settings/setting/')
         self.assertEqual(response.status_code, 200)
         self.assertIn(
-            '<td class="field-description_formatted"><h3>django-extra-description</h3></td>',
+            '<td class="field-description_formatted"><md>django-extra-description</md></td>',
             response.content.decode()
         )

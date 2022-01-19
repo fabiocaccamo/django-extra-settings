@@ -1,26 +1,18 @@
 # -*- coding: utf-8 -*-
 import sys
 
-try:
-    from unittest.mock import patch
-except:
-    from mock import patch
-
 from django.test import TestCase, override_settings
 
 from extra_settings.models import Setting
 
-# New in Python 3.0
-# Renamed module __builtin__ to builtins (removing the underscores, adding an ‘s’)
-import_path = '__builtin__.__import__' if sys.version[0] == '2' else 'builtins.__import__'
 
-orig_import = __import__
+def markdown_fn(value):
+    return '<md>' + value + '</md>'
 
+def markdown_mocked():
+    pass
 
-def import_markdown_mock(name, *args):
-    if name == 'markdown':
-        raise Exception
-    return orig_import(name, *args)
+setattr(markdown_mocked, 'markdown', markdown_fn)
 
 
 class ExtraSettingsModelsTestCase(TestCase):
@@ -48,7 +40,7 @@ class ExtraSettingsModelsTestCase(TestCase):
         ])
 
     def tearDown(self):
-        pass
+        sys.modules['markdown'] = None
 
     def test_create_setting(self):
         # bool
@@ -156,13 +148,15 @@ class ExtraSettingsModelsTestCase(TestCase):
 
     @override_settings(EXTRA_SETTINGS_DESCRIPTION_FORMAT='markdown')
     def test_description_formatted_markdown(self):
+        sys.modules['markdown'] = markdown_mocked
+
         setting_obj = Setting(
             name='TEST_DESCRIPTION_MARKDOWN',
             value_type=Setting.TYPE_BOOL,
-            description='# description with markdown'
+            description='description with markdown'
         )
         des = str(setting_obj.description_formatted)
-        self.assertEqual('<h1>description with markdown</h1>', des)
+        self.assertEqual('<md>description with markdown</md>', des)
 
     @override_settings(EXTRA_SETTINGS_DESCRIPTION_FORMAT='markdown')
     def test_description_formatted_markdown_with_import_error(self):
@@ -171,6 +165,5 @@ class ExtraSettingsModelsTestCase(TestCase):
             value_type=Setting.TYPE_BOOL,
             description='# description with missing markdown'
         )
-        with patch(import_path, side_effect=import_markdown_mock):
-            des = str(setting_obj.description_formatted)
+        des = str(setting_obj.description_formatted)
         self.assertEqual(setting_obj.description, des)

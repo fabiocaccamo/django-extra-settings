@@ -130,8 +130,8 @@ class Setting(models.Model):
 
         if settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT == 'markdown':
             try:
-                import markdown
-                return mark_safe(markdown.markdown(self.description))
+                from markdown import markdown
+                return mark_safe(markdown(self.description))
             except:
                 return self.description
 
