@@ -26,16 +26,16 @@ INSTALLED_APPS += [
 
 if django.VERSION < (2, 0):
     MIDDLEWARE_CLASSES = [
+        'django.contrib.sessions.middleware.SessionMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
     ]
 else:
     MIDDLEWARE = [
+        'django.contrib.sessions.middleware.SessionMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
     ]
 
@@ -93,3 +93,5 @@ MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'extra_settings/public/static/')
 STATIC_URL = '/static/'
+
+ROOT_URLCONF = 'tests.urls'

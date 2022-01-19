@@ -1,8 +1,22 @@
 # -*- coding: utf-8 -*-
+import sys
+from unittest import mock
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from extra_settings.models import Setting
+
+# New in Python 3.0
+# Renamed module __builtin__ to builtins (removing the underscores, adding an ‘s’)
+import_path = '__builtin__.__import__' if sys.version[0] == '2' else 'builtins.__import__'
+
+orig_import = __import__
+
+
+def import_markdown_mock(name, *args):
+    if name == 'markdown':
+        raise ModuleNotFoundError
+    return orig_import(name, *args)
 
 
 class ExtraSettingsModelsTestCase(TestCase):
@@ -115,3 +129,44 @@ class ExtraSettingsModelsTestCase(TestCase):
         setting_repr='{} [{}]'.format(
             setting_obj.name, setting_obj.value_type)
         self.assertEqual('{0}'.format(setting_obj), setting_repr)
+
+    @override_settings(EXTRA_SETTINGS_DESCRIPTION_FORMAT=None)
+    def test_description_formatted_plain(self):
+        setting_obj = Setting(
+            name='TEST_DESCRIPTION_PLAIN',
+            value_type=Setting.TYPE_BOOL,
+            description='Plain description'
+        )
+        des = str(setting_obj.description_formatted)
+        self.assertEqual(setting_obj.description, des)
+
+    @override_settings(EXTRA_SETTINGS_DESCRIPTION_FORMAT='pre')
+    def test_description_formatted_pre(self):
+        setting_obj = Setting(
+            name='TEST_DESCRIPTION_PRE',
+            value_type=Setting.TYPE_BOOL,
+            description='Pre description'
+        )
+        des = str(setting_obj.description_formatted)
+        self.assertEqual('<pre>' + setting_obj.description + '</pre>', des)
+
+    @override_settings(EXTRA_SETTINGS_DESCRIPTION_FORMAT='markdown')
+    def test_description_formatted_markdown(self):
+        setting_obj = Setting(
+            name='TEST_DESCRIPTION_MARKDOWN',
+            value_type=Setting.TYPE_BOOL,
+            description='# description with markdown'
+        )
+        des = str(setting_obj.description_formatted)
+        self.assertEqual('<h1>description with markdown</h1>', des)
+
+    @override_settings(EXTRA_SETTINGS_DESCRIPTION_FORMAT='markdown')
+    def test_description_formatted_markdown_with_import_error(self):
+        setting_obj = Setting(
+            name='TEST_DESCRIPTION_MARKDOWN_MISSING',
+            value_type=Setting.TYPE_BOOL,
+            description='# description with missing markdown'
+        )
+        with mock.patch(import_path, side_effect=import_markdown_mock):
+            des = str(setting_obj.description_formatted)
+        self.assertEqual('<pre>' + setting_obj.description + '</pre>', des)

@@ -17,3 +17,12 @@ if not hasattr(settings, 'EXTRA_SETTINGS_IMAGE_UPLOAD_TO'):
 
 if not hasattr(settings, 'EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER'):
     settings.EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = False
+
+if not hasattr(settings, 'EXTRA_SETTINGS_DESCRIPTION_FORMAT'):
+    settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT = None
+
+if settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT == 'markdown':
+    try:
+        import markdown
+    except (ImportError, ModuleNotFoundError):
+        settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT = 'pre'

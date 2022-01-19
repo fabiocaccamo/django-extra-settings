@@ -2,6 +2,7 @@
 
 from django.conf import settings
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from extra_settings.forms import SettingForm
 from extra_settings.models import Setting
@@ -16,7 +17,7 @@ class SettingAdmin(admin.ModelAdmin):
         'value_int', 'value_string', 'value_text', 'value_time', 'value_url',
     )
     search_fields = ('name', )
-    list_display = ('name', 'value_type', ) + value_fields_names + ('description', )
+    list_display = ('name', 'value_type', ) + value_fields_names + ('description_formatted', )
     if settings.EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER:
         list_filter = ('value_type', )
     list_editable = value_fields_names

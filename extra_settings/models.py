@@ -12,6 +12,7 @@ if django.VERSION < (2, 0):
     from django.utils.encoding import force_text as force_str
 else:
     from django.utils.encoding import force_str
+from django.utils.safestring import mark_safe
 
 from six import python_2_unicode_compatible
 
@@ -121,6 +122,23 @@ class Setting(models.Model):
     @property
     def value(self):
         return getattr(self, self.value_field_name, None)
+
+    @property
+    def description_formatted(self):
+        if not self.description:
+            return self.description
+
+        if settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT == 'markdown':
+            try:
+                import markdown
+                return mark_safe(markdown.markdown(self.description))
+            except (ImportError, ModuleNotFoundError):
+                return mark_safe('<pre>' + self.description + '</pre>')
+
+        if settings.EXTRA_SETTINGS_DESCRIPTION_FORMAT == 'pre':
+            return mark_safe('<pre>' + self.description + '</pre>')
+
+        return self.description
 
     @value.setter
     def value(self, new_value):

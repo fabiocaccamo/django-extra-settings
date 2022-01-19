@@ -62,6 +62,9 @@ setup(
     install_requires=[
         "six >= 1.9.0, < 2.0.0",
     ],
+    extras_require={
+        "des_format": ["markdown"],
+    },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",

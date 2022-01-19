@@ -62,6 +62,13 @@ EXTRA_SETTINGS_IMAGE_UPLOAD_TO = 'images'
 EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = False
 ```
 
+```python
+# possible values 'markdown', 'pre' or None
+# how to display description content,
+# using markdown, wrapping with <pre> tag or as it is
+EXTRA_SETTINGS_DESCRIPTION_FORMAT = None
+```
+
 ### Admin
 Just go to the admin where you can:
 -   Create a new setting
