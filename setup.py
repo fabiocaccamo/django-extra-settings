@@ -61,6 +61,7 @@ setup(
     requires=["django(>=1.8)"],
     install_requires=[
         "six >= 1.9.0, < 2.0.0",
+        "jsonfield>=3.0"
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",

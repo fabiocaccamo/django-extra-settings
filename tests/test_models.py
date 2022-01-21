@@ -21,7 +21,7 @@ class ExtraSettingsModelsTestCase(TestCase):
             # Setting(name='TEST_SETTING_HTML', value_type=Setting.TYPE_HTML),
             Setting(name='TEST_SETTING_IMAGE', value_type=Setting.TYPE_IMAGE),
             Setting(name='TEST_SETTING_INT', value_type=Setting.TYPE_INT),
-            # Setting(name='TEST_SETTING_JSON', value_type=Setting.TYPE_JSON),
+            Setting(name='TEST_SETTING_JSON', value_type=Setting.TYPE_JSON),
             Setting(name='TEST_SETTING_STRING', value_type=Setting.TYPE_STRING),
             Setting(name='TEST_SETTING_TEXT', value_type=Setting.TYPE_TEXT),
             Setting(name='TEST_SETTING_TIME', value_type=Setting.TYPE_TIME),
@@ -62,8 +62,10 @@ class ExtraSettingsModelsTestCase(TestCase):
         self.assertEqual(setting_obj.value, 'string value')
 
     def test_get_with_valid_name(self):
-        setting_value = Setting.get('TEST_SETTING_STRING')
-        self.assertEqual(setting_value, '')
+        setting_string_value = Setting.get('TEST_SETTING_STRING')
+        self.assertEqual(setting_string_value, '')
+        setting_json_value = Setting.get('TEST_SETTING_JSON')
+        self.assertEqual(setting_json_value, dict())
 
     def test_get_with_valid_name_and_default_value(self):
         setting_value = Setting.get('TEST_SETTING_STRING', default='default string value')

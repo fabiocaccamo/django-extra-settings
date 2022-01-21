@@ -112,20 +112,21 @@ Setting.objects.filter(name='SETTING_NAME').delete()
 
 This is the list of the currently supported setting types you may need to use:
 
--   `Setting.TYPE_BOOL`
--   `Setting.TYPE_DATE`
--   `Setting.TYPE_DATETIME`
--   `Setting.TYPE_DECIMAL`
--   `Setting.TYPE_DURATION`
--   `Setting.TYPE_EMAIL`
--   `Setting.TYPE_FILE`
--   `Setting.TYPE_FLOAT`
--   `Setting.TYPE_IMAGE`
--   `Setting.TYPE_INT`
--   `Setting.TYPE_STRING`
--   `Setting.TYPE_TEXT`
--   `Setting.TYPE_TIME`
--   `Setting.TYPE_URL`
+- `Setting.TYPE_BOOL`
+- `Setting.TYPE_DATE`
+- `Setting.TYPE_DATETIME`
+- `Setting.TYPE_DECIMAL`
+- `Setting.TYPE_DURATION`
+- `Setting.TYPE_EMAIL`
+- `Setting.TYPE_FILE`
+- `Setting.TYPE_FLOAT`
+- `Setting.TYPE_IMAGE`
+- `Setting.TYPE_INT`
+- `Setting.TYPE_JSON`
+- `Setting.TYPE_STRING`
+- `Setting.TYPE_TEXT`
+- `Setting.TYPE_TIME`
+- `Setting.TYPE_URL`
 
 ### Templates
 You can retrieve settings in templates:
