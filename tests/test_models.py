@@ -21,7 +21,7 @@ class ExtraSettingsModelsTestCase(TestCase):
             # Setting(name='TEST_SETTING_HTML', value_type=Setting.TYPE_HTML),
             Setting(name='TEST_SETTING_IMAGE', value_type=Setting.TYPE_IMAGE),
             Setting(name='TEST_SETTING_INT', value_type=Setting.TYPE_INT),
-            # Setting(name='TEST_SETTING_JSON', value_type=Setting.TYPE_JSON),
+            Setting(name='TEST_SETTING_JSON', value_type=Setting.TYPE_JSON),
             Setting(name='TEST_SETTING_STRING', value_type=Setting.TYPE_STRING),
             Setting(name='TEST_SETTING_TEXT', value_type=Setting.TYPE_TEXT),
             Setting(name='TEST_SETTING_TIME', value_type=Setting.TYPE_TIME),
@@ -54,7 +54,7 @@ class ExtraSettingsModelsTestCase(TestCase):
 
     def test_getter_setter(self):
         setting_obj, setting_created = Setting.objects.get_or_create(
-            name='TEST_GETTER_SETTER', defaults={ 'value_type':Setting.TYPE_STRING })
+            name='TEST_GETTER_SETTER', defaults={'value_type': Setting.TYPE_STRING})
         self.assertEqual(setting_obj.value, '')
         setting_obj.value = 'string value'
         setting_obj.save()
@@ -62,8 +62,8 @@ class ExtraSettingsModelsTestCase(TestCase):
         self.assertEqual(setting_obj.value, 'string value')
 
     def test_get_with_valid_name(self):
-        setting_value = Setting.get('TEST_SETTING_STRING')
-        self.assertEqual(setting_value, '')
+        setting_string_value = Setting.get('TEST_SETTING_STRING')
+        self.assertEqual(setting_string_value, '')
 
     def test_get_with_valid_name_and_default_value(self):
         setting_value = Setting.get('TEST_SETTING_STRING', default='default string value')
@@ -87,7 +87,7 @@ class ExtraSettingsModelsTestCase(TestCase):
 
     def test_cache_updated_on_model_delete(self):
         setting_obj, setting_created = Setting.objects.get_or_create(
-            name='TEST_GETTER_SETTER', defaults={ 'value_type':Setting.TYPE_STRING })
+            name='TEST_GETTER_SETTER', defaults={'value_type': Setting.TYPE_STRING})
         setting_obj.value = 'string value'
         setting_obj.save()
         self.assertEqual(Setting.get('TEST_GETTER_SETTER'), 'string value')
@@ -96,7 +96,7 @@ class ExtraSettingsModelsTestCase(TestCase):
 
     def test_cache_updated_on_model_name_changed(self):
         setting_obj, setting_created = Setting.objects.get_or_create(
-            name='TEST_GETTER_SETTER', defaults={ 'value_type':Setting.TYPE_STRING })
+            name='TEST_GETTER_SETTER', defaults={'value_type': Setting.TYPE_STRING})
         setting_obj.value = 'string value'
         setting_obj.save()
         self.assertEqual(Setting.get('TEST_GETTER_SETTER'), 'string value')
@@ -106,12 +106,23 @@ class ExtraSettingsModelsTestCase(TestCase):
         self.assertEqual(Setting.get('TEST_GETTER_SETTER_RENAMED'), 'string value')
 
     def test_repr(self):
-        setting_obj, setting_created=Setting.objects.get_or_create(
+        setting_obj, setting_created = Setting.objects.get_or_create(
             name='PACKAGE_NAME',
             defaults={
-                'value_type':Setting.TYPE_STRING,
-                'value_string':'django-extra-settings',
+                'value_type': Setting.TYPE_STRING,
+                'value_string': 'django-extra-settings',
             })
-        setting_repr='{} [{}]'.format(
+        setting_repr = '{} [{}]'.format(
             setting_obj.name, setting_obj.value_type)
         self.assertEqual('{0}'.format(setting_obj), setting_repr)
+
+    def test_setting_type_json(self):
+        # getter & setter
+        setting_obj, setting_created = Setting.objects.get_or_create(
+            name='TEST_SETTING_JSON', defaults={'value_type': Setting.TYPE_JSON}
+        )
+        self.assertEqual(setting_obj.value, dict())
+        setting_obj.value = {"level": "L2", "role": "Admin"}
+        setting_obj.save()
+        setting_obj = Setting.objects.get(name='TEST_SETTING_JSON')
+        self.assertEqual(setting_obj.value, {"level": "L2", "role": "Admin"})
