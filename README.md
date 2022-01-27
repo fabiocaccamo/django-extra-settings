@@ -2,7 +2,7 @@
 [![](https://img.shields.io/pypi/djversions/django-extra-settings?color=0C4B33&logo=django&logoColor=white&label=django)](https://www.djangoproject.com/)
 
 [![](https://img.shields.io/pypi/v/django-extra-settings.svg?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/django-extra-settings/)
-[![](https://pepy.tech/badge/django-extra-settings)](https://pepy.tech/project/django-extra-settings)
+[![](https://pepy.tech/badge/django-extra-settings/month)](https://pepy.tech/project/django-extra-settings)
 [![](https://img.shields.io/github/stars/fabiocaccamo/django-extra-settings?logo=github)](https://github.com/fabiocaccamo/django-extra-settings/)
 [![](https://badges.pufler.dev/visits/fabiocaccamo/django-extra-settings?label=visitors&color=blue)](https://badges.pufler.dev)
 [![](https://img.shields.io/pypi/l/django-extra-settings.svg?color=blue)](https://github.com/fabiocaccamo/django-extra-settings/blob/master/LICENSE.txt)
@@ -11,7 +11,6 @@
 [![](https://img.shields.io/codecov/c/gh/fabiocaccamo/django-extra-settings?logo=codecov)](https://codecov.io/gh/fabiocaccamo/django-extra-settings)
 [![](https://img.shields.io/codacy/grade/554c0505ed9844f3865bee975d1b894c?logo=codacy)](https://www.codacy.com/app/fabiocaccamo/django-extra-settings)
 [![](https://img.shields.io/codeclimate/maintainability/fabiocaccamo/django-extra-settings?logo=code-climate)](https://codeclimate.com/github/fabiocaccamo/django-extra-settings/)
-[![](https://requires.io/github/fabiocaccamo/django-extra-settings/requirements.svg?branch=master)](https://requires.io/github/fabiocaccamo/django-extra-settings/requirements/?branch=master)
 
 # django-extra-settings
 config and manage typed extra settings using just the django admin.
