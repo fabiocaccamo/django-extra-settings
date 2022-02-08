@@ -5,58 +5,60 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'django-extra-settings'
+SECRET_KEY = "django-extra-settings"
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
-EXTRA_SETTINGS_TEST_FALLBACK_VALUE = 'fallback-value'
+EXTRA_SETTINGS_TEST_FALLBACK_VALUE = "fallback-value"
 
 # Application definition
 INSTALLED_APPS = [
-    'extra_settings',
+    "extra_settings",
 ]
 
 INSTALLED_APPS += [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.messages',
-    'django.contrib.sessions',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.messages",
+    "django.contrib.sessions",
 ]
 
 if django.VERSION < (2, 0):
     MIDDLEWARE_CLASSES = [
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.common.CommonMiddleware',
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
     ]
 else:
     MIDDLEWARE = [
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.common.CommonMiddleware',
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
     ]
 
-TEMPLATES = [{
-    'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [],
-    'APP_DIRS': True,
-    'OPTIONS': {
-        'context_processors': [
-            'django.contrib.auth.context_processors.auth',
-            'django.template.context_processors.request',
-            'django.contrib.messages.context_processors.messages',
-        ]
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.request",
+                "django.contrib.messages.context_processors.messages",
+            ]
+        },
     },
-},]
+]
 
-database_engine = os.environ.get('DATABASE_ENGINE', 'sqlite')
+database_engine = os.environ.get("DATABASE_ENGINE", "sqlite")
 database_config = {
-    'sqlite': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
+    "sqlite": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": ":memory:",
     },
     # 'mysql': {
     #     'ENGINE': 'django.db.backends.mysql',
@@ -66,30 +68,30 @@ database_config = {
     #     'HOST': '',
     #     'PORT': '',
     # },
-    'postgres': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'extra_settings',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '',
-        'PORT': '',
+    "postgres": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "extra_settings",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "",
+        "PORT": "",
     },
 }
 
-github_workflow = os.environ.get('GITHUB_WORKFLOW')
+github_workflow = os.environ.get("GITHUB_WORKFLOW")
 if github_workflow:
-    database_config['postgres']['NAME'] = 'postgres'
-    database_config['postgres']['HOST'] = '127.0.0.1'
-    database_config['postgres']['PORT'] = '5432'
+    database_config["postgres"]["NAME"] = "postgres"
+    database_config["postgres"]["HOST"] = "127.0.0.1"
+    database_config["postgres"]["PORT"] = "5432"
 
 DATABASES = {
-    'default': database_config.get(database_engine),
+    "default": database_config.get(database_engine),
 }
 
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'extra_settings/public/media/')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "extra_settings/public/media/")
+MEDIA_URL = "/media/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'extra_settings/public/static/')
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "extra_settings/public/static/")
+STATIC_URL = "/static/"

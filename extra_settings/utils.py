@@ -6,5 +6,4 @@ from django.utils.text import slugify
 
 
 def enforce_uppercase_setting(name):
-    return slugify(name).replace('-', '_').upper()
-
+    return slugify(name).replace("-", "_").upper()

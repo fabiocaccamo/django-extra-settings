@@ -6,7 +6,6 @@ from extra_settings.version import __version__
 
 
 class ExtraSettingsMetadataTestCase(TestCase):
-
     def setUp(self):
         pass
 

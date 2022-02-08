@@ -25,7 +25,6 @@ from extra_settings.utils import enforce_uppercase_setting
 
 @python_2_unicode_compatible
 class Setting(models.Model):
-
     @staticmethod
     def _get_from_cache(name):
         return get_cached_setting(name)
@@ -57,69 +56,132 @@ class Setting(models.Model):
                     val = default
         return val
 
-    TYPE_BOOL = 'bool'
-    # TYPE_COLOR = 'color' # TODO
-    TYPE_DATE = 'date'
-    TYPE_DATETIME = 'datetime'
-    TYPE_DECIMAL = 'decimal'
-    TYPE_DURATION = 'duration'
-    TYPE_EMAIL = 'email'
-    TYPE_FILE = 'file'
-    TYPE_FLOAT = 'float'
-    # TYPE_HTML = 'html'
-    TYPE_IMAGE = 'image'
-    TYPE_INT = 'int'
-    TYPE_JSON = 'json'
-    TYPE_STRING = 'string'
-    TYPE_TEXT = 'text'
-    TYPE_TIME = 'time'
-    # TYPE_UUID = 'uuid' # TODO
-    TYPE_URL = 'url'
+    TYPE_BOOL = "bool"
+    # TYPE_COLOR = "color" # TODO
+    TYPE_DATE = "date"
+    TYPE_DATETIME = "datetime"
+    TYPE_DECIMAL = "decimal"
+    TYPE_DURATION = "duration"
+    TYPE_EMAIL = "email"
+    TYPE_FILE = "file"
+    TYPE_FLOAT = "float"
+    # TYPE_HTML = "html"
+    TYPE_IMAGE = "image"
+    TYPE_INT = "int"
+    TYPE_JSON = "json"
+    TYPE_STRING = "string"
+    TYPE_TEXT = "text"
+    TYPE_TIME = "time"
+    # TYPE_UUID = "uuid" # TODO
+    TYPE_URL = "url"
 
     TYPE_CHOICES = (
-        (TYPE_BOOL, TYPE_BOOL, ),
+        (
+            TYPE_BOOL,
+            TYPE_BOOL,
+        ),
         # (TYPE_COLOR, TYPE_COLOR, ),
-        (TYPE_DATE, TYPE_DATE, ),
-        (TYPE_DATETIME, TYPE_DATETIME, ),
-        (TYPE_DECIMAL, TYPE_DECIMAL, ),
+        (
+            TYPE_DATE,
+            TYPE_DATE,
+        ),
+        (
+            TYPE_DATETIME,
+            TYPE_DATETIME,
+        ),
+        (
+            TYPE_DECIMAL,
+            TYPE_DECIMAL,
+        ),
         (TYPE_DURATION, TYPE_DURATION),
-        (TYPE_EMAIL, TYPE_EMAIL, ),
-        (TYPE_FILE, TYPE_FILE, ),
-        (TYPE_FLOAT, TYPE_FLOAT, ),
+        (
+            TYPE_EMAIL,
+            TYPE_EMAIL,
+        ),
+        (
+            TYPE_FILE,
+            TYPE_FILE,
+        ),
+        (
+            TYPE_FLOAT,
+            TYPE_FLOAT,
+        ),
         # (TYPE_HTML, TYPE_HTML, ),
-        (TYPE_IMAGE, TYPE_IMAGE, ),
-        (TYPE_INT, TYPE_INT, ),
-        (TYPE_JSON, TYPE_JSON, ),
-        (TYPE_STRING, TYPE_STRING, ),
-        (TYPE_TEXT, TYPE_TEXT, ),
-        (TYPE_TIME, TYPE_TIME, ),
+        (
+            TYPE_IMAGE,
+            TYPE_IMAGE,
+        ),
+        (
+            TYPE_INT,
+            TYPE_INT,
+        ),
+        (
+            TYPE_JSON,
+            TYPE_JSON,
+        ),
+        (
+            TYPE_STRING,
+            TYPE_STRING,
+        ),
+        (
+            TYPE_TEXT,
+            TYPE_TEXT,
+        ),
+        (
+            TYPE_TIME,
+            TYPE_TIME,
+        ),
         # (TYPE_UUID, TYPE_UUID, ),
-        (TYPE_URL, TYPE_URL, ),
+        (
+            TYPE_URL,
+            TYPE_URL,
+        ),
     )
 
-    name = models.CharField(max_length=50, unique=True, verbose_name=_('Name'), help_text='(e.g. SETTING_NAME)')
-    value_type = models.CharField(max_length=20, choices=TYPE_CHOICES, verbose_name=_('Type'))
-    description = models.TextField(blank=True, null=True, verbose_name=_('Description'))
+    name = models.CharField(
+        max_length=50,
+        unique=True,
+        verbose_name=_("Name"),
+        help_text="(e.g. SETTING_NAME)",
+    )
+    value_type = models.CharField(
+        max_length=20, choices=TYPE_CHOICES, verbose_name=_("Type")
+    )
+    description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
 
-    value_bool = models.BooleanField(default=False, verbose_name=_('Value'))
-    value_date = models.DateField(blank=True, null=True, verbose_name=_('Value'))
-    value_datetime = models.DateTimeField(blank=True, null=True, verbose_name=_('Value'))
-    value_decimal = models.DecimalField(blank=True, max_digits=19, decimal_places=10, default=Decimal('0.0'), verbose_name=_('Value'))
-    value_duration = models.DurationField(blank=True, null=True, verbose_name=_('Value'))
-    value_email = models.EmailField(blank=True, verbose_name=_('Value'))
-    value_file = models.FileField(blank=True, upload_to=fields.upload_to_files, verbose_name=_('Value'))
-    value_float = models.FloatField(blank=True, default=0.0, verbose_name=_('Value'))
-    value_image = models.FileField(blank=True, upload_to=fields.upload_to_images, verbose_name=_('Value'))
-    value_int = models.IntegerField(blank=True, default=0, verbose_name=_('Value'))
-    value_json = JSONField(blank=True, default=dict, verbose_name=_('Value'))
-    value_string = models.CharField(blank=True, max_length=50, verbose_name=_('Value'))
-    value_text = models.TextField(blank=True, verbose_name=_('Value'))
-    value_time = models.TimeField(blank=True, null=True, verbose_name=_('Value'))
-    value_url = models.URLField(blank=True, verbose_name=_('Value'))
+    value_bool = models.BooleanField(default=False, verbose_name=_("Value"))
+    value_date = models.DateField(blank=True, null=True, verbose_name=_("Value"))
+    value_datetime = models.DateTimeField(
+        blank=True, null=True, verbose_name=_("Value")
+    )
+    value_decimal = models.DecimalField(
+        blank=True,
+        max_digits=19,
+        decimal_places=10,
+        default=Decimal("0.0"),
+        verbose_name=_("Value"),
+    )
+    value_duration = models.DurationField(
+        blank=True, null=True, verbose_name=_("Value")
+    )
+    value_email = models.EmailField(blank=True, verbose_name=_("Value"))
+    value_file = models.FileField(
+        blank=True, upload_to=fields.upload_to_files, verbose_name=_("Value")
+    )
+    value_float = models.FloatField(blank=True, default=0.0, verbose_name=_("Value"))
+    value_image = models.FileField(
+        blank=True, upload_to=fields.upload_to_images, verbose_name=_("Value")
+    )
+    value_int = models.IntegerField(blank=True, default=0, verbose_name=_("Value"))
+    value_json = JSONField(blank=True, default=dict, verbose_name=_("Value"))
+    value_string = models.CharField(blank=True, max_length=50, verbose_name=_("Value"))
+    value_text = models.TextField(blank=True, verbose_name=_("Value"))
+    value_time = models.TimeField(blank=True, null=True, verbose_name=_("Value"))
+    value_url = models.URLField(blank=True, verbose_name=_("Value"))
 
     @property
     def value_field_name(self):
-        return '{}_{}'.format('value', self.value_type)
+        return "{}_{}".format("value", self.value_type)
 
     @property
     def value(self):
@@ -139,9 +201,9 @@ class Setting(models.Model):
         super(Setting, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ['name']
-        verbose_name = _('Setting')
-        verbose_name_plural = _('Settings')
+        ordering = ["name"]
+        verbose_name = _("Setting")
+        verbose_name_plural = _("Settings")
 
     def __str__(self):
-        return force_str('{} [{}]'.format(self.name, self.value_type))
+        return force_str("{} [{}]".format(self.name, self.value_type))

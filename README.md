@@ -11,6 +11,7 @@
 [![](https://img.shields.io/codecov/c/gh/fabiocaccamo/django-extra-settings?logo=codecov)](https://codecov.io/gh/fabiocaccamo/django-extra-settings)
 [![](https://img.shields.io/codacy/grade/554c0505ed9844f3865bee975d1b894c?logo=codacy)](https://www.codacy.com/app/fabiocaccamo/django-extra-settings)
 [![](https://img.shields.io/codeclimate/maintainability/fabiocaccamo/django-extra-settings?logo=code-climate)](https://codeclimate.com/github/fabiocaccamo/django-extra-settings/)
+[![](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 # django-extra-settings
 config and manage typed extra settings using just the django admin.
@@ -20,8 +21,8 @@ config and manage typed extra settings using just the django admin.
 ## Installation
 -   Run `pip install django-extra-settings`
 -   Add `extra_settings` to `settings.INSTALLED_APPS`
--   Run ``python manage.py migrate``
--   Run ``python manage.py collectstatic``
+-   Run `python manage.py migrate`
+-   Run `python manage.py collectstatic`
 -   Restart your application server
 
 ## Usage
@@ -33,7 +34,7 @@ Just go to the admin where you can:
 -   Delete an existing setting
 
 ### Settings
-All these settings are optional, if not defined in ``settings.py`` the default values (listed below) will be used.
+All these settings are optional, if not defined in `settings.py` the default values (listed below) will be used.
 
 ```python
 # if True, settings names will be forced to honor the standard django settings format
@@ -48,12 +49,12 @@ EXTRA_SETTINGS_FALLBACK_TO_CONF_SETTINGS = True
 
 ```python
 # the upload_to path value of settings of type 'file'
-EXTRA_SETTINGS_FILE_UPLOAD_TO = 'files'
+EXTRA_SETTINGS_FILE_UPLOAD_TO = "files"
 ```
 
 ```python
 # the upload_to path value of settings of type 'image'
-EXTRA_SETTINGS_IMAGE_UPLOAD_TO = 'images'
+EXTRA_SETTINGS_IMAGE_UPLOAD_TO = "images"
 ```
 
 ```python
@@ -75,9 +76,9 @@ You can **create**, **read**, **update** and **delete** settings programmaticall
 from extra_settings.models import Setting
 
 setting_obj = Setting(
-    name='SETTING_NAME',
+    name="SETTING_NAME",
     value_type=Setting.TYPE_STRING,
-    value='django-extra-settings',
+    value="django-extra-settings",
 )
 setting_obj.save()
 ```
@@ -86,7 +87,7 @@ setting_obj.save()
 ```python
 from extra_settings.models import Setting
 
-value = Setting.get('SETTING_NAME', default='django-extra-settings')
+value = Setting.get("SETTING_NAME", default="django-extra-settings")
 ```
 
 #### Update
@@ -94,7 +95,7 @@ value = Setting.get('SETTING_NAME', default='django-extra-settings')
 from extra_settings.models import Setting
 
 setting_obj = Setting(
-    name='SETTING_NAME',
+    name="SETTING_NAME",
     value_type=Setting.TYPE_BOOL,
     value=True,
 )
@@ -106,7 +107,7 @@ setting_obj.save()
 ```python
 from extra_settings.models import Setting
 
-Setting.objects.filter(name='SETTING_NAME').delete()
+Setting.objects.filter(name="SETTING_NAME").delete()
 ```
 
 This is the list of the currently supported setting types you may need to use:

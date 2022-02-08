@@ -5,12 +5,11 @@ from django.core.cache import cache, caches
 
 
 def _get_cache():
-    return caches['extra_settings'] \
-        if 'extra_settings' in settings.CACHES else cache
+    return caches["extra_settings"] if "extra_settings" in settings.CACHES else cache
 
 
 def _get_cache_key(key):
-    return 'extra_settings_{}'.format(key)
+    return "extra_settings_{}".format(key)
 
 
 def del_cached_setting(key):

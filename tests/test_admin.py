@@ -11,23 +11,25 @@ from extra_settings.models import Setting
 class MockRequest(object):
     pass
 
+
 class MockSuperUser(object):
     def has_perm(self, perm):
         return True
+
 
 request = MockRequest()
 request.user = MockSuperUser()
 
 
 class ExtraSettingsAdminTestCase(TestCase):
-
     def setUp(self):
         self._setting_obj, setting_created = Setting.objects.get_or_create(
-            name='PACKAGE_NAME',
+            name="PACKAGE_NAME",
             defaults={
-                'value_type':Setting.TYPE_STRING,
-                'value_string':'django-extra-settings',
-            })
+                "value_type": Setting.TYPE_STRING,
+                "value_string": "django-extra-settings",
+            },
+        )
         self._site = AdminSite()
 
     def tearDown(self):
@@ -39,10 +41,30 @@ class ExtraSettingsAdminTestCase(TestCase):
 
     def test_fieldsets(self):
         ma = SettingAdmin(model=Setting, admin_site=AdminSite())
-        self.assertEqual(ma.get_fieldsets(request),
-            ((None, {'classes': ('wide',), 'fields': ('value_type', 'name', 'description')}),) )
-        self.assertEqual(ma.get_fieldsets(request, self._setting_obj),
-            ((None, {'classes': ('wide',), 'fields': ('name', 'description', 'value_string')}),) )
+        self.assertEqual(
+            ma.get_fieldsets(request),
+            (
+                (
+                    None,
+                    {
+                        "classes": ("wide",),
+                        "fields": ("value_type", "name", "description"),
+                    },
+                ),
+            ),
+        )
+        self.assertEqual(
+            ma.get_fieldsets(request, self._setting_obj),
+            (
+                (
+                    None,
+                    {
+                        "classes": ("wide",),
+                        "fields": ("name", "description", "value_string"),
+                    },
+                ),
+            ),
+        )
 
     def test_modeladmin_save(self):
         ma = SettingAdmin(model=Setting, admin_site=AdminSite())
@@ -50,9 +72,11 @@ class ExtraSettingsAdminTestCase(TestCase):
 
     def test_modeladmin_str(self):
         ma = SettingAdmin(model=Setting, admin_site=AdminSite())
-        self.assertEqual(str(ma), 'extra_settings.SettingAdmin')
+        self.assertEqual(str(ma), "extra_settings.SettingAdmin")
 
     def test_readonly_fields(self):
         ma = SettingAdmin(model=Setting, admin_site=AdminSite())
         self.assertEqual(ma.get_readonly_fields(request), ())
-        self.assertEqual(ma.get_readonly_fields(request, self._setting_obj), ('value_type', ))
+        self.assertEqual(
+            ma.get_readonly_fields(request, self._setting_obj), ("value_type",)
+        )
