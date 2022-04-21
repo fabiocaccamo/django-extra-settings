@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from django.apps import AppConfig
-
-from extra_settings.translation import gettext_lazy as _
+from django.conf import settings
 
 
 class ExtraSettingsConfig(AppConfig):
 
     name = "extra_settings"
-    verbose_name = _("Extra Settings")
+    verbose_name = settings.EXTRA_SETTINGS_VERBOSE_NAME
 
     def ready(self):
         from extra_settings import signals

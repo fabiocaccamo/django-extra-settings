@@ -62,6 +62,11 @@ EXTRA_SETTINGS_IMAGE_UPLOAD_TO = "images"
 EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = False
 ```
 
+```python
+# the package name displayed in the admin
+EXTRA_SETTINGS_VERBOSE_NAME = "Settings"
+```
+
 ### Admin
 Just go to the admin where you can:
 -   Create a new setting

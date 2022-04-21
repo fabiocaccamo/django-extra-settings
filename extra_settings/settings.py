@@ -17,3 +17,6 @@ if not hasattr(settings, "EXTRA_SETTINGS_IMAGE_UPLOAD_TO"):
 
 if not hasattr(settings, "EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER"):
     settings.EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = False
+
+if not hasattr(settings, "EXTRA_SETTINGS_VERBOSE_NAME"):
+    settings.EXTRA_SETTINGS_VERBOSE_NAME = "Settings"
