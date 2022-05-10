@@ -25,6 +25,19 @@ from extra_settings.utils import enforce_uppercase_setting
 
 @python_2_unicode_compatible
 class Setting(models.Model):
+    """
+    This class describes a Setting model.
+    """
+
+    @staticmethod
+    def _cache_all_settings():
+        settings_qs = Setting.objects.all()
+        settings_list = list(settings_qs)
+        for setting_obj in settings_list:
+            setting_name = setting_obj.name
+            setting_value = setting_obj.value
+            set_cached_setting(setting_name, setting_value)
+
     @staticmethod
     def _get_from_cache(name):
         return get_cached_setting(name)
@@ -54,6 +67,11 @@ class Setting(models.Model):
                 val = cls._get_from_settings(name)
                 if val is None:
                     val = default
+            else:
+                # value found, it means that cache was not set or expired.
+                # cache all other settings to avoid multiple queries
+                # in pages using the template more than once.
+                cls._cache_all_settings()
         return val
 
     TYPE_BOOL = "bool"

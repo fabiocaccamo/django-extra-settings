@@ -84,7 +84,9 @@ class ExtraSettingsModelsTestCase(TestCase):
         self.assertEqual(setting_value, "default string value")
 
     def test_get_num_queries(self):
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(2):
+            # first query get the setting
+            # second query (executed only if the first one find a result) cache all settings
             setting_value = Setting.get("TEST_SETTING_STRING")
         with self.assertNumQueries(0):
             setting_value = Setting.get("TEST_SETTING_STRING")
