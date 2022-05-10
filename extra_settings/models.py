@@ -76,66 +76,24 @@ class Setting(models.Model):
     TYPE_URL = "url"
 
     TYPE_CHOICES = (
-        (
-            TYPE_BOOL,
-            TYPE_BOOL,
-        ),
+        (TYPE_BOOL, TYPE_BOOL),
         # (TYPE_COLOR, TYPE_COLOR, ),
-        (
-            TYPE_DATE,
-            TYPE_DATE,
-        ),
-        (
-            TYPE_DATETIME,
-            TYPE_DATETIME,
-        ),
-        (
-            TYPE_DECIMAL,
-            TYPE_DECIMAL,
-        ),
+        (TYPE_DATE, TYPE_DATE),
+        (TYPE_DATETIME, TYPE_DATETIME),
+        (TYPE_DECIMAL, TYPE_DECIMAL),
         (TYPE_DURATION, TYPE_DURATION),
-        (
-            TYPE_EMAIL,
-            TYPE_EMAIL,
-        ),
-        (
-            TYPE_FILE,
-            TYPE_FILE,
-        ),
-        (
-            TYPE_FLOAT,
-            TYPE_FLOAT,
-        ),
+        (TYPE_EMAIL, TYPE_EMAIL),
+        (TYPE_FILE, TYPE_FILE),
+        (TYPE_FLOAT, TYPE_FLOAT),
         # (TYPE_HTML, TYPE_HTML, ),
-        (
-            TYPE_IMAGE,
-            TYPE_IMAGE,
-        ),
-        (
-            TYPE_INT,
-            TYPE_INT,
-        ),
-        (
-            TYPE_JSON,
-            TYPE_JSON,
-        ),
-        (
-            TYPE_STRING,
-            TYPE_STRING,
-        ),
-        (
-            TYPE_TEXT,
-            TYPE_TEXT,
-        ),
-        (
-            TYPE_TIME,
-            TYPE_TIME,
-        ),
+        (TYPE_IMAGE, TYPE_IMAGE),
+        (TYPE_INT, TYPE_INT),
+        (TYPE_JSON, TYPE_JSON),
+        (TYPE_STRING, TYPE_STRING),
+        (TYPE_TEXT, TYPE_TEXT),
+        (TYPE_TIME, TYPE_TIME),
         # (TYPE_UUID, TYPE_UUID, ),
-        (
-            TYPE_URL,
-            TYPE_URL,
-        ),
+        (TYPE_URL, TYPE_URL),
     )
 
     name = models.CharField(
