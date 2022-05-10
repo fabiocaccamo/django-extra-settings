@@ -28,14 +28,7 @@ class SettingAdmin(admin.ModelAdmin):
         "value_url",
     )
     search_fields = ("name",)
-    list_display = (
-        (
-            "name",
-            "value_type",
-        )
-        + value_fields_names
-        + ("description",)
-    )
+    list_display = ("name", "value_type") + value_fields_names + ("description",)
     if settings.EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER:
         list_filter = ("value_type",)
     list_editable = value_fields_names
@@ -46,25 +39,15 @@ class SettingAdmin(admin.ModelAdmin):
 
     def get_fieldsets(self, request, obj=None):
         if obj:
-            fields = (
-                "name",
-                "description",
-                obj.value_field_name,
-            )
+            fields = ("name", "value_type", obj.value_field_name, "description")
         else:
-            fields = (
-                "value_type",
-                "name",
-                "description",
-            )
+            fields = ("name", "value_type")
         return (
-            (
-                None,
-                {
-                    "classes": ("wide",),
-                    "fields": fields,
-                },
-            ),
+            None,
+            {
+                "classes": ("wide",),
+                "fields": fields,
+            },
         )
 
     def get_readonly_fields(self, request, obj=None):
