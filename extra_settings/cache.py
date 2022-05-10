@@ -5,7 +5,8 @@ from django.core.cache import cache, caches
 
 
 def _get_cache():
-    return caches["extra_settings"] if "extra_settings" in settings.CACHES else cache
+    cache_name = settings.EXTRA_SETTINGS_CACHE_NAME
+    return caches[cache_name] if cache_name in settings.CACHES else cache
 
 
 def _get_cache_key(key):

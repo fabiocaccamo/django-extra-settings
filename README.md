@@ -37,6 +37,11 @@ Just go to the admin where you can:
 All these settings are optional, if not defined in `settings.py` the default values (listed below) will be used.
 
 ```python
+# the name of the cache to use, if not found the "default" cache will be used.
+EXTRA_SETTINGS_CACHE_NAME = "extra_settings"
+```
+
+```python
 # if True, settings names will be forced to honor the standard django settings format
 EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS = True
 ```
@@ -67,11 +72,21 @@ EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = False
 EXTRA_SETTINGS_VERBOSE_NAME = "Settings"
 ```
 
-### Admin
-Just go to the admin where you can:
--   Create a new setting
--   Update an existing setting
--   Delete an existing setting
+### Caching
+You can customise the app caching options using `settings.CACHES["extra_settings"]` setting, otherwise the `"default"` cache will be used:
+
+```python
+CACHES = {
+    # ...
+    "extra_settings": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "TIMEOUT": 60,
+    },
+    # ...
+}
+```
+
+By default the `"extra_settings"` cache is used, if you want to use another cache you can set it using the `EXTRA_SETTINGS_CACHE_NAME` setting.
 
 ### Python
 You can **create**, **read**, **update** and **delete** settings programmatically:
