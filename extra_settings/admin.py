@@ -43,11 +43,13 @@ class SettingAdmin(admin.ModelAdmin):
         else:
             fields = ("name", "value_type")
         return (
-            None,
-            {
-                "classes": ("wide",),
-                "fields": fields,
-            },
+            (
+                None,
+                {
+                    "classes": ("wide",),
+                    "fields": fields,
+                },
+            ),
         )
 
     def get_readonly_fields(self, request, obj=None):
