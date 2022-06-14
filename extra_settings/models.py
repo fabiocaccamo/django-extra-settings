@@ -168,7 +168,10 @@ class Setting(models.Model):
         setattr(self, self.value_field_name, new_value)
 
     def __init__(self, *args, **kwargs):
+        value = kwargs.pop("value", None)
         super(Setting, self).__init__(*args, **kwargs)
+        if value is not None:
+            self.value = value
         self.name_initial = self.name
 
     def save(self, *args, **kwargs):
