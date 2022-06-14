@@ -156,6 +156,24 @@ You can retrieve settings in templates:
 {% get_setting 'SETTING_NAME' default='django-extra-settings' %}
 ```
 
+### Tests
+You can override specific settings during tests using `extra_settings.test.override_settings`.
+
+It can be used both as decorator and as context-manager:
+```python
+from extra_settings.test import override_settings
+
+# decorator
+@override_settings(SETTING_NAME_1="value for testing 1", SETTING_NAME_2="value for testing 2")
+def test_with_custom_settings(self):
+    pass
+
+# context manager
+def test_with_custom_settings(self):
+    with override_settings(SETTING_NAME_1="value for testing 1", SETTING_NAME_2="value for testing 2"):
+        pass
+```
+
 ## Testing
 ```bash
 # create python virtual environment
