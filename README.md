@@ -190,18 +190,17 @@ def test_with_custom_settings(self):
 
 ## Testing
 ```bash
-# create python virtual environment
-virtualenv testing_django_extra_settings
+# clone repository
+git clone https://github.com/fabiocaccamo/django-extra-settings.git && cd django-extra-settings
 
-# activate virtualenv
-cd testing_django_extra_settings && . bin/activate
+# create virtualenv and activate it
+python -m venv venv && . venv/bin/activate
 
-# clone repo
-git clone https://github.com/fabiocaccamo/django-extra-settings.git src && cd src
+# upgrade pip
+python -m pip install --upgrade pip
 
-# install dependencies
-pip install -r requirements.txt
-pip install -r requirements-test.txt
+# install requirements
+pip install -r requirements.txt -r requirements-test.txt
 
 # run tests
 tox
@@ -215,6 +214,13 @@ python -m django test --settings "tests.settings"
 Released under [MIT License](LICENSE.txt).
 
 ---
+
+## Supporting
+
+- :star: Star this project on [GitHub](https://github.com/fabiocaccamo/django-extra-settings)
+- :octocat: Follow me on [GitHub](https://github.com/fabiocaccamo)
+- :blue_heart: Follow me on [Twitter](https://twitter.com/fabiocaccamo)
+- :moneybag: Sponsor me on [Github](https://github.com/sponsors/fabiocaccamo)
 
 ## See also
 
