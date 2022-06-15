@@ -3,7 +3,7 @@
 from django.apps import AppConfig
 from django.conf import settings
 from django.db.models.signals import post_migrate
-from django.db.utils import OperationalError
+from django.db.utils import OperationalError, ProgrammingError
 
 
 class ExtraSettingsConfig(AppConfig):
@@ -18,7 +18,7 @@ class ExtraSettingsConfig(AppConfig):
 
         try:
             Setting.set_defaults_from_settings()
-        except OperationalError:
+        except (OperationalError, ProgrammingError):
             pass
 
         post_migrate.connect(Setting.set_defaults_from_settings, sender=self)

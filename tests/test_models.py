@@ -133,6 +133,7 @@ class ExtraSettingsModelsTestCase(TestCase):
         )
 
     def test_set_defaults(self):
+        Setting.set_defaults([])
         defaults = [
             {
                 "name": "TEST_DEFAULT_STRING",
