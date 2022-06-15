@@ -6,6 +6,9 @@ from django.conf import settings
 if not hasattr(settings, "EXTRA_SETTINGS_CACHE_NAME"):
     settings.EXTRA_SETTINGS_CACHE_NAME = "extra_settings"
 
+if not hasattr(settings, "EXTRA_SETTINGS_DEFAULTS"):
+    settings.EXTRA_SETTINGS_DEFAULTS = []
+
 if not hasattr(settings, "EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS"):
     settings.EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS = True
 

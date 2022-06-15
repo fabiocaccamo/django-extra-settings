@@ -126,6 +126,58 @@ class ExtraSettingsModelsTestCase(TestCase):
         setting_repr = "{} [{}]".format(setting_obj.name, setting_obj.value_type)
         self.assertEqual("{0}".format(setting_obj), setting_repr)
 
+    def test_set_defaults_from_settings(self):
+        self.assertEqual(
+            Setting.get("TEST_DEFAULT_URL"),
+            "https://github.com/fabiocaccamo/django-extra-settings",
+        )
+
+    def test_set_defaults(self):
+        Setting.set_defaults([])
+        defaults = [
+            {
+                "name": "TEST_DEFAULT_STRING",
+                "type": "string",
+                "value": "ok",
+            },
+            {
+                "name": "TEST_DEFAULT_INT",
+                "type": "int",
+                "value": 2,
+            },
+        ]
+        Setting.set_defaults(defaults)
+        self.assertEqual(Setting.get("TEST_DEFAULT_STRING"), "ok")
+        self.assertEqual(Setting.get("TEST_DEFAULT_INT"), 2)
+
+    def test_set_defaults_with_invalid_setting(self):
+        defaults = {
+            "TEST_DEFAULT_STRING": {
+                "name": "TEST_DEFAULT_STRING",
+                "type": "string",
+                "value": "ok",
+            },
+            "TEST_DEFAULT_INT": {
+                "name": "TEST_DEFAULT_INT",
+                "type": "int",
+                "value": 2,
+            },
+        }
+        with self.assertRaises(ValueError):
+            Setting.set_defaults(defaults)
+        defaults = [
+            {
+                "name": "TEST_DEFAULT_STRING",
+                "value": "ok",
+            },
+            {
+                "name": "TEST_DEFAULT_INT",
+                "value": 2,
+            },
+        ]
+        with self.assertRaises(ValueError):
+            Setting.set_defaults(defaults)
+
     def test_setting_type_json(self):
         # getter & setter
         setting_obj, setting_created = Setting.objects.get_or_create(
