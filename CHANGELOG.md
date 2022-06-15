@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.4.0) - 2022-06-15
+-   Added `override_settings` decorator / context-manager. #20
+-   Added `settings.EXTRA_SETTINGS_DEFAULTS` support. #21
+-   Fixed missing migration warning by adding explicit `default_auto_field` app setting. #23
+-   Fixed possibility to pass `value` to the `Setting` model constructor.
+
 ## [0.3.2](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.3.2) - 2022-05-10
 -   Added `EXTRA_SETTINGS_CACHE_NAME` setting.
 -   Reduced database hits when using the template tag more than once in the same page.
