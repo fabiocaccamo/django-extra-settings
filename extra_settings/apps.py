@@ -2,6 +2,8 @@
 
 from django.apps import AppConfig
 from django.conf import settings
+from django.db.models.signals import post_migrate
+from django.db.utils import OperationalError
 
 
 class ExtraSettingsConfig(AppConfig):
@@ -12,3 +14,11 @@ class ExtraSettingsConfig(AppConfig):
 
     def ready(self):
         from extra_settings import signals
+        from extra_settings.models import Setting
+
+        try:
+            Setting.set_defaults_from_settings()
+        except OperationalError:
+            pass
+
+        post_migrate.connect(Setting.set_defaults_from_settings, sender=self)

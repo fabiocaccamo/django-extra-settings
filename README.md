@@ -42,6 +42,19 @@ EXTRA_SETTINGS_CACHE_NAME = "extra_settings"
 ```
 
 ```python
+# a list of settings that will be available by default, each item must contain "name", "type" and "value".
+# check the #types section to see all the supported settings types.
+EXTRA_SETTINGS_DEFAULTS = [
+    {
+        "name": "SETTING_NAME",
+        "type": "string",
+        "value": "Hello World",
+    },
+    # ...
+]
+```
+
+```python
 # if True, settings names will be forced to honor the standard django settings format
 EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS = True
 ```
@@ -91,6 +104,25 @@ By default the `"extra_settings"` cache is used, if you want to use another cach
 ### Python
 You can **create**, **read**, **update** and **delete** settings programmatically:
 
+#### Types
+This is the list of the currently supported setting types you may need to use:
+
+-   `Setting.TYPE_BOOL`
+-   `Setting.TYPE_DATE`
+-   `Setting.TYPE_DATETIME`
+-   `Setting.TYPE_DECIMAL`
+-   `Setting.TYPE_DURATION`
+-   `Setting.TYPE_EMAIL`
+-   `Setting.TYPE_FILE`
+-   `Setting.TYPE_FLOAT`
+-   `Setting.TYPE_IMAGE`
+-   `Setting.TYPE_INT`
+-   `Setting.TYPE_JSON`
+-   `Setting.TYPE_STRING`
+-   `Setting.TYPE_TEXT`
+-   `Setting.TYPE_TIME`
+-   `Setting.TYPE_URL`
+
 #### Create
 ```python
 from extra_settings.models import Setting
@@ -129,24 +161,6 @@ from extra_settings.models import Setting
 
 Setting.objects.filter(name="SETTING_NAME").delete()
 ```
-
-This is the list of the currently supported setting types you may need to use:
-
--   `Setting.TYPE_BOOL`
--   `Setting.TYPE_DATE`
--   `Setting.TYPE_DATETIME`
--   `Setting.TYPE_DECIMAL`
--   `Setting.TYPE_DURATION`
--   `Setting.TYPE_EMAIL`
--   `Setting.TYPE_FILE`
--   `Setting.TYPE_FLOAT`
--   `Setting.TYPE_IMAGE`
--   `Setting.TYPE_INT`
--   `Setting.TYPE_JSON`
--   `Setting.TYPE_STRING`
--   `Setting.TYPE_TEXT`
--   `Setting.TYPE_TIME`
--   `Setting.TYPE_URL`
 
 ### Templates
 You can retrieve settings in templates:

@@ -10,6 +10,13 @@ SECRET_KEY = "django-extra-settings"
 ALLOWED_HOSTS = ["*"]
 
 EXTRA_SETTINGS_TEST_FALLBACK_VALUE = "fallback-value"
+EXTRA_SETTINGS_DEFAULTS = [
+    {
+        "name": "TEST_DEFAULT_URL",
+        "type": "url",
+        "value": "https://github.com/fabiocaccamo/django-extra-settings",
+    },
+]
 
 # Application definition
 INSTALLED_APPS = [

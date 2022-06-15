@@ -74,6 +74,40 @@ class Setting(models.Model):
                 cls._cache_all_settings()
         return val
 
+    @classmethod
+    def set_defaults(cls, defaults):
+        if not isinstance(defaults, list):
+            raise ValueError("Setting 'defaults' must be a list of dicts items.")
+        if not defaults:
+            return
+        for item in defaults:
+            if not isinstance(item, dict):
+                raise ValueError("Setting 'defaults' item must be a dict.")
+            try:
+                name = item["name"]
+                value_type = item["type"]
+                value_type = value_type.replace("Setting.TYPE_", "").lower()
+                value = item["value"]
+            except KeyError:
+                raise ValueError(
+                    "Setting 'defaults' item must contain 'name', 'type' and 'value' keys."
+                )
+            description = item.get("description", "")
+            setting_obj, setting_created = cls.objects.get_or_create(
+                name=name,
+                defaults={
+                    "value_type": value_type,
+                    "description": description,
+                },
+            )
+            if setting_created:
+                setting_obj.value = value
+                setting_obj.save()
+
+    @classmethod
+    def set_defaults_from_settings(cls, *args, **kwargs):
+        cls.set_defaults(settings.EXTRA_SETTINGS_DEFAULTS)
+
     TYPE_BOOL = "bool"
     # TYPE_COLOR = "color" # TODO
     TYPE_DATE = "date"
