@@ -76,6 +76,11 @@ EXTRA_SETTINGS_IMAGE_UPLOAD_TO = "images"
 ```
 
 ```python
+# if True, settings name prefix list filter will be shown in the admin changelist
+EXTRA_SETTINGS_SHOW_NAME_PREFIX_LIST_FILTER = False
+```
+
+```python
 # if True, settings type list filter will be shown in the admin changelist
 EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = False
 ```
