@@ -121,9 +121,9 @@ class SettingAdmin(admin.ModelAdmin):
 
     class Media:
         css = {
-            "all": ("extra_settings/css/extra_settings.css"),
+            "all": ("extra_settings/css/extra_settings.css",),
         }
-        js = ["extra_settings/js/extra_settings.js"]
+        js = ("extra_settings/js/extra_settings.js",)
 
 
 admin.site.register(Setting, SettingAdmin)
