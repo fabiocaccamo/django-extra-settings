@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+import importlib
 from decimal import Decimal
 
 import django
@@ -188,6 +189,13 @@ class Setting(models.Model):
     value_text = models.TextField(blank=True, verbose_name=_("Value"))
     value_time = models.TimeField(blank=True, null=True, verbose_name=_("Value"))
     value_url = models.URLField(blank=True, verbose_name=_("Value"))
+    validator = models.CharField(
+        blank=True, null=True,
+        max_length=256,
+        verbose_name=_("Validator"),
+        help_text="Full python path to a validator function. "
+        "E.g. myapp.mypackage.mymodule.positive_int_validator"
+    )
 
     @property
     def value_field_name(self):
@@ -208,7 +216,17 @@ class Setting(models.Model):
             self.value = value
         self.name_initial = self.name
 
+    def validate(self):
+        if not self.validator:
+            return
+        module_name, validator_func_name = str(self.validator).rsplit(".", 1)
+        module = importlib.import_module(module_name)
+        validator = getattr(module, validator_func_name)
+        if not validator(self.value):
+            raise ValueError("{} could not be validated by {} validator.".format(self.value, validator_func_name))
+
     def save(self, *args, **kwargs):
+        self.validate()
         if settings.EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS:
             self.name = enforce_uppercase_setting(self.name)
         super(Setting, self).save(*args, **kwargs)
