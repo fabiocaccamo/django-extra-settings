@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from extra_settings.models import Setting
@@ -38,13 +39,12 @@ class ExtraSettingsValidatorsTestCase(TestCase):
     def test_validators(self):
         positive_integer = Setting.objects.get(name="TEST_VALIDATE_POSITIVE_INTEGER")
         positive_integer.value = -10
-        with self.assertRaisesMessage(ValueError, "-10 could not be validated by positive_int_validator validator."):
-            positive_integer.save()
+        with self.assertRaises(ValidationError):
+            positive_integer.full_clean()
         normal_integer = Setting.objects.get(name="TEST_NO_VALIDATORS_INTEGER")
         normal_integer.value = -10
-        normal_integer.save()
+        normal_integer.full_clean()
         alnum_string = Setting.objects.get(name="TEST_VALIDATE_STRINGS")
         alnum_string.value = "!@-10"
-        with self.assertRaisesMessage(ValueError, "!@-10 could not be validated by "
-                                                  "alphanumeric_strings_validator validator."):
-            alnum_string.save()
+        with self.assertRaises(ValidationError):
+            alnum_string.full_clean()

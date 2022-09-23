@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="setting",
             name="validator",
-            field=models.CharField(blank=True, null=True, max_length=256, verbose_name="Validator"),
+            field=models.CharField(blank=True, null=True, max_length=255, verbose_name="Validator"),
         ),
     ]
