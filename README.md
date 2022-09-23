@@ -161,8 +161,8 @@ setting_obj.save()
 ```
 
 #### Validators
-Each setting can have its own validator, defined using its full python path, eg. `myapp.mymodule.my_validator`.
-Validators receive a single argument, the value of the setting, and they should return `True` only if the value is valid, otherwise a `ValidationError` is raised.
+-   Each setting can have its own validator, defined using its full python path, eg. `myapp.mymodule.my_validator`.
+-   When called, validators receive a single argument (the value of the setting) and they should return `True` only if the value is valid, returning `False` or `None` a `ValidationError` is raised.
 
 #### Delete
 ```python
