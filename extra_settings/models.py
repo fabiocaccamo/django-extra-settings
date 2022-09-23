@@ -2,11 +2,13 @@
 
 from __future__ import unicode_literals
 
+import importlib
 from decimal import Decimal
 
 import django
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from jsonfield import JSONField
 
@@ -20,7 +22,7 @@ from six import python_2_unicode_compatible
 from extra_settings import fields
 from extra_settings.cache import get_cached_setting, set_cached_setting
 from extra_settings.translation import gettext_lazy as _
-from extra_settings.utils import enforce_uppercase_setting
+from extra_settings.utils import enforce_uppercase_setting, import_function
 
 
 @python_2_unicode_compatible
@@ -188,6 +190,13 @@ class Setting(models.Model):
     value_text = models.TextField(blank=True, verbose_name=_("Value"))
     value_time = models.TimeField(blank=True, null=True, verbose_name=_("Value"))
     value_url = models.URLField(blank=True, verbose_name=_("Value"))
+    validator = models.CharField(
+        blank=True, null=True,
+        max_length=255,
+        verbose_name=_("Validator"),
+        help_text=_("Full python path to a validator function. "
+                    "E.g. myapp.mypackage.mymodule.positive_int_validator")
+    )
 
     @property
     def value_field_name(self):
@@ -208,10 +217,21 @@ class Setting(models.Model):
             self.value = value
         self.name_initial = self.name
 
+    def validate(self):
+        validator_func = import_function(self.validator)
+        if validator_func and not validator_func(self.value):
+            raise ValidationError(
+                "{} could not be validated by {} validator.".format(self.value, validator_func.__name__)
+            )
+
     def save(self, *args, **kwargs):
         if settings.EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS:
             self.name = enforce_uppercase_setting(self.name)
         super(Setting, self).save(*args, **kwargs)
+
+    def clean(self):
+        super(Setting, self).clean()
+        self.validate()
 
     class Meta:
         ordering = ["name"]
