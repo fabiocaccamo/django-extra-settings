@@ -160,16 +160,17 @@ setting_obj.value = False
 setting_obj.save()
 ```
 
-#### Validators
--   Each setting can have its own validator, defined using its full python path, eg. `myapp.mymodule.my_validator`.
--   When called, validators receive a single argument (the value of the setting) and they should return `True` only if the value is valid, returning `False` or `None` a `ValidationError` is raised.
-
 #### Delete
 ```python
 from extra_settings.models import Setting
 
 Setting.objects.filter(name="SETTING_NAME").delete()
 ```
+
+#### Validators
+You can define a custom validator for each setting:
+-   Validators must be defined using full python path, eg. `myapp.mymodule.my_validator`.
+-   Validators are called passing a single argument (the value of the setting) and if the value is valid, they should return `True`, otherwise returning `False` or `None` a `ValidationError` is raised.
 
 ### Templates
 You can retrieve settings in templates:
