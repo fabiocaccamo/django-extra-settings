@@ -160,6 +160,10 @@ setting_obj.value = False
 setting_obj.save()
 ```
 
+#### Validators
+Each setting can have its own validator, defined using its full python path, eg. `myapp.mymodule.my_validator`.
+Validators receive a single argument, the value of the setting, and they should return `True` only if the value is valid, otherwise a `ValidationError` is raised.
+
 #### Delete
 ```python
 from extra_settings.models import Setting
