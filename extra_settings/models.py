@@ -196,8 +196,8 @@ class Setting(models.Model):
         max_length=255,
         verbose_name=_("Validator"),
         help_text=_(
-            "Full python path to a validator function. "
-            "E.g. myapp.mypackage.mymodule.positive_int_validator"
+            "Full python path to a validator function, "
+            "eg. 'myapp.mymodule.my_validator'"
         ),
     )
 
