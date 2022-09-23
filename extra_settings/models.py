@@ -218,10 +218,19 @@ class Setting(models.Model):
         self.name_initial = self.name
 
     def validate(self):
+        if not self.validator:
+            return
         validator_func = import_function(self.validator)
-        if validator_func and not validator_func(self.value):
+        if not validator_func:
+            raise ValueError(
+                "Invalid validator function path: '{}'".format(self.validator)
+            )
+        is_valid = validator_func(self.value)
+        if not is_valid:
             raise ValidationError(
-                "{} could not be validated by {} validator.".format(self.value, validator_func.__name__)
+                "Invalid value for setting '{}', {} could not be validated by '{}' validator.".format(
+                    self.name, self.value, self.validator
+                )
             )
 
     def save(self, *args, **kwargs):
