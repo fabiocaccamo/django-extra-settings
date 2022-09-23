@@ -191,11 +191,14 @@ class Setting(models.Model):
     value_time = models.TimeField(blank=True, null=True, verbose_name=_("Value"))
     value_url = models.URLField(blank=True, verbose_name=_("Value"))
     validator = models.CharField(
-        blank=True, null=True,
+        blank=True,
+        null=True,
         max_length=255,
         verbose_name=_("Validator"),
-        help_text=_("Full python path to a validator function. "
-                    "E.g. myapp.mypackage.mymodule.positive_int_validator")
+        help_text=_(
+            "Full python path to a validator function. "
+            "E.g. myapp.mypackage.mymodule.positive_int_validator"
+        ),
     )
 
     @property
