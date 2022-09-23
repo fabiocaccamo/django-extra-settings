@@ -60,7 +60,13 @@ class ExtraSettingsAdminTestCase(TestCase):
                     None,
                     {
                         "classes": ("wide",),
-                        "fields": ("name", "value_type", "value_string", "description"),
+                        "fields": (
+                            "name",
+                            "value_type",
+                            "value_string",
+                            "validator",
+                            "description",
+                        ),
                     },
                 ),
             ),

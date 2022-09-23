@@ -103,9 +103,18 @@ class SettingAdmin(admin.ModelAdmin):
 
     def get_fieldsets(self, request, obj=None):
         if obj:
-            fields = ("name", "value_type", obj.value_field_name, "description")
+            fields = (
+                "name",
+                "value_type",
+                obj.value_field_name,
+                "validator",
+                "description",
+            )
         else:
-            fields = ("name", "value_type")
+            fields = (
+                "name",
+                "value_type",
+            )
         return (
             (
                 None,
