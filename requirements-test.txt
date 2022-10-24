@@ -1,5 +1,5 @@
 codecov
 coverage
-psycopg2
 pre-commit
+psycopg2-binary
 tox
