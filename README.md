@@ -7,6 +7,7 @@
 [![](https://badges.pufler.dev/visits/fabiocaccamo/django-extra-settings?label=visitors&color=blue)](https://badges.pufler.dev)
 [![](https://img.shields.io/pypi/l/django-extra-settings.svg?color=blue)](https://github.com/fabiocaccamo/django-extra-settings/blob/master/LICENSE.txt)
 
+[![](https://results.pre-commit.ci/badge/github/fabiocaccamo/django-extra-settings/master.svg)](https://results.pre-commit.ci/latest/github/fabiocaccamo/django-extra-settings/master)
 [![](https://img.shields.io/github/workflow/status/fabiocaccamo/django-extra-settings/Test%20package?label=build&logo=github)](https://github.com/fabiocaccamo/django-extra-settings)
 [![](https://img.shields.io/codecov/c/gh/fabiocaccamo/django-extra-settings?logo=codecov)](https://codecov.io/gh/fabiocaccamo/django-extra-settings)
 [![](https://img.shields.io/codacy/grade/554c0505ed9844f3865bee975d1b894c?logo=codacy)](https://www.codacy.com/app/fabiocaccamo/django-extra-settings)
