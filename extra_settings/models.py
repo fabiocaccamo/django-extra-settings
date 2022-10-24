@@ -151,7 +151,7 @@ class Setting(models.Model):
     )
 
     name = models.CharField(
-        max_length=50,
+        max_length=255,
         unique=True,
         verbose_name=_("Name"),
         help_text="(e.g. SETTING_NAME)",
@@ -186,7 +186,7 @@ class Setting(models.Model):
     )
     value_int = models.IntegerField(blank=True, default=0, verbose_name=_("Value"))
     value_json = JSONField(blank=True, default=dict, verbose_name=_("Value"))
-    value_string = models.CharField(blank=True, max_length=50, verbose_name=_("Value"))
+    value_string = models.CharField(blank=True, max_length=255, verbose_name=_("Value"))
     value_text = models.TextField(blank=True, verbose_name=_("Value"))
     value_time = models.TimeField(blank=True, null=True, verbose_name=_("Value"))
     value_url = models.URLField(blank=True, verbose_name=_("Value"))
