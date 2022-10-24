@@ -6,7 +6,6 @@ from django import template
 
 from extra_settings.models import Setting
 
-
 register = template.Library()
 
 

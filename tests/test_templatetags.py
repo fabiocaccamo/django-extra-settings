@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import django
-from django.test import TestCase
 from django.template import Context, Template
+from django.test import TestCase
 
 from extra_settings.models import Setting
 

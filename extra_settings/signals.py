@@ -4,8 +4,8 @@ from django.conf import settings
 from django.db.models.signals import post_delete, post_migrate, post_save
 from django.dispatch import receiver
 
-from extra_settings.models import Setting
 from extra_settings.cache import del_cached_setting, set_cached_setting
+from extra_settings.models import Setting
 
 
 @receiver(post_delete, sender=Setting, dispatch_uid="post_delete_callback")

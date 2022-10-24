@@ -6,18 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('extra_settings', '0007_alter_settings_validator'),
+        ("extra_settings", "0007_alter_settings_validator"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='setting',
-            name='name',
-            field=models.CharField(help_text='(e.g. SETTING_NAME)', max_length=255, unique=True, verbose_name='Name'),
+            model_name="setting",
+            name="name",
+            field=models.CharField(
+                help_text="(e.g. SETTING_NAME)",
+                max_length=255,
+                unique=True,
+                verbose_name="Name",
+            ),
         ),
         migrations.AlterField(
-            model_name='setting',
-            name='value_string',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Value'),
+            model_name="setting",
+            name="value_string",
+            field=models.CharField(blank=True, max_length=255, verbose_name="Value"),
         ),
     ]

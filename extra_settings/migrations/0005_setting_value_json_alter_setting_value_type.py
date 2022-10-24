@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from django.db import migrations, models
-
 import jsonfield.fields
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
