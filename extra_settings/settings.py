@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.conf import settings
 
 if not hasattr(settings, "EXTRA_SETTINGS_CACHE_NAME"):

@@ -1,4 +1,2 @@
-django>=1.8.0
-six>=1.9.0
-jsonfield == 2.0.2; python_version <= "2.7"
-jsonfield>=3.0.0; python_version >= "3.6"
+django >= 2.2
+jsonfield >= 3.0.0

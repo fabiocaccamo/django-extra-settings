@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-import django
 from django.template import Context, Template
 from django.test import TestCase
 
@@ -30,13 +27,12 @@ class ExtraSettingsTemplateTagsTestCase(TestCase):
         self.assertEqual(rendered, "django-extra-settings")
 
     def test_get_setting_assignment(self):
-        if django.VERSION >= (1, 9):
-            rendered = self._render_template(
-                "{% load extra_settings %}"
-                '{% get_setting "PACKAGE_NAME" as package_name %}'
-                "{{ package_name }}"
-            )
-            self.assertEqual(rendered, "django-extra-settings")
+        rendered = self._render_template(
+            "{% load extra_settings %}"
+            '{% get_setting "PACKAGE_NAME" as package_name %}'
+            "{{ package_name }}"
+        )
+        self.assertEqual(rendered, "django-extra-settings")
 
     def test_get_setting_default(self):
         rendered = self._render_template(

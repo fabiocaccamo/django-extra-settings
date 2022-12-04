@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals
-
 import importlib
 from decimal import Decimal
 
@@ -9,13 +5,8 @@ import django
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.encoding import force_str
 from jsonfield import JSONField
-
-if django.VERSION < (2, 0):
-    from django.utils.encoding import force_text as force_str
-else:
-    from django.utils.encoding import force_str
-
 from six import python_2_unicode_compatible
 
 from extra_settings import fields

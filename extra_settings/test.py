@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from extra_settings.cache import (
     del_cached_setting,
     get_cached_setting,
