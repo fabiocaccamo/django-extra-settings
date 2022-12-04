@@ -55,7 +55,7 @@ setup(
         "constance",
     ],
     requires=[
-        "django(>=2.2)",
+        "django (>= 2.2)",
     ],
     install_requires=[
         "jsonfield >= 3.0.0",
