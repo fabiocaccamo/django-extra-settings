@@ -28,7 +28,7 @@ class SettingForm(forms.ModelForm):
             value = enforce_uppercase_setting(value)
         if hasattr(settings, value):
             raise forms.ValidationError(
-                "Invalid setting name, settings.{} already "
-                "defined in django.conf.settings.".format(value)
+                f"Invalid setting name, settings.{value} already "
+                "defined in django.conf.settings."
             )
         return value

@@ -193,7 +193,7 @@ class Setting(models.Model):
 
     @property
     def value_field_name(self):
-        return "{}_{}".format("value", self.value_type)
+        return f"value_{self.value_type}"
 
     @property
     def value(self):
@@ -215,15 +215,12 @@ class Setting(models.Model):
             return
         validator_func = import_function(self.validator)
         if not validator_func:
-            raise ValueError(
-                "Invalid validator function path: '{}'".format(self.validator)
-            )
+            raise ValueError(f"Invalid validator function path: '{self.validator}'")
         is_valid = validator_func(self.value)
         if not is_valid:
             raise ValidationError(
-                "Invalid value for setting '{}', {} could not be validated by '{}' validator.".format(
-                    self.name, self.value, self.validator
-                )
+                f"Invalid value for setting '{self.name}', "
+                f"{self.value} is not validated by '{self.validator}' validator."
             )
 
     def save(self, *args, **kwargs):
@@ -241,4 +238,4 @@ class Setting(models.Model):
         verbose_name_plural = _("Settings")
 
     def __str__(self):
-        return force_str("{} [{}]".format(self.name, self.value_type))
+        return force_str(f"{self.name} [{self.value_type}]")

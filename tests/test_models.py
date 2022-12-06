@@ -121,8 +121,8 @@ class ExtraSettingsModelsTestCase(TestCase):
                 "value_string": "django-extra-settings",
             },
         )
-        setting_repr = "{} [{}]".format(setting_obj.name, setting_obj.value_type)
-        self.assertEqual("{0}".format(setting_obj), setting_repr)
+        setting_repr = f"{setting_obj.name} [{setting_obj.value_type}]"
+        self.assertEqual(f"{setting_obj}", setting_repr)
 
     def test_set_defaults_from_settings(self):
         self.assertEqual(
