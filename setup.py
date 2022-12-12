@@ -84,5 +84,4 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Topic :: Software Development :: Build Tools",
     ],
-    license="MIT",
 )
