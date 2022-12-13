@@ -4,7 +4,6 @@
 [![](https://img.shields.io/pypi/v/django-extra-settings.svg?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/django-extra-settings/)
 [![](https://pepy.tech/badge/django-extra-settings/month)](https://pepy.tech/project/django-extra-settings)
 [![](https://img.shields.io/github/stars/fabiocaccamo/django-extra-settings?logo=github)](https://github.com/fabiocaccamo/django-extra-settings/)
-[![](https://badges.pufler.dev/visits/fabiocaccamo/django-extra-settings?label=visitors&color=blue)](https://badges.pufler.dev)
 [![](https://img.shields.io/pypi/l/django-extra-settings.svg?color=blue)](https://github.com/fabiocaccamo/django-extra-settings/blob/master/LICENSE.txt)
 
 [![](https://results.pre-commit.ci/badge/github/fabiocaccamo/django-extra-settings/master.svg)](https://results.pre-commit.ci/latest/github/fabiocaccamo/django-extra-settings/master)
