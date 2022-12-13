@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.7.0) - 2022-12-13
+-   Add `Python 3.11` and `django 4.1` support.
+-   Drop `Python < 3.8` and `Django < 2.2` support. #49
+-   Add `pre-commit`.
+-   Replace `str.format` with `f-strings`.
+-   Replace `setup.py test` in favor of `runtests.py`.
+-   Increase the size of the `name` and `value_string` fields to 255. #37
+-   Bump requirements and actions.
+
 ## [0.6.1](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.6.1) - 2022-07-05
 -   Add missing migration. Fix #33 by [@domeniconappo](https://github.com/domeniconappo) in #35.
 
