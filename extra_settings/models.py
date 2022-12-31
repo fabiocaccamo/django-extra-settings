@@ -203,7 +203,7 @@ class Setting(models.Model):
 
     def __init__(self, *args, **kwargs):
         value = kwargs.pop("value", None)
-        super(Setting, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if value is not None:
             self.value = value
         self.name_initial = self.name
@@ -224,10 +224,10 @@ class Setting(models.Model):
     def save(self, *args, **kwargs):
         if settings.EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS:
             self.name = enforce_uppercase_setting(self.name)
-        super(Setting, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def clean(self):
-        super(Setting, self).clean()
+        super().clean()
         self.validate()
 
     class Meta:

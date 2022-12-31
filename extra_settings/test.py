@@ -6,7 +6,7 @@ from extra_settings.cache import (
 from extra_settings.models import Setting
 
 
-class override_settings(object):
+class override_settings:
     """
     This class describes the override_settings decorator / context manager.
     """

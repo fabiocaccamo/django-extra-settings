@@ -11,7 +11,7 @@ class SettingForm(forms.ModelForm):
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):
-        super(SettingForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         # resize text area
         if "description" in self.fields:
             self.fields["description"].widget = forms.Textarea(

@@ -6,11 +6,11 @@ from extra_settings.forms import SettingForm
 from extra_settings.models import Setting
 
 
-class MockRequest(object):
+class MockRequest:
     pass
 
 
-class MockSuperUser(object):
+class MockSuperUser:
     def has_perm(self, perm):
         return True
 
