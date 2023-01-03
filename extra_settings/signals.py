@@ -21,7 +21,3 @@ def post_save_callback(sender, instance, **kwargs):
     if instance.name != instance.name_initial:
         del_cached_setting(instance.name_initial)
     set_cached_setting(instance.name, instance.value)
-
-
-# post_migrate.connect(Setting.post_migrate_handler, sender=self)
-# Setting.set_defaults(settings.EXTRA_SETTINGS_DEFAULTS)
