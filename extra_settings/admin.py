@@ -187,3 +187,12 @@ def register_extra_settings_admin(
 
 
 admin.site.register(Setting, SettingAdmin)
+
+
+app = settings.EXTRA_SETTINGS_ADMIN_APP
+if app and app != "extra_settings":
+    register_extra_settings_admin(
+        app=app,
+        queryset_processor=None,
+        unregister_default=True,
+    )

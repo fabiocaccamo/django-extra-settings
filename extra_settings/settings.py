@@ -1,5 +1,8 @@
 from django.conf import settings
 
+if not hasattr(settings, "EXTRA_SETTINGS_ADMIN_APP"):
+    settings.EXTRA_SETTINGS_ADMIN_APP = "extra_settings"
+
 if not hasattr(settings, "EXTRA_SETTINGS_CACHE_NAME"):
     settings.EXTRA_SETTINGS_CACHE_NAME = "extra_settings"
 
