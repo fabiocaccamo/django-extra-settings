@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.8.0](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.8.0) - 2023-01-10
 -   Add `extra_settings.admin.register_extra_settings_admin` helper function.
 -   Add `EXTRA_SETTINGS_ADMIN_APP` setting support.
+-   Add `setup.cfg` (`setuptools` declarative syntax) generated using `setuptools-py2cfg`.
+-   Add `pyupgrade` to `pre-commit` config.
+-   Pin test requirements.
 -   Bump test requirements.
+
 
 ## [0.7.0](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.7.0) - 2022-12-13
 -   Add `Python 3.11` and `django 4.1` support.
