@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.admin.sites import NotRegistered
+from django.core.exceptions import ImproperlyConfigured
 
 from extra_settings.forms import SettingForm
 from extra_settings.models import Setting
@@ -131,6 +133,57 @@ class SettingAdmin(admin.ModelAdmin):
             "all": ("extra_settings/css/extra_settings.css",),
         }
         js = ("extra_settings/js/extra_settings.js",)
+
+
+def register_extra_settings_admin(
+    app,
+    queryset_processor=None,
+    unregister_default=True,
+):
+    """
+    Based on django dynamic models general-purpose approach.
+    https://code.djangoproject.com/wiki/DynamicModels#Ageneral-purposeapproach
+    """
+    apps = settings.INSTALLED_APPS
+    if app not in apps:
+        if "." in app:
+            app = app.split(".")[0]
+        if app not in apps:
+            raise ImproperlyConfigured(
+                f"'{app}' application not listed in settings.INSTALLED_APPS."
+            )
+
+    # create dynamic proxy model
+    class Meta:
+        proxy = True
+
+    attrs = {
+        "__module__": app,
+        "Meta": Meta,
+    }
+
+    SettingProxyModel = type("Setting", (Setting,), attrs)
+
+    # create dynamic model admin
+    class SettingProxyAdmin(SettingAdmin):
+        queryset_processor = None
+
+        def get_queryset(self, request):
+            qs = super().get_queryset(request)
+            if self.queryset_processor and callable(self.queryset_processor):
+                qs = queryset_processor(qs)
+            return qs
+
+    setattr(SettingProxyAdmin, "queryset_processor", queryset_processor)
+
+    # register dynamic model admin and unregister default model admin
+    admin.site.register(SettingProxyModel, SettingProxyAdmin)
+
+    if unregister_default:
+        try:
+            admin.site.unregister(Setting)
+        except NotRegistered:
+            pass
 
 
 admin.site.register(Setting, SettingAdmin)
