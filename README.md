@@ -24,17 +24,17 @@ config and manage typed extra settings using just the django admin.
 -   Run `python manage.py migrate`
 -   Run `python manage.py collectstatic`
 -   Restart your application server
+-   Just go to the admin where you can `create`, `update` and `delete` your settings.
 
 ## Usage
 
-### Admin
-Just go to the admin where you can:
--   Create a new setting
--   Update an existing setting
--   Delete an existing setting
-
 ### Settings
 All these settings are optional, if not defined in `settings.py` the default values (listed below) will be used.
+
+```python
+# the name of the installed app for registering the extra settings admin.
+EXTRA_SETTINGS_ADMIN_APP = "extra_settings"
+```
 
 ```python
 # the name of the cache to use, if not found the "default" cache will be used.
@@ -88,6 +88,33 @@ EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = False
 ```python
 # the package name displayed in the admin
 EXTRA_SETTINGS_VERBOSE_NAME = "Settings"
+```
+
+### Admin
+You can display the settings model admin in another installed app group by using the `EXTRA_SETTINGS_ADMIN_APP = "photos"` setting.
+
+You can also have a more advanced control, by registering the settings admin to multiple installed apps and filtering the settings for each one using the `queryset_processor` argument.
+
+In your custom app `photos.admin` module:
+```python
+from extra_settings.admin import register_extra_settings_admin
+
+register_extra_settings_admin(
+    app=__name__,
+    queryset_processor=lambda qs: qs.filter(name__istartswith="PHOTOS_"),
+    unregister_default=True,
+)
+```
+
+In your custom app `videos.admin` module:
+```python
+from extra_settings.admin import register_extra_settings_admin
+
+register_extra_settings_admin(
+    app=__name__,
+    queryset_processor=lambda qs: qs.filter(name__istartswith="VIDEOS_"),
+    unregister_default=True,
+)
 ```
 
 ### Caching
