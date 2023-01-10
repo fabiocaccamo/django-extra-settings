@@ -1,23 +1,45 @@
+from inspect import isclass
+
 from django.conf import settings
 from django.db.models.signals import post_delete, post_migrate, post_save
-from django.dispatch import receiver
 
 from extra_settings.cache import del_cached_setting, set_cached_setting
 from extra_settings.models import Setting
 
 
-@receiver(post_delete, sender=Setting, dispatch_uid="post_delete_callback")
-def post_delete_callback(sender, instance, **kwargs):
-    del_cached_setting(instance.name)
+def __is_setting_signal(sender):
+    return isclass(sender) and issubclass(sender, Setting)
 
 
-@receiver(post_migrate, sender=Setting, dispatch_uid="post_migrate_callback")
-def post_migrate_callback(sender, instance, **kwargs):
+def post_migrate_setting(sender, **kwargs):
+    if not __is_setting_signal(sender):
+        return
     Setting.set_defaults(settings.EXTRA_SETTINGS_DEFAULTS)
 
 
-@receiver(post_save, sender=Setting, dispatch_uid="post_save_callback")
-def post_save_callback(sender, instance, **kwargs):
+def post_save_setting(sender, instance, **kwargs):
+    if not __is_setting_signal(sender):
+        return
     if instance.name != instance.name_initial:
         del_cached_setting(instance.name_initial)
     set_cached_setting(instance.name, instance.value)
+
+
+def post_delete_setting(sender, instance, **kwargs):
+    if not __is_setting_signal(sender):
+        return
+    del_cached_setting(instance.name)
+
+
+post_migrate.connect(
+    post_migrate_setting,
+    dispatch_uid="post_migrate_extra_settings_setting",
+)
+post_save.connect(
+    post_save_setting,
+    dispatch_uid="post_save_extra_settings_setting",
+)
+post_delete.connect(
+    post_delete_setting,
+    dispatch_uid="post_delete_extra_settings_setting",
+)
