@@ -91,9 +91,9 @@ EXTRA_SETTINGS_VERBOSE_NAME = "Settings"
 ```
 
 ### Admin
-You can display the settings model admin in another installed app group by using the `EXTRA_SETTINGS_ADMIN_APP = "photos"` setting.
+You can display the settings model admin in another installed app group by using the `EXTRA_SETTINGS_ADMIN_APP` setting.
 
-You can also have a more advanced control, by registering the settings admin to multiple installed apps and filtering the settings for each one using the `queryset_processor` argument.
+You can also have a more advanced control, by registering the settings admin with multiple installed apps and filtering each app settings using the `queryset_processor` argument, eg:
 
 In your custom app `photos.admin` module:
 ```python
@@ -116,6 +116,8 @@ register_extra_settings_admin(
     unregister_default=True,
 )
 ```
+
+By default the `"extra_settings"` app has its own admin app group.
 
 ### Caching
 You can customise the app caching options using `settings.CACHES["extra_settings"]` setting, otherwise the `"default"` cache will be used:
