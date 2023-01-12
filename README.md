@@ -93,7 +93,11 @@ EXTRA_SETTINGS_VERBOSE_NAME = "Settings"
 ### Admin
 You can display the settings model admin in another installed app group by using the `EXTRA_SETTINGS_ADMIN_APP` setting.
 
-You can also have a more advanced control, by registering the settings admin with multiple installed apps and filtering each app settings using the `queryset_processor` argument, eg:
+You can also have a more advanced control, by registering the settings admin with multiple installed apps and filtering each app settings using the `queryset_processor` argument.
+
+> :warning: If you do either of the above, you must run migrations for each app that will display `extra_settings` model admin in its admin *(because django creates migrations even for proxy models)*.
+
+#### Admin advanced configuration example:
 
 In your custom app `photos.admin` module:
 ```python
@@ -118,6 +122,8 @@ register_extra_settings_admin(
 ```
 
 By default the `"extra_settings"` app has its own admin app group.
+
+
 
 ### Caching
 You can customise the app caching options using `settings.CACHES["extra_settings"]` setting, otherwise the `"default"` cache will be used:
