@@ -97,7 +97,7 @@ You can also have a more advanced control, by registering the settings admin wit
 
 > :warning: If you do either of the above, you must run migrations for each app that will display `extra_settings` model admin in its admin *(because django creates migrations even for proxy models)*.
 
-#### Admin advanced configuration example:
+#### Admin advanced configuration example
 
 In your custom app `photos.admin` module:
 ```python
