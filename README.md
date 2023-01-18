@@ -4,10 +4,10 @@
 [![](https://img.shields.io/pypi/v/django-extra-settings.svg?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/django-extra-settings/)
 [![](https://pepy.tech/badge/django-extra-settings/month)](https://pepy.tech/project/django-extra-settings)
 [![](https://img.shields.io/github/stars/fabiocaccamo/django-extra-settings?logo=github)](https://github.com/fabiocaccamo/django-extra-settings/)
-[![](https://img.shields.io/pypi/l/django-extra-settings.svg?color=blue)](https://github.com/fabiocaccamo/django-extra-settings/blob/master/LICENSE.txt)
+[![](https://img.shields.io/pypi/l/django-extra-settings.svg?color=blue)](https://github.com/fabiocaccamo/django-extra-settings/blob/main/LICENSE.txt)
 
-[![](https://results.pre-commit.ci/badge/github/fabiocaccamo/django-extra-settings/master.svg)](https://results.pre-commit.ci/latest/github/fabiocaccamo/django-extra-settings/master)
-[![](https://img.shields.io/github/actions/workflow/status/fabiocaccamo/django-extra-settings/test-package.yml?branch=master&label=build&logo=github)](https://github.com/fabiocaccamo/django-extra-settings)
+[![](https://results.pre-commit.ci/badge/github/fabiocaccamo/django-extra-settings/main.svg)](https://results.pre-commit.ci/latest/github/fabiocaccamo/django-extra-settings/main)
+[![](https://img.shields.io/github/actions/workflow/status/fabiocaccamo/django-extra-settings/test-package.yml?branch=main&label=build&logo=github)](https://github.com/fabiocaccamo/django-extra-settings)
 [![](https://img.shields.io/codecov/c/gh/fabiocaccamo/django-extra-settings?logo=codecov)](https://codecov.io/gh/fabiocaccamo/django-extra-settings)
 [![](https://img.shields.io/codacy/grade/554c0505ed9844f3865bee975d1b894c?logo=codacy)](https://www.codacy.com/app/fabiocaccamo/django-extra-settings)
 [![](https://img.shields.io/codeclimate/maintainability/fabiocaccamo/django-extra-settings?logo=code-climate)](https://codeclimate.com/github/fabiocaccamo/django-extra-settings/)
