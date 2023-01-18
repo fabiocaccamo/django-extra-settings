@@ -165,6 +165,7 @@ def register_extra_settings_admin(
     SettingProxyModel = type("Setting", (Setting,), attrs)
 
     # create dynamic model admin
+    @admin.register(SettingProxyModel)
     class SettingProxyAdmin(SettingAdmin):
         queryset_processor = None
 
@@ -177,7 +178,6 @@ def register_extra_settings_admin(
     setattr(SettingProxyAdmin, "queryset_processor", queryset_processor)
 
     # register dynamic model admin and unregister default model admin
-    admin.site.register(SettingProxyModel, SettingProxyAdmin)
 
     if unregister_default:
         try:
