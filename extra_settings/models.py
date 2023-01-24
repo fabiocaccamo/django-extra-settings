@@ -1,16 +1,14 @@
-import importlib
 from decimal import Decimal
 
-import django
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
 from jsonfield import JSONField
 
 from extra_settings import fields
 from extra_settings.cache import get_cached_setting, set_cached_setting
-from extra_settings.translation import gettext_lazy as _
 from extra_settings.utils import enforce_uppercase_setting, import_function
 
 
@@ -80,7 +78,8 @@ class Setting(models.Model):
                 value = item["value"]
             except KeyError:
                 raise ValueError(
-                    "Setting 'defaults' item must contain 'name', 'type' and 'value' keys."
+                    "Setting 'defaults' item must contain "
+                    "'name', 'type' and 'value' keys."
                 )
             description = item.get("description", "")
             setting_obj, setting_created = cls.objects.get_or_create(

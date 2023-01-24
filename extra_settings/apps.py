@@ -11,7 +11,7 @@ class ExtraSettingsConfig(AppConfig):
     default_auto_field = "django.db.models.AutoField"
 
     def ready(self):
-        from extra_settings import signals
+        from extra_settings import signals  # noqa: F401
         from extra_settings.models import Setting
 
         try:

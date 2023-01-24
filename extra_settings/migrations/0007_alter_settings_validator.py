@@ -12,7 +12,10 @@ class Migration(migrations.Migration):
             name="validator",
             field=models.CharField(
                 blank=True,
-                help_text="Full python path to a validator function, eg. 'myapp.mymodule.my_validator'",
+                help_text=(
+                    "Full python path to a validator function, ",
+                    "eg. 'myapp.mymodule.my_validator'",
+                ),
                 max_length=255,
                 null=True,
                 verbose_name="Validator",

@@ -2,10 +2,10 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.translation import gettext_lazy as _
 
 from extra_settings.forms import SettingForm
 from extra_settings.models import Setting
-from extra_settings.translation import gettext_lazy as _
 
 
 class SettingNamePrefixFilter(admin.SimpleListFilter):
