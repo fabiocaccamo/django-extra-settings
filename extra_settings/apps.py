@@ -5,7 +5,6 @@ from django.db.utils import OperationalError, ProgrammingError
 
 
 class ExtraSettingsConfig(AppConfig):
-
     name = "extra_settings"
     verbose_name = settings.EXTRA_SETTINGS_VERBOSE_NAME
     default_auto_field = "django.db.models.AutoField"

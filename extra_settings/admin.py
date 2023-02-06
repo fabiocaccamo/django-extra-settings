@@ -9,7 +9,6 @@ from extra_settings.models import Setting
 
 
 class SettingNamePrefixFilter(admin.SimpleListFilter):
-
     title = _("Name Prefix")
     parameter_name = "name_prefix"
 
@@ -58,7 +57,6 @@ class SettingNamePrefixFilter(admin.SimpleListFilter):
 
 
 class SettingAdmin(admin.ModelAdmin):
-
     form = SettingForm
     value_fields_names = (
         "value_bool",
