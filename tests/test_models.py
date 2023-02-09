@@ -7,24 +7,75 @@ class ExtraSettingsModelsTestCase(TestCase):
     def setUp(self):
         Setting.objects.bulk_create(
             [
-                Setting(name="TEST_SETTING_BOOL", value_type=Setting.TYPE_BOOL),
-                # Setting(name='TEST_SETTING_COLOR', value_type=Setting.TYPE_COLOR='color'),
-                Setting(name="TEST_SETTING_DATE", value_type=Setting.TYPE_DATE),
-                Setting(name="TEST_SETTING_DATETIME", value_type=Setting.TYPE_DATETIME),
-                Setting(name="TEST_SETTING_DURATION", value_type=Setting.TYPE_DURATION),
-                Setting(name="TEST_SETTING_DECIMAL", value_type=Setting.TYPE_DECIMAL),
-                Setting(name="TEST_SETTING_EMAIL", value_type=Setting.TYPE_EMAIL),
-                Setting(name="TEST_SETTING_FILE", value_type=Setting.TYPE_FILE),
-                Setting(name="TEST_SETTING_FLOAT", value_type=Setting.TYPE_FLOAT),
-                # Setting(name='TEST_SETTING_HTML', value_type=Setting.TYPE_HTML),
-                Setting(name="TEST_SETTING_IMAGE", value_type=Setting.TYPE_IMAGE),
-                Setting(name="TEST_SETTING_INT", value_type=Setting.TYPE_INT),
-                Setting(name="TEST_SETTING_JSON", value_type=Setting.TYPE_JSON),
-                Setting(name="TEST_SETTING_STRING", value_type=Setting.TYPE_STRING),
-                Setting(name="TEST_SETTING_TEXT", value_type=Setting.TYPE_TEXT),
-                Setting(name="TEST_SETTING_TIME", value_type=Setting.TYPE_TIME),
+                Setting(
+                    name="TEST_SETTING_BOOL",
+                    value_type=Setting.TYPE_BOOL,
+                ),
+                # Setting(
+                #     name="TEST_SETTING_COLOR",
+                #     value_type=Setting.TYPE_COLOR,
+                # ),
+                Setting(
+                    name="TEST_SETTING_DATE",
+                    value_type=Setting.TYPE_DATE,
+                ),
+                Setting(
+                    name="TEST_SETTING_DATETIME",
+                    value_type=Setting.TYPE_DATETIME,
+                ),
+                Setting(
+                    name="TEST_SETTING_DURATION",
+                    value_type=Setting.TYPE_DURATION,
+                ),
+                Setting(
+                    name="TEST_SETTING_DECIMAL",
+                    value_type=Setting.TYPE_DECIMAL,
+                ),
+                Setting(
+                    name="TEST_SETTING_EMAIL",
+                    value_type=Setting.TYPE_EMAIL,
+                ),
+                Setting(
+                    name="TEST_SETTING_FILE",
+                    value_type=Setting.TYPE_FILE,
+                ),
+                Setting(
+                    name="TEST_SETTING_FLOAT",
+                    value_type=Setting.TYPE_FLOAT,
+                ),
+                # Setting(
+                #     name="TEST_SETTING_HTML",
+                #     value_type=Setting.TYPE_HTML,
+                # ),
+                Setting(
+                    name="TEST_SETTING_IMAGE",
+                    value_type=Setting.TYPE_IMAGE,
+                ),
+                Setting(
+                    name="TEST_SETTING_INT",
+                    value_type=Setting.TYPE_INT,
+                ),
+                Setting(
+                    name="TEST_SETTING_JSON",
+                    value_type=Setting.TYPE_JSON,
+                ),
+                Setting(
+                    name="TEST_SETTING_STRING",
+                    value_type=Setting.TYPE_STRING,
+                ),
+                Setting(
+                    name="TEST_SETTING_TEXT",
+                    value_type=Setting.TYPE_TEXT,
+                ),
+                Setting(
+                    name="TEST_SETTING_TIME",
+                    value_type=Setting.TYPE_TIME,
+                ),
                 # Setting(name='TEST_SETTING_UUID', value_type=Setting.TYPE_UUID),
-                Setting(name="TEST_SETTING_URL", value_type=Setting.TYPE_URL),
+                Setting(
+                    name="TEST_SETTING_URL",
+                    value_type=Setting.TYPE_URL,
+                ),
             ]
         )
 
@@ -84,12 +135,13 @@ class ExtraSettingsModelsTestCase(TestCase):
     def test_get_num_queries(self):
         with self.assertNumQueries(2):
             # first query get the setting
-            # second query (executed only if the first one find a result) cache all settings
-            setting_value = Setting.get("TEST_SETTING_STRING")
+            # second query cache all settings
+            # (executed only if the first one find a result)
+            Setting.get("TEST_SETTING_STRING")
         with self.assertNumQueries(0):
-            setting_value = Setting.get("TEST_SETTING_STRING")
+            Setting.get("TEST_SETTING_STRING")
         with self.assertNumQueries(0):
-            setting_value = Setting.get("TEST_SETTING_STRING")
+            Setting.get("TEST_SETTING_STRING")
 
     def test_cache_updated_on_model_delete(self):
         setting_obj, setting_created = Setting.objects.get_or_create(
