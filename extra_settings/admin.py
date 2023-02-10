@@ -44,10 +44,7 @@ class SettingNamePrefixFilter(admin.SimpleListFilter):
                     prefixes.pop(other_name, None)
         # sort prefixes alphabetically
         names = sorted(prefixes.keys())
-        return [
-            (name, "{name} ({counter})".format(name=name, counter=prefixes[name]))
-            for name in names
-        ]
+        return [(name, f"{name} ({prefixes[name]})") for name in names]
 
     def queryset(self, request, queryset):
         prefix = self.value()
