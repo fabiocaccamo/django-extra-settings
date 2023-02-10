@@ -88,7 +88,7 @@ class Setting(models.Model):
                 defaults={
                     "value_type": value_type,
                     "description": description,
-                    "validator": validator 
+                    "validator": validator,
                 },
             )
             if setting_created:
