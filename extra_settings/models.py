@@ -81,12 +81,14 @@ class Setting(models.Model):
                     "Setting 'defaults' item must contain "
                     "'name', 'type' and 'value' keys."
                 )
+            validator = item.get("validator", None)
             description = item.get("description", "")
             setting_obj, setting_created = cls.objects.get_or_create(
                 name=name,
                 defaults={
                     "value_type": value_type,
                     "description": description,
+                    "validator": validator 
                 },
             )
             if setting_created:
