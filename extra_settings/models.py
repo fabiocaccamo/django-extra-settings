@@ -1,14 +1,16 @@
+import importlib
 from decimal import Decimal
 
+import django
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.encoding import force_str
-from django.utils.translation import gettext_lazy as _
 from jsonfield import JSONField
 
 from extra_settings import fields
 from extra_settings.cache import get_cached_setting, set_cached_setting
+from extra_settings.translation import gettext_lazy as _
 from extra_settings.utils import enforce_uppercase_setting, import_function
 
 
@@ -65,7 +67,8 @@ class Setting(models.Model):
     @classmethod
     def set_defaults(cls, defaults):
         if not isinstance(defaults, list):
-            raise ValueError("Setting 'defaults' must be a list of dicts items.")
+            raise ValueError(
+                "Setting 'defaults' must be a list of dicts items.")
         if not defaults:
             return
         for item in defaults:
@@ -78,13 +81,19 @@ class Setting(models.Model):
                 value = item["value"]
             except KeyError:
                 raise ValueError(
-                    "Setting 'defaults' item must contain "
-                    "'name', 'type' and 'value' keys."
+                    "Setting 'defaults' item must contain 'name', 'type' and 'value' keys."
                 )
+
+            if "validator" in item:
+                validator = item["validator"]
+            else:
+                validator = None
+
             description = item.get("description", "")
             setting_obj, setting_created = cls.objects.get_or_create(
                 name=name,
                 defaults={
+                    "validator": validator,
                     "value_type": value_type,
                     "description": description,
                 },
@@ -144,31 +153,16 @@ class Setting(models.Model):
         help_text="(e.g. SETTING_NAME)",
     )
     value_type = models.CharField(
-        max_length=20,
-        choices=TYPE_CHOICES,
-        verbose_name=_(
-            "Type",
-        ),
+        max_length=20, choices=TYPE_CHOICES, verbose_name=_("Type")
     )
     description = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name=_("Description"),
-    )
+        blank=True, null=True, verbose_name=_("Description"))
 
-    value_bool = models.BooleanField(
-        default=False,
-        verbose_name=_("Value"),
-    )
+    value_bool = models.BooleanField(default=False, verbose_name=_("Value"))
     value_date = models.DateField(
-        blank=True,
-        null=True,
-        verbose_name=_("Value"),
-    )
+        blank=True, null=True, verbose_name=_("Value"))
     value_datetime = models.DateTimeField(
-        blank=True,
-        null=True,
-        verbose_name=_("Value"),
+        blank=True, null=True, verbose_name=_("Value")
     )
     value_decimal = models.DecimalField(
         blank=True,
@@ -178,57 +172,26 @@ class Setting(models.Model):
         verbose_name=_("Value"),
     )
     value_duration = models.DurationField(
-        blank=True,
-        null=True,
-        verbose_name=_("Value"),
+        blank=True, null=True, verbose_name=_("Value")
     )
-    value_email = models.EmailField(
-        blank=True,
-        verbose_name=_("Value"),
-    )
+    value_email = models.EmailField(blank=True, verbose_name=_("Value"))
     value_file = models.FileField(
-        blank=True,
-        upload_to=fields.upload_to_files,
-        verbose_name=_("Value"),
+        blank=True, upload_to=fields.upload_to_files, verbose_name=_("Value")
     )
     value_float = models.FloatField(
-        blank=True,
-        default=0.0,
-        verbose_name=_("Value"),
-    )
+        blank=True, default=0.0, verbose_name=_("Value"))
     value_image = models.FileField(
-        blank=True,
-        upload_to=fields.upload_to_images,
-        verbose_name=_("Value"),
+        blank=True, upload_to=fields.upload_to_images, verbose_name=_("Value")
     )
     value_int = models.IntegerField(
-        blank=True,
-        default=0,
-        verbose_name=_("Value"),
-    )
-    value_json = JSONField(
-        blank=True,
-        default=dict,
-        verbose_name=_("Value"),
-    )
+        blank=True, default=0, verbose_name=_("Value"))
+    value_json = JSONField(blank=True, default=dict, verbose_name=_("Value"))
     value_string = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name=_("Value"),
-    )
-    value_text = models.TextField(
-        blank=True,
-        verbose_name=_("Value"),
-    )
+        blank=True, max_length=255, verbose_name=_("Value"))
+    value_text = models.TextField(blank=True, verbose_name=_("Value"))
     value_time = models.TimeField(
-        blank=True,
-        null=True,
-        verbose_name=_("Value"),
-    )
-    value_url = models.URLField(
-        blank=True,
-        verbose_name=_("Value"),
-    )
+        blank=True, null=True, verbose_name=_("Value"))
+    value_url = models.URLField(blank=True, verbose_name=_("Value"))
     validator = models.CharField(
         blank=True,
         null=True,
@@ -264,7 +227,8 @@ class Setting(models.Model):
             return
         validator_func = import_function(self.validator)
         if not validator_func:
-            raise ValueError(f"Invalid validator function path: '{self.validator}'")
+            raise ValueError(
+                f"Invalid validator function path: '{self.validator}'")
         is_valid = validator_func(self.value)
         if not is_valid:
             raise ValidationError(
