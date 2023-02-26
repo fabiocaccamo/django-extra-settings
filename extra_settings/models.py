@@ -143,7 +143,7 @@ class Setting(models.Model):
         max_length=255,
         unique=True,
         verbose_name=_("Name"),
-        help_text="(e.g. SETTING_NAME)",
+        help_text=_("(e.g. SETTING_NAME)"),
     )
     value_type = models.CharField(
         max_length=20,
