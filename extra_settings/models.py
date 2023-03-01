@@ -76,11 +76,11 @@ class Setting(models.Model):
                 value_type = item["type"]
                 value_type = value_type.replace("Setting.TYPE_", "").lower()
                 value = item["value"]
-            except KeyError:
+            except KeyError as error:
                 raise ValueError(
                     "Setting 'defaults' item must contain "
                     "'name', 'type' and 'value' keys."
-                )
+                ) from error
             validator = item.get("validator", None)
             description = item.get("description", "")
             setting_obj, setting_created = cls.objects.get_or_create(
@@ -266,12 +266,12 @@ class Setting(models.Model):
             return
         validator_func = import_function(self.validator)
         if not validator_func:
-            raise ValueError(f"Invalid validator function path: '{self.validator}'")
+            raise ValueError(f"Invalid validator function path: {self.validator!r}")
         is_valid = validator_func(self.value)
         if not is_valid:
             raise ValidationError(
-                f"Invalid value for setting '{self.name}', "
-                f"{self.value} is not validated by '{self.validator}' validator."
+                f"Invalid value for setting {self.name!r}, "
+                f"{self.value!r} is not validated by {self.validator!r} validator."
             )
 
     def save(self, *args, **kwargs):

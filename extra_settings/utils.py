@@ -11,7 +11,7 @@ def import_function(path):
         return None
     try:
         func = import_string(path)
-        if hasattr(func, "__call__"):
+        if callable(func):
             return func
         return None
     except ImportError:

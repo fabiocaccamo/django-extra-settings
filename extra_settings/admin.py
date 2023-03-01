@@ -145,7 +145,7 @@ def register_extra_settings_admin(
             app = app.split(".")[0]
         if app not in apps:
             raise ImproperlyConfigured(
-                f"'{app}' application not listed in settings.INSTALLED_APPS."
+                f"{app!r} application not listed in settings.INSTALLED_APPS."
             )
 
     # create dynamic proxy model
@@ -170,7 +170,7 @@ def register_extra_settings_admin(
                 qs = queryset_processor(qs)
             return qs
 
-    setattr(SettingProxyAdmin, "queryset_processor", queryset_processor)
+    SettingProxyAdmin.queryset_processor = queryset_processor
 
     # register dynamic model admin and unregister default model admin
 

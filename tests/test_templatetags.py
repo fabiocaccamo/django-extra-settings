@@ -68,6 +68,6 @@ class ExtraSettingsTemplateTagsTestCase(TestCase):
         with self.settings(EXTRA_SETTINGS_FALLBACK_TO_CONF_SETTINGS=False):
             rendered = self._render_template(
                 "{% load extra_settings %}"
-                "{% get_setting 'EXTRA_SETTINGS_TEST_FALLBACK_VALUE' default='fallback-default' %}"  # noqa: E501
+                "{% get_setting 'EXTRA_SETTINGS_TEST_FALLBACK_VALUE' default='fallback-default' %}"  # noqa: B950, E501
             )
             self.assertEqual(rendered, "fallback-default")
