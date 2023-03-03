@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.0](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.9.0) - 2023-03-03
+-   Drop `Django 2.2` support.
+-   Upgrade syntax for `Python >= 3.8`.
+-   Add `metadata` module and read package attrs dynamically.
+-   Add missing `validator` when calling `set_defaults`. By [@zackkh](https://github.com/zackkh) in #68.
+-   Add `zh_Hans` language support. By [@twn39](https://github.com/twn39) in #70.
+-   Move `flake8` config to `setup.cfg`.
+-   Increase `flake8` checks.
+-   Add `flake8-bugbear` to `pre-commit` hooks.
+-   Run `flake8` also on tests files.
+-   Code formatting.
+-   Bump requirements.
+
 ## [0.8.1](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.8.1) - 2023-01-10
 -   Fix signals not received when using admin dynamic model (dynamic `Setting` model  proxy subclass).
 
