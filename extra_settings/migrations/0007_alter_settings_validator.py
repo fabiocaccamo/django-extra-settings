@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 help_text=(
-                    "Full python path to a validator function, ",
-                    "eg. 'myapp.mymodule.my_validator'",
+                    "Full python path to a validator function, "
+                    "eg. 'myapp.mymodule.my_validator'"
                 ),
                 max_length=255,
                 null=True,
