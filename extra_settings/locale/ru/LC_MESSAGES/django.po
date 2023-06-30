@@ -1,0 +1,60 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: django-extra-settings\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-30 12:15+0300\n"
+"PO-Revision-Date: 2023-06-30 12:15+0300\n"
+"Last-Translator: Ivan Redun <ivanredun@gmail.com>\n"
+"Language-Team: Russian <LL@li.org>\n"
+"Language: Russian \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: extra_settings/admin.py
+msgid "Name Prefix"
+msgstr "Префикс имени"
+
+#: extra_settings/models.py
+msgid "Name"
+msgstr "Название"
+
+#: extra_settings/models.py
+msgid "(e.g. SETTING_NAME)"
+msgstr "(например SETTING_NAME)"
+
+#: extra_settings/models.py
+msgid "Type"
+msgstr "Тип"
+
+#: extra_settings/models.py
+msgid "Description"
+msgstr "Описание"
+
+#: extra_settings/models.py
+msgid "Value"
+msgstr "Значение"
+
+#: extra_settings/models.py
+msgid "Validator"
+msgstr "Валидатор"
+
+#: extra_settings/models.py
+msgid ""
+"Full python path to a validator function, eg. 'myapp.mymodule.my_validator'"
+msgstr "Полный python путь до функции валидации, например 'myapp.mymodule.my_validator'"
+
+#: extra_settings/models.py
+msgid "Setting"
+msgstr "Настройка"
+
+#: extra_settings/models.py
+msgid "Settings"
+msgstr "Настройки"
