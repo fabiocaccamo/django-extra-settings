@@ -14,6 +14,7 @@ try:
 except ImproperlyConfigured:
     pass
 
+default_app_config = "extra_settings.apps.ExtraSettingsConfig"
 
 __all__ = [
     "__author__",
