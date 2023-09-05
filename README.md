@@ -2,7 +2,7 @@
 [![](https://img.shields.io/pypi/djversions/django-extra-settings?color=0C4B33&logo=django&logoColor=white&label=django)](https://www.djangoproject.com/)
 
 [![](https://img.shields.io/pypi/v/django-extra-settings.svg?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/django-extra-settings/)
-[![](https://pepy.tech/badge/django-extra-settings/month)](https://pepy.tech/project/django-extra-settings)
+[![](https://static.pepy.tech/badge/django-extra-settings/month)](https://pepy.tech/project/django-extra-settings)
 [![](https://img.shields.io/github/stars/fabiocaccamo/django-extra-settings?logo=github)](https://github.com/fabiocaccamo/django-extra-settings/stargazers)
 [![](https://img.shields.io/pypi/l/django-extra-settings.svg?color=blue)](https://github.com/fabiocaccamo/django-extra-settings/blob/main/LICENSE.txt)
 
