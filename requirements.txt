@@ -1,2 +1,2 @@
 django >= 2.2
-jsonfield >= 3.0.*
+jsonfield == 3.1.0
