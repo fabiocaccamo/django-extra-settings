@@ -93,6 +93,16 @@ class SettingAdmin(admin.ModelAdmin):
     list_editable = value_fields_names
     sortable_by = ("name",)
 
+    def has_add_permission(self, request):
+        if settings.EXTRA_SETTINGS_ADMIN_ADD_PERMISSIO:
+            return False
+        return super().has_add_permission(request)
+
+    def has_delete_permission(self, request, obj=None):
+        if settings.EXTRA_SETTINGS_ADMIN_DELETE_PERMISSIO:
+            return False
+        return super().has_delete_permission(request, obj)
+
     def get_changelist_form(self, request, **kwargs):
         return SettingForm
 
