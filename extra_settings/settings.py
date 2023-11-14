@@ -29,3 +29,9 @@ if not hasattr(settings, "EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER"):
 
 if not hasattr(settings, "EXTRA_SETTINGS_VERBOSE_NAME"):
     settings.EXTRA_SETTINGS_VERBOSE_NAME = "Extra Settings"
+
+if not hasattr(settings, "EXTRA_SETTINGS_ADMIN_ADD_PERMISSIO"):
+    settings.EXTRA_SETTINGS_ADMIN_ADD_PERMISSIO = True
+
+if not hasattr(settings, "EXTRA_SETTINGS_ADMIN_DELETE_PERMISSIO"):
+    settings.EXTRA_SETTINGS_ADMIN_DELETE_PERMISSIO = True
