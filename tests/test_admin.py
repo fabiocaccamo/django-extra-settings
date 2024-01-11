@@ -22,7 +22,6 @@ request.user = MockSuperUser()
 
 
 class ExtraSettingsAdminTestCase(TestCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -85,13 +84,15 @@ class ExtraSettingsAdminTestCase(TestCase):
             ma.get_readonly_fields(request, self._setting_obj), ("value_type",)
         )
 
-    @override_settings(EXTRA_SETTINGS_DEFAULTS=[
-        {
-            "name": "foo",
-            "type": "string",
-            "value": "bar",
-        },
-    ])
+    @override_settings(
+        EXTRA_SETTINGS_DEFAULTS=[
+            {
+                "name": "foo",
+                "type": "string",
+                "value": "bar",
+            },
+        ]
+    )
     @patch("extra_settings.admin.redirect")
     @patch("extra_settings.admin.reverse")
     def test_modeladmin_reset(self, mock_redirect, mock_reverse):

@@ -4,7 +4,6 @@ from extra_settings.models import Setting
 
 
 class ExtraSettingsModelsTestCase(TestCase):
-
     @classmethod
     def setUpClass(cls) -> None:
         """setup tests"""
@@ -260,12 +259,11 @@ class ExtraSettingsModelsTestCase(TestCase):
         self.assertEqual(Setting.objects.count(), 1)
         obj = Setting.objects.get(name="TEST_DEFAULT_URL")
         self.assertEqual(
-            obj.value,
-            "https://github.com/fabiocaccamo/django-extra-settings"
+            obj.value, "https://github.com/fabiocaccamo/django-extra-settings"
         )
         # ensure cache was cleaned
         self.assertEqual(
             Setting.get(name="TEST_DEFAULT_URL"),
-            "https://github.com/fabiocaccamo/django-extra-settings"
+            "https://github.com/fabiocaccamo/django-extra-settings",
         )
         self.assertIsNone(Setting.get("TEST"))

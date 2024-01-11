@@ -130,9 +130,9 @@ class SettingAdmin(admin.ModelAdmin):
         urls = super().get_urls()
         my_urls = [
             path(
-                "reset/", 
-                self.reset_settings, 
-                name=f"{settings.EXTRA_SETTINGS_ADMIN_APP}_setting_reset"
+                "reset/",
+                self.reset_settings,
+                name=f"{settings.EXTRA_SETTINGS_ADMIN_APP}_setting_reset",
             ),
         ]
         return my_urls + urls

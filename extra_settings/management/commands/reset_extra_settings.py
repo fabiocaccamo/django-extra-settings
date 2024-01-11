@@ -4,7 +4,6 @@ Command to reset extra settings.
 import logging
 
 from django.core.management import BaseCommand
-from django.db import connection
 from extra_settings.models import Setting
 
 log = logging.getLogger(__name__)
@@ -14,7 +13,7 @@ class Command(BaseCommand):
     """Django-command for refreshing extra settings to default values"""
 
     help = """
-    This command will remove all extra settings and recreate only those 
+    This command will remove all extra settings and recreate only those
     that described in `settings.EXTRA_SETTINGS_DEFAULTS`.
     """
 
