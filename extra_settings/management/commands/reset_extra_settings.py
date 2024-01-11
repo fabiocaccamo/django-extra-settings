@@ -11,11 +11,11 @@ log = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
-    """Django-command for refreshing extra settings"""
+    """Django-command for refreshing extra settings to default values"""
 
     help = """
-    This command will remove all extra settings and recreate only those that exist 
-    in 'settings.py'.
+    This command will remove all extra settings and recreate only those 
+    that described in `settings.EXTRA_SETTINGS_DEFAULTS`.
     """
 
     def handle(self, *_, **__) -> None:
