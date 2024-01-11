@@ -100,8 +100,8 @@ class Setting(models.Model):
         cls.set_defaults(settings.EXTRA_SETTINGS_DEFAULTS)
 
     @classmethod
-    def reset_settings(cls) -> None:
-        """Reset all settings"""
+    def reset_to_default(cls) -> None:
+        """Reset all settings to default values"""
         cls.objects.all().delete()
         cls.set_defaults_from_settings()
 

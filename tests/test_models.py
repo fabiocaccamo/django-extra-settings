@@ -4,7 +4,12 @@ from extra_settings.models import Setting
 
 
 class ExtraSettingsModelsTestCase(TestCase):
-    def setUp(self):
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        """setup tests"""
+        super().setUpClass()
+        Setting.set_defaults_from_settings()
         Setting.objects.bulk_create(
             [
                 Setting(
@@ -78,9 +83,6 @@ class ExtraSettingsModelsTestCase(TestCase):
                 ),
             ]
         )
-
-    def tearDown(self):
-        pass
 
     def test_create_setting(self):
         # bool
@@ -177,10 +179,18 @@ class ExtraSettingsModelsTestCase(TestCase):
         self.assertEqual(f"{setting_obj}", setting_repr)
 
     def test_set_defaults_from_settings(self):
+        Setting.set_defaults_from_settings()
         self.assertEqual(
             Setting.get("TEST_DEFAULT_URL"),
             "https://github.com/fabiocaccamo/django-extra-settings",
         )
+
+    def test_set_defaults_from_settings_do_not_update_updated_value(self):
+        obj = Setting.objects.get(name="TEST_DEFAULT_URL")
+        obj.value = "foo"
+        obj.save()
+        Setting.set_defaults_from_settings()
+        self.assertEqual(Setting.get("TEST_DEFAULT_URL"), "foo")
 
     def test_set_defaults(self):
         Setting.set_defaults([])
@@ -238,3 +248,24 @@ class ExtraSettingsModelsTestCase(TestCase):
         setting_obj.save()
         setting_obj = Setting.objects.get(name="TEST_SETTING_JSON")
         self.assertEqual(setting_obj.value, {"level": "L2", "role": "Admin"})
+
+    def test_reset_settings_to_default_values(self) -> None:
+        """Should reset all settings to default values from settings"""
+        obj = Setting.objects.get(name="TEST_DEFAULT_URL")
+        obj.value = "foo"
+        obj.save()
+        Setting.objects.create(name="TEST", value_type=Setting.TYPE_BOOL)
+        self.assertEqual(Setting.get("TEST"), False)
+        Setting.reset_to_default()
+        self.assertEqual(Setting.objects.count(), 1)
+        obj = Setting.objects.get(name="TEST_DEFAULT_URL")
+        self.assertEqual(
+            obj.value,
+            "https://github.com/fabiocaccamo/django-extra-settings"
+        )
+        # ensure cache was cleaned
+        self.assertEqual(
+            Setting.get(name="TEST_DEFAULT_URL"),
+            "https://github.com/fabiocaccamo/django-extra-settings"
+        )
+        self.assertIsNone(Setting.get("TEST"))

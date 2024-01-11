@@ -138,8 +138,8 @@ class SettingAdmin(admin.ModelAdmin):
         return my_urls + urls
 
     def reset_settings(self, request):
-        """Reset existing settings"""
-        Setting.reset_settings()
+        """Reset existing settings to default values"""
+        Setting.reset_to_default()
         return redirect(
             reverse(f"admin:{settings.EXTRA_SETTINGS_ADMIN_APP}_setting_changelist")
         )

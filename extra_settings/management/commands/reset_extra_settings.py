@@ -23,5 +23,5 @@ class Command(BaseCommand):
         Handle command.
         """
         log.info("Start refreshing extra settings...")
-        Setting.reset_settings()
+        Setting.reset_to_default()
         log.info("Refreshing of extra settings is done.")
