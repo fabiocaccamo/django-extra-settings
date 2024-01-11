@@ -1,5 +1,7 @@
 from django.contrib.admin.sites import AdminSite
-from django.test import TestCase
+from django.test import TestCase, override_settings
+
+from unittest.mock import patch
 
 from extra_settings.admin import SettingAdmin
 from extra_settings.forms import SettingForm
@@ -20,18 +22,15 @@ request.user = MockSuperUser()
 
 
 class ExtraSettingsAdminTestCase(TestCase):
-    def setUp(self):
-        self._setting_obj, setting_created = Setting.objects.get_or_create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls._setting_obj = Setting.objects.create(
             name="PACKAGE_NAME",
-            defaults={
-                "value_type": Setting.TYPE_STRING,
-                "value_string": "django-extra-settings",
-            },
+            value_type=Setting.TYPE_STRING,
+            value_string="django-extra-settings",
         )
-        self._site = AdminSite()
-
-    def tearDown(self):
-        pass
+        cls._site = AdminSite()
 
     def test_changelist_form(self):
         ma = SettingAdmin(model=Setting, admin_site=AdminSite())
@@ -84,3 +83,37 @@ class ExtraSettingsAdminTestCase(TestCase):
         self.assertEqual(
             ma.get_readonly_fields(request, self._setting_obj), ("value_type",)
         )
+
+    @override_settings(
+        EXTRA_SETTINGS_DEFAULTS=[
+            {
+                "name": "foo",
+                "type": "string",
+                "value": "bar",
+            },
+        ]
+    )
+    @patch("extra_settings.admin.redirect")
+    @patch("extra_settings.admin.reverse")
+    def test_modeladmin_reset(self, mock_redirect, mock_reverse):
+        self.assertEqual(Setting.objects.count(), 1)
+        self._setting_obj.value_string = "foo"
+        self._setting_obj.save()
+        Setting.objects.create(
+            name="bar",
+            value_type=Setting.TYPE_BOOL,
+            value_bool=True,
+        )
+        ma = SettingAdmin(model=Setting, admin_site=AdminSite())
+        ma.reset_settings(request)
+        self.assertEqual(Setting.objects.count(), 1)
+        obj = Setting.objects.get(name="FOO")
+        self.assertEqual(obj.value_type, Setting.TYPE_STRING)
+        self.assertEqual(obj.value, "bar")
+
+    @override_settings(EXTRA_SETTINGS_ADMIN_APP="app")
+    def test_get_urls(self) -> None:
+        reset_url = "app_setting_reset"
+        ma = SettingAdmin(model=Setting, admin_site=AdminSite())
+        urls = [url.name for url in ma.get_urls()]
+        self.assertTrue(reset_url in urls)
