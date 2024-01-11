@@ -23,8 +23,5 @@ class Command(BaseCommand):
         Handle command.
         """
         log.info("Start refreshing extra settings...")
-
-        Setting.objects.all().delete()
-        Setting.set_defaults_from_settings()
-
+        Setting.reset_settings()
         log.info("Refreshing of extra settings is done.")
