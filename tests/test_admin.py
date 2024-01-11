@@ -109,3 +109,10 @@ class ExtraSettingsAdminTestCase(TestCase):
         obj = Setting.objects.get(name="FOO")
         self.assertEqual(obj.value_type, Setting.TYPE_STRING)
         self.assertEqual(obj.value, "bar")
+
+    @override_settings(EXTRA_SETTINGS_ADMIN_APP="app")
+    def test_get_urls(self) -> None:
+        reset_url = "app_setting_reset"
+        ma = SettingAdmin(model=Setting, admin_site=AdminSite())
+        urls = [url.name for url in ma.get_urls()]
+        self.assertTrue(reset_url in urls)
