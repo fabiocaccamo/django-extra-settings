@@ -60,6 +60,8 @@ class Setting(models.Model):
                 # cache all other settings to avoid multiple queries
                 # in pages using the template more than once.
                 cls._cache_all_settings()
+        if val is not None:
+            set_cached_setting(name, val)
         return val
 
     @classmethod

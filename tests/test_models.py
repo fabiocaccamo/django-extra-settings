@@ -143,6 +143,14 @@ class ExtraSettingsModelsTestCase(TestCase):
         with self.assertNumQueries(0):
             Setting.get("TEST_SETTING_STRING")
 
+    def test_get_from_conf_settings_num_queries(self):
+        with self.assertNumQueries(1):
+            setting_value = Setting.get("EXTRA_SETTINGS_TEST_VALUE")
+            self.assertEqual(setting_value, "value")
+        with self.assertNumQueries(0):
+            setting_value = Setting.get("EXTRA_SETTINGS_TEST_VALUE")
+            self.assertEqual(setting_value, "value")
+
     def test_cache_updated_on_model_delete(self):
         setting_obj, setting_created = Setting.objects.get_or_create(
             name="TEST_GETTER_SETTER", defaults={"value_type": Setting.TYPE_STRING}

@@ -1,6 +1,7 @@
 from django.template import Context, Template
 from django.test import TestCase
 
+from extra_settings.cache import del_cached_setting
 from extra_settings.models import Setting
 
 
@@ -49,6 +50,7 @@ class ExtraSettingsTemplateTagsTestCase(TestCase):
         self.assertEqual(rendered, "fallback-value")
 
     def test_get_setting_with_fallback(self):
+        del_cached_setting("EXTRA_SETTINGS_TEST_FALLBACK_VALUE")
         with self.settings(EXTRA_SETTINGS_FALLBACK_TO_CONF_SETTINGS=True):
             rendered = self._render_template(
                 "{% load extra_settings %}"
@@ -57,6 +59,7 @@ class ExtraSettingsTemplateTagsTestCase(TestCase):
             self.assertEqual(rendered, "fallback-value")
 
     def test_get_setting_without_fallback(self):
+        del_cached_setting("EXTRA_SETTINGS_TEST_FALLBACK_VALUE")
         with self.settings(EXTRA_SETTINGS_FALLBACK_TO_CONF_SETTINGS=False):
             rendered = self._render_template(
                 "{% load extra_settings %}"
@@ -65,6 +68,7 @@ class ExtraSettingsTemplateTagsTestCase(TestCase):
             self.assertEqual(rendered, "")
 
     def test_get_setting_without_fallback_default(self):
+        del_cached_setting("EXTRA_SETTINGS_TEST_FALLBACK_VALUE")
         with self.settings(EXTRA_SETTINGS_FALLBACK_TO_CONF_SETTINGS=False):
             rendered = self._render_template(
                 "{% load extra_settings %}"
