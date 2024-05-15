@@ -101,6 +101,12 @@ class Setting(models.Model):
     def set_defaults_from_settings(cls, *args, **kwargs):
         cls.set_defaults(settings.EXTRA_SETTINGS_DEFAULTS)
 
+    @classmethod
+    def reset_to_default(cls) -> None:
+        """Reset all settings to default values"""
+        cls.objects.all().delete()
+        cls.set_defaults_from_settings()
+
     TYPE_BOOL = "bool"
     # TYPE_COLOR = "color" # TODO
     TYPE_DATE = "date"
