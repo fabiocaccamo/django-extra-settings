@@ -187,11 +187,7 @@ value = Setting.get("SETTING_NAME", default="django-extra-settings")
 ```python
 from extra_settings.models import Setting
 
-setting_obj = Setting(
-    name="SETTING_NAME",
-    value_type=Setting.TYPE_BOOL,
-    value=True,
-)
+setting_obj, created = Setting.objects.get_or_create(name="SETTING_NAME")
 setting_obj.value = False
 setting_obj.save()
 ```
