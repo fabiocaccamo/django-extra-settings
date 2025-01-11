@@ -92,7 +92,7 @@ EXTRA_SETTINGS_VERBOSE_NAME = "Settings"
 ```
 
 ### Celery
-> [!WARNING]  
+> [!WARNING]
 > When using **Celery**'s `autodiscover_tasks` with `force=True`, it triggers an aggressive task discovery that accesses Django settings before they're fully initialized. This premature access prevents `django-extra-settings` from properly setting up its default configuration values. More info [here](https://github.com/fabiocaccamo/django-extra-settings/issues/177).
 
 ### Admin
