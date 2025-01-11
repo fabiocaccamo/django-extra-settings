@@ -91,6 +91,10 @@ EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = False
 EXTRA_SETTINGS_VERBOSE_NAME = "Settings"
 ```
 
+### Celery
+> [!WARNING]  
+> When using **Celery**'s `autodiscover_tasks` with `force=True`, it triggers an aggressive task discovery that accesses Django settings before they're fully initialized. This premature access prevents `django-extra-settings` from properly setting up its default configuration values. More info [here](https://github.com/fabiocaccamo/django-extra-settings/issues/177).
+
 ### Admin
 You can display the settings model admin in another installed app group by using the `EXTRA_SETTINGS_ADMIN_APP` setting.
 
