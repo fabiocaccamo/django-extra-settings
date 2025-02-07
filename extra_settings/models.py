@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
-from jsonfield import JSONField
 
 from extra_settings import fields
 from extra_settings.cache import get_cached_setting, set_cached_setting
@@ -210,7 +209,7 @@ class Setting(models.Model):
         default=0,
         verbose_name=_("Value"),
     )
-    value_json = JSONField(
+    value_json = models.JSONField(
         blank=True,
         default=dict,
         verbose_name=_("Value"),

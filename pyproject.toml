@@ -43,6 +43,7 @@ classifiers = [
     "Topic :: Software Development :: Build Tools",
 ]
 dependencies = [
+    "django >= 4.0",
     "jsonfield >= 3.0.0",
 ]
 dynamic = ["version"]
