@@ -1,2 +1,1 @@
-django >= 2.2
-jsonfield == 3.1.0
+django >= 4.0

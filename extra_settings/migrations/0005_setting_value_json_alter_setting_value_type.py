@@ -1,4 +1,3 @@
-import jsonfield.fields
 from django.db import migrations, models
 
 
@@ -11,9 +10,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="setting",
             name="value_json",
-            field=jsonfield.fields.JSONField(
-                blank=True, default=dict, verbose_name="Value"
-            ),
+            field=models.JSONField(blank=True, default=dict, verbose_name="Value"),
         ),
         migrations.AlterField(
             model_name="setting",
