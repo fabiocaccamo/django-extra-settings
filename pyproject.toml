@@ -42,9 +42,7 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Build Tools",
 ]
-dependencies = [
-    "django >= 4.0",
-]
+dependencies = []
 dynamic = ["version"]
 maintainers = [
     { name = "Fabio Caccamo", email = "fabio.caccamo@gmail.com" },

@@ -250,8 +250,7 @@ python -m venv venv && . venv/bin/activate
 python -m pip install --upgrade pip
 
 # install requirements
-pip install django
-pip install -r requirements-test.txt
+pip install -r requirements.txt -r requirements-test.txt
 
 # install pre-commit to run formatters and linters
 pre-commit install --install-hooks
