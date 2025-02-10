@@ -23,7 +23,7 @@ class ExtraSettingsTemplateTagsTestCase(TestCase):
 
     def test_get_setting(self):
         rendered = self._render_template(
-            "{% load extra_settings %}" '{% get_setting "PACKAGE_NAME" %}'
+            '{% load extra_settings %}{% get_setting "PACKAGE_NAME" %}'
         )
         self.assertEqual(rendered, "django-extra-settings")
 
