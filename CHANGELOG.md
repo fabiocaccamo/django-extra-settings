@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.13.0](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.13.0) - 2025-02-11
+-   Add `Python 3.13` and `Django 5.1` support.
+-   Drop `Python 3.8`, `Python 3.9` and `Django 3.x` support.
+-   Drop `jsonfield` dependency and use builtin `models.JSONField`. (by [@obdulia-losantos](https://github.com/obdulia-losantos) in #180).
+-   Add Spanish localization. (by [@obdulia-losantos](https://github.com/obdulia-losantos) in #182)
+-   Bump requirements
+-   Bump `pre-commit` hooks
+-   Bump GitHub actions.
+
 ## [0.12.0](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.12.0) - 2024-02-27
 -   Avoid to execute database queries in app ready method. #121
 -   Cache settings value even when they are retrieved from `django.conf.settings` to avoid database hits.
