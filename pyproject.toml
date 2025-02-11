@@ -54,7 +54,6 @@ content-type = "text/markdown"
 
 [project.license]
 file = "LICENSE.txt"
-content-type = "text/plain"
 
 [project.urls]
 Homepage = "https://github.com/fabiocaccamo/django-extra-settings"
@@ -83,11 +82,13 @@ exclude = '''
 '''
 
 [tool.ruff]
-ignore = []
 line-length = 88
+
+[tool.ruff.lint]
+ignore = []
 select = ["B", "B9", "C", "E", "F", "W"]
 
-[tool.ruff.mccabe]
+[tool.ruff.lint.mccabe]
 max-complexity = 10
 
 [tool.setuptools.packages.find]
