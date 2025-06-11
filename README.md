@@ -272,7 +272,7 @@ Released under [MIT License](LICENSE.txt).
 
 - :star: Star this project on [GitHub](https://github.com/fabiocaccamo/django-extra-settings)
 - :octocat: Follow me on [GitHub](https://github.com/fabiocaccamo)
-- :blue_heart: Follow me on [Twitter](https://twitter.com/fabiocaccamo)
+- :blue_heart: Follow me on [Bluesky](https://bsky.app/profile/fabiocaccamo.bsky.social)
 - :moneybag: Sponsor me on [Github](https://github.com/sponsors/fabiocaccamo)
 
 ## See also
