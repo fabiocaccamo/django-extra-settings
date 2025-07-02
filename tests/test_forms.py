@@ -34,3 +34,14 @@ class ExtraSettingsFormsTestCase(TestCase):
         }
         form_obj = SettingForm(data=form_data)
         self.assertTrue(form_obj.is_valid())
+
+    def test_form_with_auto_https_url(self):
+        form_data = {
+            "name": "PACKAGE_NAME",
+            "value_type": Setting.TYPE_URL,
+            "description": "A URL field",
+            "value_url": "example.com",
+        }
+        form_obj = SettingForm(data=form_data)
+        self.assertTrue(form_obj.is_valid())
+        self.assertEqual(form_obj.cleaned_data["value_url"], "https://example.com")
