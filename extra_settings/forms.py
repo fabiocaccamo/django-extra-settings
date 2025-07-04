@@ -1,4 +1,4 @@
-from django import forms
+from django import VERSION, forms
 from django.conf import settings
 from django.db import models
 
@@ -6,12 +6,12 @@ from extra_settings.models import Setting
 from extra_settings.utils import enforce_uppercase_setting
 
 
-def urlfields_assume_https(field, **kwargs):
+def urlfields_assume_scheme(field, **kwargs):
     """
-    ModelForm.Meta.formfield_callback function to assume HTTPS for scheme-less
-    domains in URLFields.
+    ModelForm.Meta.formfield_callback function to set assume_scheme for scheme-less
+    domains in URLFields. Only since Django version 5.0.
     """
-    if isinstance(field, models.URLField):
+    if isinstance(field, models.URLField) and VERSION >= (5, 0):
         kwargs["assume_scheme"] = "https"
 
     return field.formfield(**kwargs)
@@ -21,7 +21,7 @@ class SettingForm(forms.ModelForm):
     class Meta:
         model = Setting
         fields = "__all__"
-        formfield_callback = urlfields_assume_https
+        formfield_callback = urlfields_assume_scheme
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
