@@ -1,3 +1,4 @@
+from django import VERSION
 from django.test import TestCase
 
 from extra_settings.forms import SettingForm
@@ -34,3 +35,18 @@ class ExtraSettingsFormsTestCase(TestCase):
         }
         form_obj = SettingForm(data=form_data)
         self.assertTrue(form_obj.is_valid())
+
+    def test_form_assume_scheme(self):
+        form_data = {
+            "name": "PACKAGE_NAME",
+            "value_type": Setting.TYPE_URL,
+            "description": "A URL field",
+            "value_url": "example.com",
+        }
+        form_obj = SettingForm(data=form_data)
+        self.assertTrue(form_obj.is_valid())
+
+        if VERSION >= (5, 0):
+            self.assertEqual(form_obj.cleaned_data["value_url"], "https://example.com")
+        else:
+            self.assertEqual(form_obj.cleaned_data["value_url"], "http://example.com")
