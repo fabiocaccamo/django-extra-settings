@@ -21,6 +21,7 @@ config and manage typed extra settings using just the django admin.
 ## Installation
 -   Run `pip install django-extra-settings`
 -   Add `extra_settings` to `settings.INSTALLED_APPS`
+-   Run `python manage.py reset_extra_settings`
 -   Run `python manage.py migrate`
 -   Run `python manage.py collectstatic`
 -   Restart your application server
@@ -236,6 +237,11 @@ def test_with_custom_settings(self):
     with override_settings(SETTING_NAME_1="value for testing 1", SETTING_NAME_2="value for testing 2"):
         pass
 ```
+
+### Reset
+You can remove all settings and revert to default values described in `settings.py`.
+For that you could run this command `python manage.py reset_extra_settings`.
+
 
 ## Testing
 ```bash
