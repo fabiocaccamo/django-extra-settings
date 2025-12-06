@@ -282,6 +282,8 @@ Released under [MIT License](LICENSE.txt).
 
 - [`django-colorfield`](https://github.com/fabiocaccamo/django-colorfield) - simple color field for models with a nice color-picker in the admin. 🎨
 
+- [`django-email-validators`](https://github.com/fabiocaccamo/django-email-validators) - no more invalid or disposable emails in your database. ✉️ ✅
+
 - [`django-maintenance-mode`](https://github.com/fabiocaccamo/django-maintenance-mode) - shows a 503 error page when maintenance-mode is on. 🚧 🛠️
 
 - [`django-redirects`](https://github.com/fabiocaccamo/django-redirects) - redirects with full control. ↪️
