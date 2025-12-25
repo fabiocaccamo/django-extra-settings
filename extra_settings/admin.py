@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
+from django.urls import path, reverse
+from django.shortcuts import redirect
 
 from extra_settings.forms import SettingForm
 from extra_settings.models import Setting
@@ -55,6 +57,7 @@ class SettingNamePrefixFilter(admin.SimpleListFilter):
 
 class SettingAdmin(admin.ModelAdmin):
     form = SettingForm
+    change_list_template = "extra_settings/changelist.html"
     value_fields_names = (
         "value_bool",
         "value_date",
@@ -122,6 +125,24 @@ class SettingAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         return ("value_type",) if obj else ()
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path(
+                "reset/",
+                self.reset_settings,
+                name=f"{settings.EXTRA_SETTINGS_ADMIN_APP}_setting_reset",
+            ),
+        ]
+        return my_urls + urls
+
+    def reset_settings(self, request):
+        """Reset existing settings to default values"""
+        Setting.reset_to_default()
+        return redirect(
+            reverse(f"admin:{settings.EXTRA_SETTINGS_ADMIN_APP}_setting_changelist")
+        )
 
     class Media:
         css = {
