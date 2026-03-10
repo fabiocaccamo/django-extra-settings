@@ -162,6 +162,7 @@ This is the list of the currently supported setting types you may need to use:
 -   `Setting.TYPE_IMAGE`
 -   `Setting.TYPE_INT`
 -   `Setting.TYPE_JSON`
+-   `Setting.TYPE_PASSWORD`
 -   `Setting.TYPE_STRING`
 -   `Setting.TYPE_TEXT`
 -   `Setting.TYPE_TIME`
