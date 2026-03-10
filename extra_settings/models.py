@@ -114,7 +114,7 @@ class Setting(models.Model):
     TYPE_IMAGE = "image"
     TYPE_INT = "int"
     TYPE_JSON = "json"
-    TYPE_PASSWORD = "password"  # nosec B105
+    TYPE_PASSWORD = "password"  # nosec
     TYPE_STRING = "string"
     TYPE_TEXT = "text"
     TYPE_TIME = "time"
