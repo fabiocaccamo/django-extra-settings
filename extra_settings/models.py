@@ -1,7 +1,6 @@
 from decimal import Decimal
 
 from django.conf import settings
-from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.encoding import force_str
@@ -114,7 +113,7 @@ class Setting(models.Model):
     TYPE_IMAGE = "image"
     TYPE_INT = "int"
     TYPE_JSON = "json"
-    TYPE_PASSWORD = "password"  # nosec
+    TYPE_PASSWORD = "password"
     TYPE_STRING = "string"
     TYPE_TEXT = "text"
     TYPE_TIME = "time"
@@ -135,8 +134,8 @@ class Setting(models.Model):
         (TYPE_IMAGE, TYPE_IMAGE),
         (TYPE_INT, TYPE_INT),
         (TYPE_JSON, TYPE_JSON),
-        (TYPE_STRING, TYPE_STRING),
         (TYPE_PASSWORD, TYPE_PASSWORD),
+        (TYPE_STRING, TYPE_STRING),
         (TYPE_TEXT, TYPE_TEXT),
         (TYPE_TIME, TYPE_TIME),
         # (TYPE_UUID, TYPE_UUID, ),
@@ -290,12 +289,6 @@ class Setting(models.Model):
     def clean(self):
         super().clean()
         self.validate()
-
-    @admin.display(description=_("value password"))
-    def display_value_password(self):
-        if self.value_password:
-            return "********"
-        return self.value_password
 
     class Meta:
         ordering = ["name"]

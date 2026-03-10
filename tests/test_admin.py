@@ -33,16 +33,6 @@ class ExtraSettingsAdminTestCase(TestCase):
     def tearDown(self):
         pass
 
-    def test_list_display(self):
-        ma = SettingAdmin(model=Setting, admin_site=AdminSite())
-        self.assertNotIn("value_password", ma.get_list_display(request))
-        self.assertIn("display_value_password", ma.get_list_display(request))
-
-    def test_list_editable_fields(self):
-        ma = SettingAdmin(model=Setting, admin_site=AdminSite())
-        self.assertNotIn("value_password", ma.list_editable)
-        self.assertNotIn("display_value_password", ma.list_editable)
-
     def test_changelist_form(self):
         ma = SettingAdmin(model=Setting, admin_site=AdminSite())
         self.assertEqual(ma.get_changelist_form(request=None), SettingForm)

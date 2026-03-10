@@ -67,17 +67,14 @@ class SettingAdmin(admin.ModelAdmin):
         "value_image",
         "value_int",
         "value_json",
+        "value_password",
         "value_string",
         "value_text",
         "value_time",
         "value_url",
     )
     search_fields = ("name",)
-    list_display = (
-        ("name", "value_type")
-        + value_fields_names
-        + ("display_value_password", "description")
-    )
+    list_display = ("name", "value_type") + value_fields_names + ("description",)
 
     # begin dynamic list filters
 

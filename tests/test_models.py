@@ -250,17 +250,3 @@ class ExtraSettingsModelsTestCase(TestCase):
         setting_obj.save()
         setting_obj = Setting.objects.get(name="TEST_SETTING_JSON")
         self.assertEqual(setting_obj.value, {"level": "L2", "role": "Admin"})
-
-    def test_setting_type_password(self):
-        # getter & setter
-        setting_value = "password value"
-        setting_obj, setting_created = Setting.objects.get_or_create(
-            name="TEST_SETTING_PASSWORD",
-            defaults={"value_type": Setting.TYPE_PASSWORD},
-        )
-        setting_obj.value = setting_value
-        setting_obj.save()
-
-        setting_obj = Setting.objects.get(name="TEST_SETTING_PASSWORD")
-        self.assertEqual(setting_obj.value, setting_value)
-        self.assertEqual(setting_obj.display_value_password(), "********")

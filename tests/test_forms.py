@@ -1,4 +1,4 @@
-from django import VERSION
+from django import VERSION, forms
 from django.test import TestCase
 
 from extra_settings.forms import SettingForm
@@ -50,3 +50,18 @@ class ExtraSettingsFormsTestCase(TestCase):
             self.assertEqual(form_obj.cleaned_data["value_url"], "https://example.com")
         else:
             self.assertEqual(form_obj.cleaned_data["value_url"], "http://example.com")
+
+    def test_form_password_field(self):
+        form_data = {
+            "name": "PACKAGE_NAME",
+            "value_type": Setting.TYPE_PASSWORD,
+            "description": "A secret key",
+            "value_password": "mysecret",
+        }
+        form_obj = SettingForm(data=form_data)
+        self.assertTrue(form_obj.is_valid())
+        self.assertEqual(form_obj.cleaned_data["value_password"], "mysecret")
+
+        password_field = form_obj.fields["value_password"]
+        self.assertIsInstance(password_field.widget, forms.PasswordInput)
+        self.assertFalse(password_field.widget.render_value)

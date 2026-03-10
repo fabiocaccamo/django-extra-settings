@@ -18,10 +18,6 @@ def urlfields_assume_scheme(field, **kwargs):
 
 
 class SettingForm(forms.ModelForm):
-    value_password = forms.CharField(
-        required=False, widget=forms.PasswordInput(render_value=False)
-    )
-
     class Meta:
         model = Setting
         fields = "__all__"
@@ -37,6 +33,10 @@ class SettingForm(forms.ModelForm):
         if "value_text" in self.fields:
             self.fields["value_text"].widget = forms.Textarea(
                 attrs={"rows": 5, "cols": 51}
+            )
+        if "value_password" in self.fields:
+            self.fields["value_password"].widget = forms.PasswordInput(
+                render_value=False
             )
 
     def clean_name(self):
