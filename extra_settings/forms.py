@@ -18,6 +18,10 @@ def urlfields_assume_scheme(field, **kwargs):
 
 
 class SettingForm(forms.ModelForm):
+    value_password = forms.CharField(
+        required=False, widget=forms.PasswordInput(render_value=False)
+    )
+
     class Meta:
         model = Setting
         fields = "__all__"
@@ -45,3 +49,12 @@ class SettingForm(forms.ModelForm):
                 "defined in django.conf.settings."
             )
         return value
+
+    def clean_value_password(self):
+        value_password = self.cleaned_data.get("value_password")
+
+        # If user leaves it blank, keep existing value_password
+        if not value_password and self.instance.pk:
+            return self.instance.value_password
+
+        return value_password
