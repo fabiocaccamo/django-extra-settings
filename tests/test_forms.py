@@ -65,3 +65,22 @@ class ExtraSettingsFormsTestCase(TestCase):
         password_field = form_obj.fields["value_password"]
         self.assertIsInstance(password_field.widget, forms.PasswordInput)
         self.assertFalse(password_field.widget.render_value)
+
+    def test_blank_password(self):
+        setting_obj = Setting.objects.create(
+            name="TEST_SETTING_PASSWORD",
+            value_type=Setting.TYPE_PASSWORD,
+            value="initial_password",
+        )
+
+        # Update the setting with a blank password
+        form_data = {
+            "name": "TEST_SETTING_PASSWORD",
+            "value_type": Setting.TYPE_PASSWORD,
+            "value_password": "",
+        }
+        form_obj = SettingForm(data=form_data, instance=setting_obj)
+        self.assertTrue(form_obj.is_valid())
+
+        updated_setting = form_obj.save()
+        self.assertEqual(updated_setting.value, "initial_password")
