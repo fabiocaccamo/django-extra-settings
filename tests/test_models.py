@@ -236,6 +236,29 @@ class ExtraSettingsModelsTestCase(TestCase):
         with self.assertRaises(ValueError):
             Setting.set_defaults(defaults)
 
+    def test_get_default_value_not_cached(self):
+        # A `default=` value must NOT be stored in the cache.
+        # If it were, a setting created in the DB afterwards would be
+        # shadowed by the stale cached default (regression guard).
+        name = "TEST_DEFAULT_NOT_CACHED"
+        default_value = "fallback"
+
+        # First call: setting does not exist in DB → returns default
+        result = Setting.get(name, default=default_value)
+        self.assertEqual(result, default_value)
+
+        # Create the setting in the DB
+        setting_obj = Setting.objects.create(
+            name=name,
+            value_type=Setting.TYPE_STRING,
+        )
+        setting_obj.value = "real value"
+        setting_obj.save()
+
+        # Second call: must return the real DB value, not the cached default
+        result = Setting.get(name)
+        self.assertEqual(result, "real value")
+
     def test_setting_type_json(self):
         # getter & setter
         setting_obj, setting_created = Setting.objects.get_or_create(

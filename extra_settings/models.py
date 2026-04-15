@@ -52,15 +52,19 @@ class Setting(models.Model):
             val = cls._get_from_database(name)
             if val is None:
                 val = cls._get_from_settings(name)
-                if val is None:
+                if val is not None:
+                    # cache conf-settings values so subsequent calls are free
+                    set_cached_setting(name, val)
+                else:
+                    # default values must NOT be cached: the setting may be
+                    # created in the DB later and the cached default would
+                    # shadow the real value.
                     val = default
             else:
                 # value found, it means that cache was not set or expired.
                 # cache all other settings to avoid multiple queries
                 # in pages using the template more than once.
                 cls._cache_all_settings()
-        if val is not None:
-            set_cached_setting(name, val)
         return val
 
     @classmethod
