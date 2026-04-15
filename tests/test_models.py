@@ -236,6 +236,16 @@ class ExtraSettingsModelsTestCase(TestCase):
         with self.assertRaises(ValueError):
             Setting.set_defaults(defaults)
 
+    def test_get_default_value_not_cached(self):
+        setting_value = Setting.get("TEST_DEFAULT_NOT_CACHED", default="fallback")
+        self.assertEqual(setting_value, "fallback")
+        setting_obj, setting_created = Setting.objects.get_or_create(
+            name="TEST_DEFAULT_NOT_CACHED", defaults={"value_type": Setting.TYPE_STRING}
+        )
+        setting_obj.value = "real value"
+        setting_obj.save()
+        self.assertEqual(Setting.get("TEST_DEFAULT_NOT_CACHED"), "real value")
+
     def test_setting_type_json(self):
         # getter & setter
         setting_obj, setting_created = Setting.objects.get_or_create(
