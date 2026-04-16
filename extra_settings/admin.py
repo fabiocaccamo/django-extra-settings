@@ -1,3 +1,5 @@
+import json
+
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
@@ -92,6 +94,35 @@ class SettingAdmin(admin.ModelAdmin):
 
     list_editable = value_fields_names
     sortable_by = ("name",)
+
+    def construct_change_message(self, request, form, formsets, add=False):
+        if add:
+            return super().construct_change_message(request, form, formsets, add=add)
+
+        change_message = []
+        if form.changed_data:
+            changed_fields = []
+            for field_name in form.changed_data:
+                old_value = form.initial.get(field_name)
+                new_value = form.cleaned_data.get(field_name)
+                if field_name in form.fields:
+                    verbose_name = form.fields[field_name].label or field_name
+                else:
+                    verbose_name = field_name
+                old_str = str(old_value) if old_value is not None else _("(empty)")
+                new_str = str(new_value) if new_value is not None else _("(empty)")
+                changed_fields.append(
+                    _("%(field)s from %(old_value)s to %(new_value)s")
+                    % {
+                        "field": verbose_name,
+                        "old_value": old_str,
+                        "new_value": new_str,
+                    }
+                )
+            if changed_fields:
+                change_message.append({"changed": {"fields": changed_fields}})
+
+        return json.dumps(change_message)
 
     def get_changelist_form(self, request, **kwargs):
         return SettingForm
