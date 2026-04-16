@@ -1,3 +1,6 @@
+from unittest.mock import patch
+
+from django.core.exceptions import AppRegistryNotReady
 from django.test import TestCase
 
 from extra_settings.models import Setting
@@ -246,7 +249,7 @@ class ExtraSettingsModelsTestCase(TestCase):
         setting_obj.save()
         self.assertEqual(Setting.get("TEST_DEFAULT_NOT_CACHED"), "real value")
 
-    def test_setting_type_json(self):
+    def test_get_setting_type_json(self):
         # getter & setter
         setting_obj, setting_created = Setting.objects.get_or_create(
             name="TEST_SETTING_JSON", defaults={"value_type": Setting.TYPE_JSON}
@@ -256,3 +259,21 @@ class ExtraSettingsModelsTestCase(TestCase):
         setting_obj.save()
         setting_obj = Setting.objects.get(name="TEST_SETTING_JSON")
         self.assertEqual(setting_obj.value, {"level": "L2", "role": "Admin"})
+
+    def test_get_returns_default_when_app_registry_not_ready(self):
+        with patch(
+            "extra_settings.models.Setting.objects.get",
+            side_effect=AppRegistryNotReady,
+        ):
+            setting_value = Setting.get(
+                "TEST_APP_REGISTRY_NOT_READY", default="fallback_value"
+            )
+        self.assertEqual(setting_value, "fallback_value")
+
+    def test_get_falls_back_to_conf_settings_when_app_registry_not_ready(self):
+        with patch(
+            "extra_settings.models.Setting.objects.get",
+            side_effect=AppRegistryNotReady,
+        ):
+            setting_value = Setting.get("EXTRA_SETTINGS_TEST_FALLBACK_VALUE")
+        self.assertEqual(setting_value, "fallback-value")

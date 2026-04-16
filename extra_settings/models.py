@@ -1,7 +1,7 @@
 from decimal import Decimal
 
 from django.conf import settings
-from django.core.exceptions import ValidationError
+from django.core.exceptions import AppRegistryNotReady, ValidationError
 from django.db import models
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
@@ -36,6 +36,8 @@ class Setting(models.Model):
             value = setting_obj.value
             set_cached_setting(name, value)
             return value
+        except AppRegistryNotReady:
+            return None
         except Setting.DoesNotExist:
             return None
 
