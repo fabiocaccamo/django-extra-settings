@@ -103,13 +103,16 @@ class SettingAdmin(admin.ModelAdmin):
         if form.changed_data:
             changed_fields = []
             for field_name in form.changed_data:
-                old_value = form.initial.get(field_name)
                 new_value = form.cleaned_data.get(field_name)
                 if field_name in form.fields:
                     verbose_name = form.fields[field_name].label or field_name
                 else:
                     verbose_name = field_name
-                old_str = str(old_value) if old_value is not None else _("(empty)")
+                old_str = (
+                    str(form.initial[field_name])
+                    if field_name in form.initial and form.initial[field_name] is not None
+                    else _("(empty)")
+                )
                 new_str = str(new_value) if new_value is not None else _("(empty)")
                 changed_fields.append(
                     _("%(field)s from %(old_value)s to %(new_value)s")
