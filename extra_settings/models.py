@@ -196,6 +196,7 @@ class Setting(models.Model):
     value_file = models.FileField(
         blank=True,
         upload_to=fields.upload_to_files,
+        storage=fields.get_file_storage,
         verbose_name=_("Value"),
     )
     value_float = models.FloatField(
@@ -206,6 +207,7 @@ class Setting(models.Model):
     value_image = models.FileField(
         blank=True,
         upload_to=fields.upload_to_images,
+        storage=fields.get_image_storage,
         verbose_name=_("Value"),
     )
     value_int = models.IntegerField(

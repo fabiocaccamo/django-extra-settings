@@ -1,5 +1,7 @@
-from django.test import TestCase
+from django.core.files.storage import FileSystemStorage, default_storage
+from django.test import TestCase, override_settings
 
+from extra_settings import fields
 from extra_settings.models import Setting
 
 
@@ -256,3 +258,25 @@ class ExtraSettingsModelsTestCase(TestCase):
         setting_obj.save()
         setting_obj = Setting.objects.get(name="TEST_SETTING_JSON")
         self.assertEqual(setting_obj.value, {"level": "L2", "role": "Admin"})
+
+    def test_get_file_storage_returns_default_storage_when_not_configured(self):
+        storage = fields.get_file_storage()
+        self.assertEqual(storage, default_storage)
+
+    def test_get_image_storage_returns_default_storage_when_not_configured(self):
+        storage = fields.get_image_storage()
+        self.assertEqual(storage, default_storage)
+
+    @override_settings(
+        EXTRA_SETTINGS_FILE_STORAGE="django.core.files.storage.FileSystemStorage"
+    )
+    def test_get_file_storage_returns_custom_storage_when_configured(self):
+        storage = fields.get_file_storage()
+        self.assertIsInstance(storage, FileSystemStorage)
+
+    @override_settings(
+        EXTRA_SETTINGS_IMAGE_STORAGE="django.core.files.storage.FileSystemStorage"
+    )
+    def test_get_image_storage_returns_custom_storage_when_configured(self):
+        storage = fields.get_image_storage()
+        self.assertIsInstance(storage, FileSystemStorage)

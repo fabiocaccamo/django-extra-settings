@@ -71,8 +71,20 @@ EXTRA_SETTINGS_FILE_UPLOAD_TO = "files"
 ```
 
 ```python
+# the dotted Python path to the storage backend class to use for settings of type 'file',
+# if not defined the default storage backend will be used
+EXTRA_SETTINGS_FILE_STORAGE = None  # e.g. "storages.backends.s3boto3.S3Boto3Storage"
+```
+
+```python
 # the upload_to path value of settings of type 'image'
 EXTRA_SETTINGS_IMAGE_UPLOAD_TO = "images"
+```
+
+```python
+# the dotted Python path to the storage backend class to use for settings of type 'image',
+# if not defined the default storage backend will be used
+EXTRA_SETTINGS_IMAGE_STORAGE = None  # e.g. "storages.backends.s3boto3.S3Boto3Storage"
 ```
 
 ```python
