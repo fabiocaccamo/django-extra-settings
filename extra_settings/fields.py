@@ -21,4 +21,5 @@ def _upload_to(directory, filename):
     :param filename: The filename is to be saved.
     :return: Complete upload path under the django MEDIA_ROOT.
     """
-    return os.path.join(directory, os.path.basename(filename))
+    safe_filename = os.path.basename(str(filename).replace("\\", "/"))
+    return os.path.join(directory, safe_filename)
