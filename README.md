@@ -12,6 +12,7 @@
 [![](https://img.shields.io/codacy/grade/554c0505ed9844f3865bee975d1b894c?logo=codacy)](https://www.codacy.com/app/fabiocaccamo/django-extra-settings)
 [![](https://img.shields.io/badge/code%20style-black-000000.svg?logo=python&logoColor=black)](https://github.com/psf/black)
 [![](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/fabiocaccamo/django-extra-settings/badge)](https://securityscorecards.dev/viewer/?uri=github.com/fabiocaccamo/django-extra-settings)
 
 # django-extra-settings
 config and manage typed extra settings using just the django admin.
