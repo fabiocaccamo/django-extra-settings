@@ -117,6 +117,7 @@ class Setting(models.Model):
     TYPE_IMAGE = "image"
     TYPE_INT = "int"
     TYPE_JSON = "json"
+    TYPE_PASSWORD = "password"
     TYPE_STRING = "string"
     TYPE_TEXT = "text"
     TYPE_TIME = "time"
@@ -137,6 +138,7 @@ class Setting(models.Model):
         (TYPE_IMAGE, TYPE_IMAGE),
         (TYPE_INT, TYPE_INT),
         (TYPE_JSON, TYPE_JSON),
+        (TYPE_PASSWORD, TYPE_PASSWORD),
         (TYPE_STRING, TYPE_STRING),
         (TYPE_TEXT, TYPE_TEXT),
         (TYPE_TIME, TYPE_TIME),
@@ -216,6 +218,10 @@ class Setting(models.Model):
     value_json = models.JSONField(
         blank=True,
         default=dict,
+        verbose_name=_("Value"),
+    )
+    value_password = models.TextField(
+        blank=True,
         verbose_name=_("Value"),
     )
     value_string = models.CharField(
