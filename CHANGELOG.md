@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+-   Add `Python 3.14` and `Django 6.0` support.
+-   Replace deprecated `formfield_callback` in `ModelForm.Meta` with `field_classes` for Django 6.0 compatibility.
+
 ## [0.14.1](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.14.1) - 2025-09-04
 -   Fix #194: use `formfield_callback` to assume HTTPS scheme. (by [@M3nace](https://github.com/M3nace) in #195).
 -   Bump `pre-commit` hooks.
