@@ -25,7 +25,9 @@
             valueType = rowEl.find(".field-value_type").text();
             // console.log(index, el, valueType);
             if (valueType !== "") {
-                rowEl.find("*[class^='field-value_']").not(String(".field-value_" + valueType)).css("display", "none");
+                rowEl.find("*[class^='field-value_']").filter(function() {
+                    return !$(this).hasClass("field-value_" + valueType);
+                }).css("display", "none");
             }
         });
 
