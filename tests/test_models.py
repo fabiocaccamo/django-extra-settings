@@ -60,6 +60,10 @@ class ExtraSettingsModelsTestCase(TestCase):
                     value_type=Setting.TYPE_JSON,
                 ),
                 Setting(
+                    name="TEST_SETTING_PASSWORD",
+                    value_type=Setting.TYPE_PASSWORD,
+                ),
+                Setting(
                     name="TEST_SETTING_STRING",
                     value_type=Setting.TYPE_STRING,
                 ),

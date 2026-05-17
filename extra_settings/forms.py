@@ -34,6 +34,10 @@ class SettingForm(forms.ModelForm):
             self.fields["value_text"].widget = forms.Textarea(
                 attrs={"rows": 5, "cols": 51}
             )
+        if "value_password" in self.fields:
+            self.fields["value_password"].widget = forms.PasswordInput(
+                render_value=False
+            )
 
     def clean_name(self):
         value = self.cleaned_data.get("name", "")
@@ -45,3 +49,12 @@ class SettingForm(forms.ModelForm):
                 "defined in django.conf.settings."
             )
         return value
+
+    def clean_value_password(self):
+        value_password = self.cleaned_data.get("value_password")
+
+        # If user leaves it blank, keep existing value_password
+        if not value_password and self.instance.pk:
+            return self.instance.value_password
+
+        return value_password
