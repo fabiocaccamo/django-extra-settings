@@ -3,6 +3,7 @@ import os
 from django.test import TestCase
 
 from extra_settings.choices import SettingType
+from extra_settings.models import Setting
 
 EXPECTED_TYPES = {
     "BOOL": "bool",
@@ -40,3 +41,18 @@ class SettingTypeChoicesTestCase(TestCase):
         # AppRegistryNotReady scenario from issue #201.
         self.assertTrue(os.environ.get("DJANGO_SETTINGS_MODULE"))
         self.assertEqual(SettingType.STRING, "string")
+
+
+class SettingTypeBackwardCompatTestCase(TestCase):
+    def test_model_aliases_are_enum_members(self):
+        # identity, not just equality: forces the model to source TYPE_* from the
+        # enum. Before wiring, Setting.TYPE_BOOL is the plain str "bool", which is
+        # NOT the singleton SettingType.BOOL, so assertIs fails.
+        for member_name, value in EXPECTED_TYPES.items():
+            with self.subTest(type=member_name):
+                alias = getattr(Setting, f"TYPE_{member_name}")
+                self.assertIs(alias, getattr(SettingType, member_name))
+                self.assertEqual(alias, value)
+
+    def test_type_choices_alias_matches_enum(self):
+        self.assertEqual(list(Setting.TYPE_CHOICES), list(SettingType.choices))

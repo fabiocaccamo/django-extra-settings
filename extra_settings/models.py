@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 from extra_settings import fields
 from extra_settings.cache import get_cached_setting, set_cached_setting
+from extra_settings.choices import SettingType
 from extra_settings.utils import enforce_uppercase_setting, import_function
 
 
@@ -104,45 +105,23 @@ class Setting(models.Model):
     def set_defaults_from_settings(cls, *args, **kwargs):
         cls.set_defaults(settings.EXTRA_SETTINGS_DEFAULTS)
 
-    TYPE_BOOL = "bool"
-    # TYPE_COLOR = "color" # TODO
-    TYPE_DATE = "date"
-    TYPE_DATETIME = "datetime"
-    TYPE_DECIMAL = "decimal"
-    TYPE_DURATION = "duration"
-    TYPE_EMAIL = "email"
-    TYPE_FILE = "file"
-    TYPE_FLOAT = "float"
-    # TYPE_HTML = "html"
-    TYPE_IMAGE = "image"
-    TYPE_INT = "int"
-    TYPE_JSON = "json"
-    TYPE_STRING = "string"
-    TYPE_TEXT = "text"
-    TYPE_TIME = "time"
-    # TYPE_UUID = "uuid" # TODO
-    TYPE_URL = "url"
+    TYPE_BOOL = SettingType.BOOL
+    TYPE_DATE = SettingType.DATE
+    TYPE_DATETIME = SettingType.DATETIME
+    TYPE_DECIMAL = SettingType.DECIMAL
+    TYPE_DURATION = SettingType.DURATION
+    TYPE_EMAIL = SettingType.EMAIL
+    TYPE_FILE = SettingType.FILE
+    TYPE_FLOAT = SettingType.FLOAT
+    TYPE_IMAGE = SettingType.IMAGE
+    TYPE_INT = SettingType.INT
+    TYPE_JSON = SettingType.JSON
+    TYPE_STRING = SettingType.STRING
+    TYPE_TEXT = SettingType.TEXT
+    TYPE_TIME = SettingType.TIME
+    TYPE_URL = SettingType.URL
 
-    TYPE_CHOICES = (
-        (TYPE_BOOL, TYPE_BOOL),
-        # (TYPE_COLOR, TYPE_COLOR, ),
-        (TYPE_DATE, TYPE_DATE),
-        (TYPE_DATETIME, TYPE_DATETIME),
-        (TYPE_DECIMAL, TYPE_DECIMAL),
-        (TYPE_DURATION, TYPE_DURATION),
-        (TYPE_EMAIL, TYPE_EMAIL),
-        (TYPE_FILE, TYPE_FILE),
-        (TYPE_FLOAT, TYPE_FLOAT),
-        # (TYPE_HTML, TYPE_HTML, ),
-        (TYPE_IMAGE, TYPE_IMAGE),
-        (TYPE_INT, TYPE_INT),
-        (TYPE_JSON, TYPE_JSON),
-        (TYPE_STRING, TYPE_STRING),
-        (TYPE_TEXT, TYPE_TEXT),
-        (TYPE_TIME, TYPE_TIME),
-        # (TYPE_UUID, TYPE_UUID, ),
-        (TYPE_URL, TYPE_URL),
-    )
+    TYPE_CHOICES = SettingType.choices
 
     name = models.CharField(
         max_length=255,
@@ -152,7 +131,7 @@ class Setting(models.Model):
     )
     value_type = models.CharField(
         max_length=20,
-        choices=TYPE_CHOICES,
+        choices=SettingType.choices,
         verbose_name=_(
             "Type",
         ),
