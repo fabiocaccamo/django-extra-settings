@@ -43,12 +43,14 @@ EXTRA_SETTINGS_CACHE_NAME = "extra_settings"
 ```
 
 ```python
+from extra_settings.choices import SettingType
+
 # a list of settings that will be available by default, each item must contain "name", "type" and "value".
 # check the #types section to see all the supported settings types.
 EXTRA_SETTINGS_DEFAULTS = [
     {
         "name": "SETTING_NAME",
-        "type": "string",
+        "type": SettingType.STRING,
         "value": "Hello World",
     },
     # ...
@@ -150,23 +152,36 @@ By default the `"extra_settings"` cache is used, if you want to use another cach
 You can **create**, **read**, **update** and **delete** settings programmatically:
 
 #### Types
-This is the list of the currently supported setting types you may need to use:
+Setting types are available as a `TextChoices` enum in `extra_settings.choices`.
+Unlike `Setting.TYPE_*`, it can be imported anywhere (including your `settings.py`)
+without triggering `AppRegistryNotReady`:
 
--   `Setting.TYPE_BOOL`
--   `Setting.TYPE_DATE`
--   `Setting.TYPE_DATETIME`
--   `Setting.TYPE_DECIMAL`
--   `Setting.TYPE_DURATION`
--   `Setting.TYPE_EMAIL`
--   `Setting.TYPE_FILE`
--   `Setting.TYPE_FLOAT`
--   `Setting.TYPE_IMAGE`
--   `Setting.TYPE_INT`
--   `Setting.TYPE_JSON`
--   `Setting.TYPE_STRING`
--   `Setting.TYPE_TEXT`
--   `Setting.TYPE_TIME`
--   `Setting.TYPE_URL`
+```python
+from extra_settings.choices import SettingType
+
+SettingType.STRING  # == "string"
+```
+
+This is the list of the currently supported setting types:
+
+-   `SettingType.BOOL`
+-   `SettingType.DATE`
+-   `SettingType.DATETIME`
+-   `SettingType.DECIMAL`
+-   `SettingType.DURATION`
+-   `SettingType.EMAIL`
+-   `SettingType.FILE`
+-   `SettingType.FLOAT`
+-   `SettingType.IMAGE`
+-   `SettingType.INT`
+-   `SettingType.JSON`
+-   `SettingType.STRING`
+-   `SettingType.TEXT`
+-   `SettingType.TIME`
+-   `SettingType.URL`
+
+> The `Setting.TYPE_*` constants (e.g. `Setting.TYPE_STRING`) remain available as
+> aliases for backward compatibility.
 
 #### Create
 ```python
