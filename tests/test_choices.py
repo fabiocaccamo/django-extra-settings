@@ -56,3 +56,18 @@ class SettingTypeBackwardCompatTestCase(TestCase):
 
     def test_type_choices_alias_matches_enum(self):
         self.assertEqual(list(Setting.TYPE_CHOICES), list(SettingType.choices))
+
+    def test_set_defaults_accepts_settingtype_member(self):
+        Setting.set_defaults(
+            [
+                {
+                    "name": "TEST_DEFAULTS_SETTINGTYPE",
+                    "type": SettingType.STRING,
+                    "value": "hello",
+                }
+            ]
+        )
+        setting_obj = Setting.objects.get(name="TEST_DEFAULTS_SETTINGTYPE")
+        self.assertEqual(setting_obj.value_type, SettingType.STRING)
+        self.assertEqual(setting_obj.value_type, "string")
+        self.assertEqual(setting_obj.value, "hello")

@@ -121,7 +121,7 @@ class Setting(models.Model):
     TYPE_TIME = SettingType.TIME
     TYPE_URL = SettingType.URL
 
-    TYPE_CHOICES = SettingType.choices
+    TYPE_CHOICES = tuple(SettingType.choices)
 
     name = models.CharField(
         max_length=255,
