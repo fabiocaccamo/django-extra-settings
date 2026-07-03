@@ -1,4 +1,7 @@
 import os
+import subprocess
+import sys
+from pathlib import Path
 
 from django.test import TestCase
 
@@ -37,10 +40,25 @@ class SettingTypeChoicesTestCase(TestCase):
         self.assertEqual(list(SettingType.choices), expected)
 
     def test_importable_without_app_registry(self):
-        # importing the module must not require django.setup(); this is the
-        # AppRegistryNotReady scenario from issue #201.
-        self.assertTrue(os.environ.get("DJANGO_SETTINGS_MODULE"))
-        self.assertEqual(SettingType.STRING, "string")
+        # Importing the choices module must not require django.setup(); this is
+        # the AppRegistryNotReady scenario from issue #201. Run in a fresh
+        # subprocess with no DJANGO_SETTINGS_MODULE so this test run's already
+        # initialized app registry can't mask a regression.
+        repo_root = Path(__file__).resolve().parent.parent
+        env = {k: v for k, v in os.environ.items() if k != "DJANGO_SETTINGS_MODULE"}
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                "from extra_settings.choices import SettingType; "
+                "assert SettingType.STRING == 'string'",
+            ],
+            capture_output=True,
+            text=True,
+            cwd=repo_root,
+            env=env,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
 
 
 class SettingTypeBackwardCompatTestCase(TestCase):
