@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.15.0](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.15.0) - 2026-07-13
+-   Add `Python 3.14` support.
+-   Add `Django 6.0` support.
+-   Drop `Django 4.0` and `Django 4.1` support. (#220)
+-   Extract field types into a `SettingType` enum importable from settings. (by [@gregory-goodman](https://github.com/gregory-goodman) in #229)
+-   Fix `Setting.get` caching caller-supplied default values. #217 (#218)
+-   Fix HIGH level code scanning alerts (path injection + DOM XSS). (#221)
+-   Replace deprecated `formfield_callback` with `field_classes`.
+-   Pin GitHub Actions to SHA, fix permissions and add "OpenSSF Scorecard" workflow. (#219)
+-   Bump requirements.
+-   Bump `pre-commit` hooks.
+
 ## [0.14.1](https://github.com/fabiocaccamo/django-extra-settings/releases/tag/0.14.1) - 2025-09-04
 -   Fix #194: use `formfield_callback` to assume HTTPS scheme. (by [@M3nace](https://github.com/M3nace) in #195).
 -   Bump `pre-commit` hooks.
