@@ -1,3 +1,8 @@
+import os
+import subprocess
+import sys
+from pathlib import Path
+
 from django.apps import apps as django_apps
 from django.conf import settings
 from django.test import TestCase
@@ -77,3 +82,30 @@ class AppConfigDefaultsTestCase(TestCase):
         for key in EXPECTED_DEFAULTS:
             with self.subTest(key=key):
                 self.assertTrue(hasattr(settings, key))
+
+
+class EarlyImportBootTestCase(TestCase):
+    def test_setup_succeeds_with_early_package_import(self):
+        # Booting Django with a settings module that imports from the
+        # extra_settings package at import time must not break defaults
+        # loading. Run in a fresh subprocess so this run's already-populated
+        # app registry can't mask a regression.
+        repo_root = Path(__file__).resolve().parent.parent
+        env = {k: v for k, v in os.environ.items() if k != "DJANGO_SETTINGS_MODULE"}
+        env["DJANGO_SETTINGS_MODULE"] = "tests.early_import_settings"
+        script = (
+            "import django; django.setup();"
+            "from django.contrib import admin; admin.autodiscover();"
+            "from django.conf import settings;"
+            "assert settings.EXTRA_SETTINGS_VERBOSE_NAME == 'Extra Settings';"
+            "assert settings.EXTRA_SETTINGS_ADMIN_APP == 'extra_settings';"
+            "assert settings.EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS is True"
+        )
+        result = subprocess.run(
+            [sys.executable, "-c", script],
+            capture_output=True,
+            text=True,
+            cwd=repo_root,
+            env=env,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
