@@ -1,3 +1,4 @@
+from django.apps import apps as django_apps
 from django.conf import settings
 from django.test import TestCase
 
@@ -62,5 +63,17 @@ class ConfigDefaultsTestCase(TestCase):
         extra_settings_conf.configure_defaults()
         extra_settings_conf.configure_defaults()
         for key, _value in EXPECTED_DEFAULTS.items():
+            with self.subTest(key=key):
+                self.assertTrue(hasattr(settings, key))
+
+
+class AppConfigDefaultsTestCase(TestCase):
+    def test_verbose_name_matches_configured_value(self):
+        app_config = django_apps.get_app_config("extra_settings")
+        self.assertEqual(app_config.verbose_name, settings.EXTRA_SETTINGS_VERBOSE_NAME)
+
+    def test_all_defaults_present_after_ready(self):
+        # ready() has already run for this process; every default must be set.
+        for key in EXPECTED_DEFAULTS:
             with self.subTest(key=key):
                 self.assertTrue(hasattr(settings, key))
