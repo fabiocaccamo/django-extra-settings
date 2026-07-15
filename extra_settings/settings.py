@@ -1,3 +1,5 @@
+import copy
+
 from django.conf import settings
 
 _CONFIG_DEFAULTS = {
@@ -17,11 +19,15 @@ _CONFIG_DEFAULTS = {
 def configure_defaults():
     for key, value in _CONFIG_DEFAULTS.items():
         if not hasattr(settings, key):
-            setattr(settings, key, value)
+            # deepcopy so mutable defaults (e.g. the EXTRA_SETTINGS_DEFAULTS
+            # list) are never aliased to the canonical _CONFIG_DEFAULTS object.
+            setattr(settings, key, copy.deepcopy(value))
 
 
 def get(key):
-    return getattr(settings, key, _CONFIG_DEFAULTS[key])
+    if hasattr(settings, key):
+        return getattr(settings, key)
+    return copy.deepcopy(_CONFIG_DEFAULTS[key])
 
 
 configure_defaults()

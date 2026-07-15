@@ -71,6 +71,34 @@ class ConfigDefaultsTestCase(TestCase):
             with self.subTest(key=key):
                 self.assertTrue(hasattr(settings, key))
 
+    def test_configure_defaults_does_not_alias_canonical_mutable(self):
+        # A missing mutable default (the EXTRA_SETTINGS_DEFAULTS list) must be
+        # a fresh copy: mutating what got set on settings must not corrupt the
+        # canonical _CONFIG_DEFAULTS object.
+        key = "EXTRA_SETTINGS_DEFAULTS"
+        original = getattr(settings, key)
+        delattr(settings, key)
+        try:
+            extra_settings_conf.configure_defaults()
+            settings.EXTRA_SETTINGS_DEFAULTS.append("mutated")
+            self.assertEqual(extra_settings_conf._CONFIG_DEFAULTS[key], [])
+        finally:
+            setattr(settings, key, original)
+
+    def test_get_returns_independent_copy_of_missing_mutable(self):
+        # get() on a missing mutable default must return a fresh copy each call,
+        # not the shared canonical object.
+        key = "EXTRA_SETTINGS_DEFAULTS"
+        original = getattr(settings, key)
+        delattr(settings, key)
+        try:
+            first = extra_settings_conf.get(key)
+            first.append("mutated")
+            self.assertEqual(extra_settings_conf.get(key), [])
+            self.assertEqual(extra_settings_conf._CONFIG_DEFAULTS[key], [])
+        finally:
+            setattr(settings, key, original)
+
 
 class AppConfigDefaultsTestCase(TestCase):
     def test_verbose_name_matches_configured_value(self):
