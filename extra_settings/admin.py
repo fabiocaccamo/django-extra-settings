@@ -4,6 +4,7 @@ from django.contrib.admin.sites import NotRegistered
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
 
+from extra_settings import settings as extra_settings_conf
 from extra_settings.forms import SettingForm
 from extra_settings.models import Setting
 
@@ -79,10 +80,10 @@ class SettingAdmin(admin.ModelAdmin):
 
     list_filter_items = []
 
-    if settings.EXTRA_SETTINGS_SHOW_NAME_PREFIX_LIST_FILTER:
+    if extra_settings_conf.get("EXTRA_SETTINGS_SHOW_NAME_PREFIX_LIST_FILTER"):
         list_filter_items.append(SettingNamePrefixFilter)
 
-    if settings.EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER:
+    if extra_settings_conf.get("EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER"):
         list_filter_items.append("value_type")
 
     if list_filter_items:
@@ -184,7 +185,7 @@ def register_extra_settings_admin(
 admin.site.register(Setting, SettingAdmin)
 
 
-app = settings.EXTRA_SETTINGS_ADMIN_APP
+app = extra_settings_conf.get("EXTRA_SETTINGS_ADMIN_APP")
 if app and app != "extra_settings":
     register_extra_settings_admin(
         app=app,
