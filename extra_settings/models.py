@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -32,6 +33,8 @@ class Setting(models.Model):
 
     @staticmethod
     def _get_from_database(name):
+        if not apps.models_ready:
+            return None
         try:
             setting_obj = Setting.objects.get(name=name)
             value = setting_obj.value
