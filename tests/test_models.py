@@ -1,9 +1,69 @@
+import os
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
 from django.test import TestCase
 
 from extra_settings.models import Setting
 
 
 class ExtraSettingsModelsTestCase(TestCase):
+    def test_get_during_model_import_uses_fallback(self):
+        repo_root = Path(__file__).resolve().parent.parent
+        with tempfile.TemporaryDirectory() as tmpdir:
+            project_root = Path(tmpdir)
+            (project_root / "project").mkdir()
+            (project_root / "project" / "__init__.py").write_text("")
+            (project_root / "project" / "settings.py").write_text(
+                "SECRET_KEY = 'test'\n"
+                "PROJECT_NAME = 'from-settings'\n"
+                "INSTALLED_APPS = ['extra_settings', 'demo']\n"
+                "DATABASES = {'default': {'ENGINE': "
+                "'django.db.backends.sqlite3', 'NAME': ':memory:'}}\n"
+                "DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'\n"
+            )
+            demo = project_root / "demo"
+            demo.mkdir()
+            (demo / "__init__.py").write_text("")
+            (demo / "models.py").write_text(
+                "from django.db import models\n"
+                "from extra_settings.models import Setting\n"
+                "class TestModel(models.Model):\n"
+                "    setting_value = models.BooleanField(\n"
+                "        help_text=Setting.get('PROJECT_NAME')\n"
+                "    )\n"
+                "    default_value = models.BooleanField(\n"
+                "        help_text=Setting.get('MISSING_NAME', default='fallback')\n"
+                "    )\n"
+            )
+
+            env = os.environ.copy()
+            env.pop("DJANGO_SETTINGS_MODULE", None)
+            env["DJANGO_SETTINGS_MODULE"] = "project.settings"
+            env["PYTHONPATH"] = os.pathsep.join([str(repo_root), str(project_root)])
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "-c",
+                    "import django\n"
+                    "django.setup()\n"
+                    "from demo.models import TestModel\n"
+                    "assert TestModel._meta.get_field('setting_value').help_text "
+                    "== 'from-settings'\n"
+                    "assert TestModel._meta.get_field('default_value').help_text "
+                    "== 'fallback'\n"
+                    "from django.core.management import call_command\n"
+                    "call_command('check')\n",
+                ],
+                capture_output=True,
+                text=True,
+                cwd=repo_root,
+                env=env,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+
     def setUp(self):
         Setting.objects.bulk_create(
             [
