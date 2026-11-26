@@ -1,5 +1,3 @@
-from django.core.exceptions import ImproperlyConfigured
-
 from extra_settings.metadata import (
     __author__,
     __copyright__,
@@ -8,12 +6,6 @@ from extra_settings.metadata import (
     __title__,
     __version__,
 )
-
-try:
-    from extra_settings import settings  # noqa: F401
-except ImproperlyConfigured:
-    pass
-
 
 __all__ = [
     "__author__",

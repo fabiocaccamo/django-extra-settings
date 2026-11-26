@@ -2,6 +2,10 @@ from django.apps import AppConfig
 from django.conf import settings
 from django.db.models.signals import post_migrate
 
+from extra_settings.settings import apply_defaults
+
+apply_defaults()
+
 
 class ExtraSettingsConfig(AppConfig):
     name = "extra_settings"
